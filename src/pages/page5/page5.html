@@ -1,23 +1,59 @@
+
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Settings</ion-title>
+    <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+<ion-content padding>
+  <h2>Carthago delenda est!</h2>
+    <h3>
+      Change your information here.
+    </h3>
+
+    <ion-list>
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+        Name
+      </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+        Phone number
+      </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+        Description
+      </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+        Facebook URL
+      </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+       LinkedIn URL
+      </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+        Twitter @
+      </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent()">
+      <button ion-item>
+        Picture
+      </button>
+      </ion-buttons>
+
+    </ion-list>
+
 </ion-content>

@@ -1,23 +1,46 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>You</ion-title>
+    <ion-title>
+      Messages
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+<ion-content padding>
+    <ion-list>
+      <ion-buttons (tap)="tapEvent()">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="http://placehold.it/350x150">
+        </ion-avatar>
+        <h2>Cher</h2>
+        <p>Ugh. As if.</p>
+      </ion-item>
+  </ion-buttons>
+      <ion-buttons (tap)="tapEvent()">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="http://placehold.it/350x150">
+        </ion-avatar>
+        <h2>Geoff</h2>
+        <p>???</p>
+      </ion-item>
+      </ion-buttons>
+      <ion-buttons (tap)="tapEvent()">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="http://placehold.it/350x150">
+        </ion-avatar>
+        <h2>Max</h2>
+        <p>Hello World!</p>
+      </ion-item>
+      </ion-buttons>
+    </ion-list>
+
+
+
+  <ion-fab right bottom style="margin: 10px;">
+    <button ion-fab><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>
