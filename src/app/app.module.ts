@@ -15,7 +15,8 @@ import {Settings} from '../pages/page5/page5';
     Person,
     You,
     Map,
-    Settings
+    Settings,
+    Conversation
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -28,7 +29,8 @@ import {Settings} from '../pages/page5/page5';
     Person,
     You,
     Map,
-    Settings
+    Settings,
+    Conversation
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
