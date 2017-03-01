@@ -4,9 +4,9 @@ import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-page3',
-  templateUrl: 'page3.html'
+  templateUrl: 'userProfile.html'
 })
-export class You {
+export class UserProfile {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -31,7 +31,7 @@ export class You {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(You, {
+    this.navCtrl.push(UserProfile, {
       item: item
     });
   }

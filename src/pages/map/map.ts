@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-page5',
-  templateUrl: 'page5.html'
+  selector: 'page-page4',
+  templateUrl: 'map.html'
 })
-export class Settings {
+export class Map {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -31,7 +31,7 @@ export class Settings {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(Settings, {
+    this.navCtrl.push(Map, {
       item: item
     });
   }

@@ -14,8 +14,8 @@ export class Person {
   }
 }
 
-@Component({templateUrl: "page1.html",selector: "page-page1"})
-export class Page1 {
+@Component({templateUrl: "people.html",selector: "page-page1"})
+export class People {
   items = [];
 
   constructor(public nav: NavController) {

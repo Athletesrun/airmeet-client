@@ -13,9 +13,9 @@ export class Conversation {
     }
 }
 
-@Component({selector: 'page-page2', templateUrl: 'page2.html'})
+@Component({selector: 'page-page2', templateUrl: 'messages.html'})
 
-export class Page2 {
+export class Messages {
   selectedItem: any;
   items: Array<{name: string, lastMessage: string}>;
 

@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { Page1 } from '../pages/page1/page1';
-import {Page2} from '../pages/page2/page2';
-import {You} from '../pages/page3/page3';
-import {Map} from '../pages/page4/page4';
-import {Settings} from '../pages/page5/page5';
+import { People } from '../pages/people/people';
+import { Messages } from '../pages/messages/messages';
+import { UserProfile } from '../pages/userProfile/userProfile';
+import { Map } from '../pages/map/map';
+import { Settings } from '../pages/settings/settings';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {Settings} from '../pages/page5/page5';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Page1;
+  rootPage: any = People;
 
   pages: Array<{title: string, component: any}>;
 
@@ -24,9 +24,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'People', component: Page1 },
-      { title: 'Messages', component: Page2 },
-      { title: 'Your Profile', component: You },
+      { title: 'People', component: People },
+      { title: 'Messages', component: Messages },
+      { title: 'Your Profile', component: UserProfile },
       { title: 'Map', component: Map },
       { title: 'Settings', component: Settings }
     ];
