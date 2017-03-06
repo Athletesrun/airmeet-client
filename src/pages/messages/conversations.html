@@ -1,28 +1,33 @@
 <ion-header>
-  <ion-toolbar color="light">
-    <div style="height: 50px;">
-      <img style="width: 50px; height: 50px; border-radius: 100%; right: 0; left: 0; margin: auto; position: absolute;" src="http://placehold.it/350x150">
-    </div>
-    <p style="text-align: center">Carl</p>
-
-  </ion-toolbar>
+    <ion-navbar>
+        <button ion-button menuToggle id="pleaseshowup">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title> {{ person }}</ion-title>
+    </ion-navbar>
 </ion-header>
+
 <ion-footer>
-  <ion-toolbar>
-  <ion-item>
-    <ion-input type="text" placeholder=Message value=""></ion-input>
-  </ion-item>
-    <button ion-button icon-only >
-      <ion-icon name="home"></ion-icon>
-    </button>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-item>
+            <ion-input type="text" placeholder=Message value=""></ion-input>
+        </ion-item>
+        <button ion-button icon-only >
+            <ion-icon name="home"></ion-icon>
+        </button>
+    </ion-toolbar>
 </ion-footer>
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+    <ion-list>
+
+
+            <ion-item>
+                <ion-card>
+                    <ion-card-content>
+                        {{ test }}
+                    </ion-card-content>
+                </ion-card>
+            </ion-item>
+
+    </ion-list>
 </ion-content>
