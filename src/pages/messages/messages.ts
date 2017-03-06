@@ -22,6 +22,8 @@ export class Messages {
 	selectedItem: any;
 	items: Array<{name: string, lastMessage: string}>;
 
+	private conversations;
+
 	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
 		// If we navigated to this page, we will have an item available as a nav param
 		this.selectedItem = navParams.get('item');
@@ -30,6 +32,12 @@ export class Messages {
 			{name: "Carl", lastMessage: "Ugh. As if."},
 			{name: "Ban", lastMessage: "Donald Trump"}
 		];
+	}
+
+	ngOnInit() {
+
+		this.getUsers();
+
 	}
 
 	itemTapped(event, item) {
@@ -41,12 +49,17 @@ export class Messages {
 
 	getUsers() {
 
-		console.log(this.api.getMessages());
+		this.api.getMessages().subscribe((messages) => {
 
-		return [
-			{name: "ben"},
-			{name: "jim"}
-		];
+			let conversations = Object.keys(messages);
+
+			this.conversations = conversations;
+
+		}, (err) => {
+			console.log(err);
+		}, () => {
+			console.log('complete');
+		});
 
 	}
 

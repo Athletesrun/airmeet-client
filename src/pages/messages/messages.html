@@ -12,12 +12,12 @@
     <ion-list>
 
 
-        <ion-buttons *ngFor="let user of getUsers()">
+        <ion-buttons *ngFor="let user of conversations">
             <ion-item (tap)="itemTapped(person)">
                 <ion-avatar item-left>
                     <img src="http://placehold.it/350x150">
                 </ion-avatar>
-                <h2>{{ user.name }}</h2>
+                <h2>{{ user }}</h2>
                 <p>Last Message</p>
             </ion-item>
         </ion-buttons>
