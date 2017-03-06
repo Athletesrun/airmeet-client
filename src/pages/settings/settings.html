@@ -13,43 +13,43 @@
     </h3>
 
     <ion-list>
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('name')">
       <button ion-item>
-        Name
+        Name <span>{{name}}</span>
       </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('Phone')">
       <button ion-item>
         Phone number
       </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('Description')">
       <button ion-item>
         Description
       </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('Facebook')">
       <button ion-item>
         Facebook URL
       </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('LinkedIn')">
       <button ion-item>
        LinkedIn URL
       </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('Twitter')">
       <button ion-item>
         Twitter @
       </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent()">
+      <ion-buttons (tap)="tapEvent('Picture')">
       <button ion-item>
         Picture
       </button>
