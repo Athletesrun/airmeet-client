@@ -1,59 +1,53 @@
 import { Component } from '@angular/core';
 
-import { Http } from '@angular/http';
-
 import { NavController, NavParams } from 'ionic-angular';
 
+import { HttpService } from '../../services/http.service';
+
 @Component({
-    templateUrl: "conversations.html"
+	templateUrl: "conversations.html"
 })
 
 export class Conversation {
-    item;
-    constructor(params: NavParams) {
-        this.item = params.data.item;
-    }
+	item;
+	constructor(params: NavParams) {
+		this.item = params.data.item;
+	}
 }
 
-@Component({selector: 'page-page2', templateUrl: 'messages.html'})
+@Component({selector: 'page-page2', providers: [HttpService], templateUrl: 'messages.html'})
 
 export class Messages {
 
-    selectedItem: any;
-    items: Array<{name: string, lastMessage: string}>;
+	selectedItem: any;
+	items: Array<{name: string, lastMessage: string}>;
 
-    private apiURL = "http://localhost:8080/api/getMessages";
+	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
+		// If we navigated to this page, we will have an item available as a nav param
+		this.selectedItem = navParams.get('item');
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
-        // If we navigated to this page, we will have an item available as a nav param
-        this.selectedItem = navParams.get('item');
+		this.items = [
+			{name: "Carl", lastMessage: "Ugh. As if."},
+			{name: "Ban", lastMessage: "Donald Trump"}
+		];
+	}
 
-        this.items = [
-            {name: "Carl", lastMessage: "Ugh. As if."},
-            {name: "Ban", lastMessage: "Donald Trump"}
-        ];
-    }
+	itemTapped(event, item) {
+		// That's right, we're pushing to ourselves!
+		this.navCtrl.push(Conversation, {
+			item: item
+		});
+	}
 
-    itemTapped(event, item) {
-        // That's right, we're pushing to ourselves!
-        this.navCtrl.push(Conversation, {
-        item: item
-        });
-    }
+	getUsers() {
 
-    getUsers() {
+		console.log(this.api.getMessages());
 
-        /*return this.http.post(this.apiURL).toPromise().then((response) => {
+		return [
+			{name: "ben"},
+			{name: "jim"}
+		];
 
-            console.log(response);
-
-        }).catch(this.handleError);*/
-
-        return [
-            {name: "ben"},
-            {name: "jim"}
-        ];
-
-    }
+	}
 
 }

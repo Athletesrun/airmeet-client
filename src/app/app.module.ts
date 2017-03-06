@@ -2,8 +2,10 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 
-
 import { MyApp } from './app.component';
+
+import { HttpService } from '../servics/http.service';
+
 import { People, Person } from '../pages/people/people';
 import { Messages, Conversation } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
