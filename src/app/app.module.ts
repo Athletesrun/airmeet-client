@@ -8,7 +8,7 @@ import { People, Person } from '../pages/people/people';
 import { Messages, Conversation } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
-import { Settings } from '../pages/settings/settings';
+import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture} from '../pages/settings/settings';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,15 @@ import { Settings } from '../pages/settings/settings';
     UserProfile,
     Map,
     Settings,
-    Conversation
+    Conversation,
+    Settings_Name,
+    Settings_Phone,
+    Settings_Description,
+    Settings_Facebook,
+    Settings_LinkedIn,
+    Settings_Twitter,
+    Settings_Picture
+
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -34,7 +42,14 @@ import { Settings } from '../pages/settings/settings';
     UserProfile,
     Map,
     Settings,
-    Conversation
+    Conversation,
+    Settings_Name,
+    Settings_Phone,
+    Settings_Description,
+    Settings_Facebook,
+    Settings_LinkedIn,
+    Settings_Twitter,
+    Settings_Picture
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Change Name
+        </ion-title>
+    </ion-navbar>
+</ion-header>
 
-<button ion-button outline>Set as Name</button>
-</body>
-</html>
+<ion-content padding>
+    <ion-input type="text" placeholder=Name value="{{data.name}}"></ion-input>
+    <button ion-button outline>Set as Name</button>
+</ion-content>
