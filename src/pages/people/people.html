@@ -11,9 +11,9 @@
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-left>
       <ion-avatar item-left>
-        <img src="{{item.avatar}}">
+        <img src="/assets/profile.gif">
       </ion-avatar>
-      {{ item.title }}
+      {{item.firstName}} {{item.lastName}}
     </button>
   </ion-list>
 </ion-content>
