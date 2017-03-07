@@ -1,24 +1,91 @@
-import { Component } from '@angular/core';
-
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Content} from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
 @Component({
-	templateUrl: "conversations.html"
+	templateUrl: "conversations.html",
+	providers: [
+		HttpService
+	]
 })
 
 export class Conversation {
 
 	private messages;
-	private test;
 	private person;
 
-	constructor(params: NavParams) {
+	private userId = JSON.parse(localStorage.getItem('userId')).userId;
+
+	constructor(params: NavParams, private api: HttpService) {
+
 		this.messages = params.data.messages;
-		this.test = params.data.test;
 		this.person = params.data.person;
 
+	}
+
+	//@todo order messages within conversation and in messages page
+
+	ngAfterViewInit() {
+
+		setTimeout(() => {
+			this.scrollToBottom(0);
+		}, 100);
+	}
+
+	ngOnInit() {
+
+
+		//@todo make the interval work and close it
+		setInterval(this.updateMessages(), 1000);
+
+	}
+
+	sendMessage(event) {
+
+		let message = (<HTMLInputElement>document.querySelector('.text-input')).value;
+
+		this.api.sendMessage(this.person.id, message).subscribe(() => {
+
+			(<HTMLInputElement>document.querySelector('.text-input')).value = "";
+
+			this.messages.push({
+				message: message,
+				sender: this.userId,
+				receiver: this.person.id
+			});
+
+			setTimeout(() => {
+				this.scrollToBottom(500);
+			}, 50);
+
+		}, (err) => {
+
+			alert("An error occured");
+
+		});
+
+	}
+
+	updateMessages() {
+
+		this.api.getMessages().subscribe((messages) => {
+
+			this.messages = messages[this.person.id];
+
+			console.log(this.messages);
+
+		}, () => {
+			alert('An error has occured');
+		});
+
+	}
+
+	@ViewChild(Content) content: Content;
+
+
+	scrollToBottom(duration) {
+		this.content.scrollToBottom();
 	}
 
 }
@@ -30,32 +97,29 @@ export class Messages {
 	selectedItem: any;
 	items: Array<{name: string, lastMessage: string}>;
 
+	private profiles;
+
 	private conversations;
 
 	private lastMessages = {};
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
-		// If we navigated to this page, we will have an item available as a nav param
-		this.selectedItem = navParams.get('item');
-
-		this.items = [
-			{name: "Carl", lastMessage: "Ugh. As if."},
-			{name: "Ban", lastMessage: "Donald Trump"}
-		];
-	}
+	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {}
 
 	ngOnInit() {
 
 		this.getUsers();
 
+		setInterval(() => {
+			this.getUsers();
+		}, 1000);
+
 	}
 
-	itemTapped(event, item) {
-		// That's right, we're pushing to ourselves!
+	itemTapped(userId, index) {
+
 		this.navCtrl.push(Conversation, {
-			messages: this.conversations,
-			test: "ben",
-			person: "Ben"
+			person: this.profiles[index],
+			messages: this.conversations[userId]
 		});
 	}
 
@@ -63,14 +127,14 @@ export class Messages {
 
 		this.api.getMessages().subscribe((messages) => {
 
+			this.conversations = messages;
+
 			let conversations = Object.keys(messages);
 
-			console.log(conversations);
+			let profilesToComplete = conversations.length;
+			let profilesCompleted = 0;
 
-			let conversationsToComplete = conversations.length;
-			let conversationsCompleted = 0;
-
-			let namedConversations = [];
+			let profiles = [];
 
 			for(let i in conversations) {
 
@@ -78,15 +142,13 @@ export class Messages {
 
 					this.lastMessages[conversations[i]] = messages[conversations[i]][conversations[i].length -1].message;
 
-					namedConversations.push(profile);
+					profiles.push(profile);
 
-					conversationsCompleted++;
+					profilesCompleted++;
 
-					if(conversationsCompleted === conversationsToComplete) {
+					if(profilesCompleted === profilesToComplete) {
 
-						console.log(namedConversations);
-
-						this.conversations = namedConversations
+						this.profiles = profiles;
 					}
 
 				}, (err) => {
@@ -95,14 +157,8 @@ export class Messages {
 
 			}
 
-			console.log(messages);
-
-			this.conversations = conversations;
-
 		}, (err) => {
 			console.log(err);
-		}, () => {
-			console.log('complete');
 		});
 
 	}

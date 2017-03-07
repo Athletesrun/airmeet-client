@@ -40,6 +40,18 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+
+    let apiURL = "http://localhost:8080/api/";
+
+    let token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4MCwiaWF0IjoxNDg4ODExMDY4fQ.wDj4Qv4WVGnACJZTwBM6YsAERTb0Ic8WruApYX5gWye1v3CBwoVzgVVWAW-qVXqFgAmWqputPpY9kh8vAfWmefECkWIRUEDImLuZmhPv44ruPhHOm7RYfSo76M98mCCGhDM28-WiV2u1sBYayETYbNTxZWhIZjngIKVh7vzNovmLJdLn7D4nsIu13tLzELrBacnWP8NdwqEZPn09RXl-J_7SeKs4ACfxSIhkMVslJxlINEto5m9ri65ib5eFzK7nP6mVFnA0PvLJfLvBzVF-obqpxQYhdUg-HD4bjwwZt3Z9hkvUBYcsuwHqEdCS89KadyDx1TS8oK0gdeWjdu7gnA";
+
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', JSON.stringify({
+      userId: 180
+    }));
+    localStorage.setItem('apiURl', apiURL);
+
   }
 
   openPage(page) {

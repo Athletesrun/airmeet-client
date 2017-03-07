@@ -3,31 +3,56 @@
         <button ion-button menuToggle id="pleaseshowup">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title> {{ person }}</ion-title>
+        <ion-title> {{ person.firstName }} {{ person.lastName }}</ion-title>
     </ion-navbar>
 </ion-header>
+
+<ion-content>
+    <div *ngFor="let message of messages">
+
+        <ion-card class="sending" *ngIf="message.sender == userId">
+                <ion-card-content class="cardContent">
+                    {{ message.message }}
+                </ion-card-content>
+        </ion-card>
+
+        <ion-card class="receiving" *ngIf="message.sender == person.id">
+            <ion-card-content class="cardContent">
+                {{ message.message }}
+            </ion-card-content>
+        </ion-card>
+
+    </div>
+</ion-content>
 
 <ion-footer>
     <ion-toolbar>
         <ion-item>
-            <ion-input type="text" placeholder=Message value=""></ion-input>
+            <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
         </ion-item>
-        <button ion-button icon-only >
-            <ion-icon name="home"></ion-icon>
+        <button ion-button icon-only class="enterButton" (click)="sendMessage($event)">
+            <ion-icon name="arrow-forward"></ion-icon>
         </button>
     </ion-toolbar>
 </ion-footer>
-<ion-content>
-    <ion-list>
 
+<style>
 
-            <ion-item>
-                <ion-card>
-                    <ion-card-content>
-                        {{ test }}
-                    </ion-card-content>
-                </ion-card>
-            </ion-item>
+    .sending {
+        background-color: #007AFF;
+        color: #FFFFFF;
+        width: 70%;
+        text-align: right;
+        margin-left: 28%;
 
-    </ion-list>
-</ion-content>
+    }
+    
+    .receiving {
+        width: 70%;
+    }
+    
+    .cardContent {
+        text-align: left;
+    }
+
+</style>
