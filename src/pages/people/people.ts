@@ -27,6 +27,8 @@ export class Person {
 export class People {
   items:any;
 
+  private userId = JSON.parse(localStorage.getItem('userId')).userId;
+
   constructor(public nav: NavController, private api: HttpService) {
   }
 
@@ -37,8 +39,13 @@ export class People {
   getPeople() {
     this.api.getAllProfiles().subscribe(
       (people) => {
-        console.log(people);
-        this.items = people;
+        var peopletemp = [];
+        for (var i in people) {
+          if (people[i].id !== this.userId) {
+            peopletemp.push(people[i]);
+          }
+        }
+        this.items = peopletemp;
       },
       (err) => {
          console.log(err)
