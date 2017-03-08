@@ -3,19 +3,15 @@ import { NavController, NavParams, Content} from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
-@Component({
-	templateUrl: "conversations.html",
-	providers: [
-		HttpService
-	]
-})
+@Component({templateUrl: "conversations.html", providers: [HttpService]})
 
 export class Conversation {
 
 	private messages;
 	private person;
+	private updateInterval;
 
-	private userId = JSON.parse(localStorage.getItem('userId')).userId;
+	private userId = parseInt(localStorage.getItem('userId'));
 
 	constructor(params: NavParams, private api: HttpService) {
 
@@ -35,35 +31,45 @@ export class Conversation {
 
 	ngOnInit() {
 
+		this.updateInterval = setInterval(() => {
+			this.updateMessages();
+		}, 1000);
 
-		//@todo make the interval work and close it
-		setInterval(this.updateMessages(), 1000);
+	}
+
+	ngOnDestroy() {
+
+		clearInterval(this.updateInterval);
 
 	}
 
 	sendMessage(event) {
 
-		let message = (<HTMLInputElement>document.querySelector('.text-input')).value;
+		let message = (<HTMLInputElement>document.querySelector('.text-input')).value.trim();
 
-		this.api.sendMessage(this.person.id, message).subscribe(() => {
+		if(message !== "") {
 
-			(<HTMLInputElement>document.querySelector('.text-input')).value = "";
+			this.api.sendMessage(this.person.id, message).subscribe(() => {
 
-			this.messages.push({
-				message: message,
-				sender: this.userId,
-				receiver: this.person.id
+				(<HTMLInputElement>document.querySelector('.text-input')).value = "";
+
+				this.messages.push({
+					message: message,
+					sender: this.userId,
+					receiver: this.person.id
+				});
+
+				setTimeout(() => {
+					this.scrollToBottom(500);
+				}, 50);
+
+			}, (err) => {
+
+				alert("An error occured");
+
 			});
 
-			setTimeout(() => {
-				this.scrollToBottom(500);
-			}, 50);
-
-		}, (err) => {
-
-			alert("An error occured");
-
-		});
+		}
 
 	}
 
@@ -72,8 +78,6 @@ export class Conversation {
 		this.api.getMessages().subscribe((messages) => {
 
 			this.messages = messages[this.person.id];
-
-			console.log(this.messages);
 
 		}, () => {
 			alert('An error has occured');
@@ -103,15 +107,23 @@ export class Messages {
 
 	private lastMessages = {};
 
+	private getUsersInterval;
+
 	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {}
 
 	ngOnInit() {
 
 		this.getUsers();
 
-		setInterval(() => {
+		this.getUsersInterval = setInterval(() => {
 			this.getUsers();
 		}, 1000);
+
+	}
+
+	ngOnDestroy() {
+
+		clearInterval(this.getUsersInterval);
 
 	}
 
@@ -139,6 +151,8 @@ export class Messages {
 			for(let i in conversations) {
 
 				this.api.getUserProfile(parseInt(conversations[i])).subscribe((profile) => {
+
+					console.log(conversations);
 
 					this.lastMessages[conversations[i]] = messages[conversations[i]][conversations[i].length -1].message;
 

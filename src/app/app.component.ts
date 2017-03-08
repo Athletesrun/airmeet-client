@@ -41,16 +41,9 @@ export class MyApp {
       Splashscreen.hide();
     });
 
-    let apiURL = "http://localhost:8080/api/";
-
-    let token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4MCwiaWF0IjoxNDg4ODExMDY4fQ.wDj4Qv4WVGnACJZTwBM6YsAERTb0Ic8WruApYX5gWye1v3CBwoVzgVVWAW-qVXqFgAmWqputPpY9kh8vAfWmefECkWIRUEDImLuZmhPv44ruPhHOm7RYfSo76M98mCCGhDM28-WiV2u1sBYayETYbNTxZWhIZjngIKVh7vzNovmLJdLn7D4nsIu13tLzELrBacnWP8NdwqEZPn09RXl-J_7SeKs4ACfxSIhkMVslJxlINEto5m9ri65ib5eFzK7nP6mVFnA0PvLJfLvBzVF-obqpxQYhdUg-HD4bjwwZt3Z9hkvUBYcsuwHqEdCS89KadyDx1TS8oK0gdeWjdu7gnA";
-
-
-    localStorage.setItem('token', token);
-    localStorage.setItem('userId', JSON.stringify({
-      userId: 180
-    }));
-    localStorage.setItem('apiURl', apiURL);
+    localStorage.setItem('token', "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODk4NTExOX0.9j8UrHWclPcqR_6cHsUz76cqpkkLwOtdt79aFZXnzE7ZpwMbNZWvdzZo1VByZvSYQhMbKVh16ClOTdCS9K3oY2HrGj52JK7mYCnY5xZGvA5EzqIjM4KHJ6cgLCAI-O1b5opb_gQhFVFKZmG3XCG9u1_amzAOFQCRwoqdXtuOAkeDRFQnboG4uM2Td54k98Puecydk1padLRO92HheqWHuHRYefp_UwzxxNmi2CJ-2KXvMxSj6MlCYkqwv8DYxIz99aVJaWxUJ7mxEGM5KKXJBBUpS5DqKWY8j8R0uAPF8OEl2Sq0CSKLHAuFxJ9qv7RUSIDpMFko8Pk1ldyQHE7srQ");
+    localStorage.setItem('userId', "1");
+    localStorage.setItem('apiURL', "http://localhost:8080/api/");
 
   }
 
