@@ -39,6 +39,7 @@ export class People {
   getPeople() {
     this.api.getAllProfiles().subscribe(
       (people) => {
+        console.log(people);
         var peopletemp = [];
         for (var i in people) {
           if (people[i].id !== this.userId) {
@@ -49,6 +50,9 @@ export class People {
       },
       (err) => {
          console.log(err)
+      },
+      () => {
+        console.log("something");
       }
     )
   }
