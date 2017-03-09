@@ -47,6 +47,9 @@ $colors: (
   .toolbar-background {
     background: #387ef5;
   }
+  ion-navbar, .toolbar-title-md {
+    color: white !important;
+  }
 }
 
 
