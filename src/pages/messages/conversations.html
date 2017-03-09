@@ -30,7 +30,12 @@
     <ion-item>
       <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
     </ion-item>
-    <button ion-button icon-only class="enterButton" (click)="sendMessage($event)">
+    <!--ion-fab right bottom style="margin: 10px;">
+      <button ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab-->
+    <button ion-fab mini icon-only class="enterButton" (click)="sendMessage($event)">
         <ion-icon name="arrow-forward" round></ion-icon>
     </button>
   </ion-toolbar>
