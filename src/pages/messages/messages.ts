@@ -139,8 +139,6 @@ export class Messages {
 
 		this.api.getMessages().subscribe((messages) => {
 
-			console.log(messages);
-
 			this.conversations = messages;
 
 			let conversations = Object.keys(messages);
