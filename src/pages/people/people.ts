@@ -27,7 +27,7 @@ export class Person {
 export class People {
   items:any;
 
-  private userId = JSON.parse(localStorage.getItem('userId')).userId;
+  private userId = localStorage.getItem('userId');
 
   constructor(public nav: NavController, private api: HttpService) {
   }

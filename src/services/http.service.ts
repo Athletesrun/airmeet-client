@@ -20,11 +20,7 @@ export class HttpService {
 
 	private token = localStorage.getItem("token");
 
-	private userId = JSON.parse(localStorage.getItem("userId")).userId;
-
-    //private token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4MCwiaWF0IjoxNDg4ODExMDY4fQ.wDj4Qv4WVGnACJZTwBM6YsAERTb0Ic8WruApYX5gWye1v3CBwoVzgVVWAW-qVXqFgAmWqputPpY9kh8vAfWmefECkWIRUEDImLuZmhPv44ruPhHOm7RYfSo76M98mCCGhDM28-WiV2u1sBYayETYbNTxZWhIZjngIKVh7vzNovmLJdLn7D4nsIu13tLzELrBacnWP8NdwqEZPn09RXl-J_7SeKs4ACfxSIhkMVslJxlINEto5m9ri65ib5eFzK7nP6mVFnA0PvLJfLvBzVF-obqpxQYhdUg-HD4bjwwZt3Z9hkvUBYcsuwHqEdCS89KadyDx1TS8oK0gdeWjdu7gnA"
-
-    //other user is "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4MSwiaWF0IjoxNDg4ODExMTM1fQ.4Fn4vPN3rTCpkhhgrnNQTy92M70IjmoFrSHUw1ilCGqChwbTHq_HGAap6N6ESjbJ1rOAe0Ytu_t5P2LYWynMyqg4b708jG2Ac0WBA3kHsYUVYDMcD5UG-pRHvZZZKwWraejbr3B-5zVpSH49OZ41Rn6LILlw8v4LwUJmOnCtCOzs0FwMCCGG_wCvncaRemWg8rf2gMU3vDUxCcrV3ODbWwz00FOkK1sKAhq9HmkUwHPTth5_s0RUeV1JSnuhDCQSadnA2uUQE77L73EjYw4Eab9Cy1usQKTc1IkEDLJanxeIPFctRsV2DDa41nqujicurVkLw0LSWnriNO7FDSDNTw"
+	private userId = parseInt(localStorage.getItem("userId"));
 
     login(email, password): Observable<Status> { //DONT FORGET TO HASH THE PASSWORD!!!
 
@@ -51,8 +47,6 @@ export class HttpService {
     }
 
     getUserProfile(userId): Observable<Status> {
-
-        console.log(this.token);
 
         return this.http.post(this.apiURL + "getUserProfile", {token: this.token, userId: userId}).map((res: Response) => {
 

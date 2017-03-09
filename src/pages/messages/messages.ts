@@ -139,6 +139,8 @@ export class Messages {
 
 		this.api.getMessages().subscribe((messages) => {
 
+			console.log(messages);
+
 			this.conversations = messages;
 
 			let conversations = Object.keys(messages);
@@ -151,8 +153,6 @@ export class Messages {
 			for(let i in conversations) {
 
 				this.api.getUserProfile(parseInt(conversations[i])).subscribe((profile) => {
-
-					console.log(conversations);
 
 					this.lastMessages[conversations[i]] = messages[conversations[i]][conversations[i].length -1].message;
 
