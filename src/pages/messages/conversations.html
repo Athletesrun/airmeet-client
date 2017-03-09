@@ -26,33 +26,12 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-        <ion-item>
-            <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
-        </ion-item>
-        <button ion-button icon-only class="enterButton" (click)="sendMessage($event)">
-            <ion-icon name="arrow-forward"></ion-icon>
-        </button>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-item>
+      <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
+    </ion-item>
+    <button ion-button icon-only class="enterButton" (click)="sendMessage($event)">
+        <ion-icon name="arrow-forward" round></ion-icon>
+    </button>
+  </ion-toolbar>
 </ion-footer>
-
-<style>
-
-    .sending {
-        background-color: #007AFF;
-        color: #FFFFFF;
-        width: 70%;
-        text-align: right;
-        margin-left: 28%;
-
-    }
-    
-    .receiving {
-        width: 70%;
-    }
-    
-    .cardContent {
-        text-align: left;
-    }
-
-</style>

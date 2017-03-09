@@ -1,3 +1,30 @@
 page-page2 {
 
 }
+
+.sending {
+  background-color: #007AFF;
+  color: #FFFFFF;
+  width: 70%;
+  text-align: right;
+  margin-left: 28%;
+
+}
+
+.receiving {
+  width: 70%;
+}
+
+.cardContent {
+  text-align: left;
+}
+
+.messageInput {
+  width: calc(100% - 50px);
+}
+
+.enterButton {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+}

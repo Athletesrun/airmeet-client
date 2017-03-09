@@ -15,7 +15,7 @@
         <ion-buttons (tap)="itemTapped(user.id, i)" *ngFor="let user of profiles; let i = index;">
             <ion-item>
                 <ion-avatar item-left>
-                    <img src="http://placehold.it/350x150">
+                    <img src="/assets/profile.gif">
                 </ion-avatar>
                 <h2>{{ user.firstName }} {{ user.lastName }}</h2>
                 <p>{{ lastMessages[user.id] }}</p>

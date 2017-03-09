@@ -1,47 +1,22 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle id="pleaseshowup">
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>Your Profile</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle id="pleaseshowup">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Your Profile
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-list>
-      <ion-buttons (tap)="tapEvent()">
-      <ion-item>
-        <ion-avatar item-left>
-          <img src="http://placehold.it/350x150">
-        </ion-avatar>
-        <h2>Cher</h2>
-        <p>Ugh. As if.</p>
-      </ion-item>
-  </ion-buttons>
-      <ion-buttons (tap)="tapEvent()">
-      <ion-item>
-        <ion-avatar item-left>
-          <img src="http://placehold.it/350x150">
-        </ion-avatar>
-        <h2>Geoff</h2>
-        <p>???</p>
-      </ion-item>
-      </ion-buttons>
-      <ion-buttons (tap)="tapEvent()">
-      <ion-item>
-        <ion-avatar item-left>
-          <img src="http://placehold.it/350x150">
-        </ion-avatar>
-        <h2>Max</h2>
-        <p>Hello World!</p>
-      </ion-item>
-      </ion-buttons>
-    </ion-list>
-
-
-
-  <ion-fab right bottom style="margin: 10px;">
-    <button ion-fab><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
-
+  <div class="profile-ribbon"></div>
+  <div style="background-image: url(/assets/profile.gif)" class="big-avatar"></div>
+  <div class="names">
+    <h1>{{item.firstName}} {{item.lastName}}</h1>
+  </div>
+  <hr>
+  <div id="hello">
+    {{ item.description }}
+  </div>
 </ion-content>
