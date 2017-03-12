@@ -132,9 +132,21 @@ export class HttpService {
 
     }
 
-    getMessages(): Observable<Message> {
+    getConversation(id): Observable<Message>{
 
-        return this.http.post(this.apiURL + "getMessages", {token: this.token}).map((res: Response) => {
+        return this.http.post(this.apiURL + "getConversation", {token: this.token, userId: id}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || 'Server error');
+        });
+
+    }
+
+    getMessageList(): Observable<Message>{
+
+        return this.http.post(this.apiURL + "getMessageList", {token: this.token}).map((res: Response) => {
 
             return res.json();
 

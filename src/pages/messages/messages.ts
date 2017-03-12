@@ -3,7 +3,9 @@ import { NavController, NavParams, Content} from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
-@Component({templateUrl: "conversations.html", providers: [HttpService]})
+@Component({templateUrl: "conversation.html", providers: [HttpService]})
+
+//@todo implement fob
 
 export class Conversation {
 
@@ -14,8 +16,6 @@ export class Conversation {
 	private userId = parseInt(localStorage.getItem('userId'));
 
 	constructor(params: NavParams, private api: HttpService) {
-
-		this.messages = params.data.messages;
 		this.person = params.data.person;
 
 	}
@@ -30,6 +30,8 @@ export class Conversation {
 	}
 
 	ngOnInit() {
+
+		this.updateMessages();
 
 		this.updateInterval = setInterval(() => {
 			this.updateMessages();
@@ -65,6 +67,7 @@ export class Conversation {
 
 			}, (err) => {
 
+				console.log(err);
 				alert("An error occured");
 
 			});
@@ -75,9 +78,9 @@ export class Conversation {
 
 	updateMessages() {
 
-		this.api.getMessages().subscribe((messages) => {
+		this.api.getConversation(this.person.id).subscribe((messages) => {
 
-			this.messages = messages[this.person.id];
+			this.messages = messages;
 
 		}, () => {
 			alert('An error has occured');
@@ -101,11 +104,7 @@ export class Messages {
 	selectedItem: any;
 	items: Array<{name: string, lastMessage: string}>;
 
-	private profiles;
-
 	private conversations;
-
-	private lastMessages = {};
 
 	private getUsersInterval;
 
@@ -130,44 +129,15 @@ export class Messages {
 	itemTapped(userId, index) {
 
 		this.navCtrl.push(Conversation, {
-			person: this.profiles[index],
-			messages: this.conversations[userId]
+			person: this.conversations[index],
 		});
 	}
 
 	getUsers() {
 
-		this.api.getMessages().subscribe((messages) => {
+		this.api.getMessageList().subscribe((conversations) => {
 
-			this.conversations = messages;
-
-			let conversations = Object.keys(messages);
-
-			let profilesToComplete = conversations.length;
-			let profilesCompleted = 0;
-
-			let profiles = [];
-
-			for(let i in conversations) {
-
-				this.api.getUserProfile(parseInt(conversations[i])).subscribe((profile) => {
-
-					this.lastMessages[conversations[i]] = messages[conversations[i]][conversations[i].length -1].message;
-
-					profiles.push(profile);
-
-					profilesCompleted++;
-
-					if(profilesCompleted === profilesToComplete) {
-
-						this.profiles = profiles;
-					}
-
-				}, (err) => {
-					console.log(err);
-				});
-
-			}
+			this.conversations = conversations;
 
 		}, (err) => {
 			console.log(err);

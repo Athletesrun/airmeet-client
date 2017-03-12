@@ -25,7 +25,10 @@ export class Person {
 
 @Component({templateUrl: "people.html", selector: "page-page1", providers: [HttpService]})
 export class People {
+
   items:any;
+
+  private updatePeopleInterval;
 
   private userId = localStorage.getItem('userId');
 
@@ -34,6 +37,16 @@ export class People {
 
   ngOnInit() {
     this.getPeople();
+
+    this.updatePeopleInterval = setInterval(() => {
+      this.getPeople();
+    }, 3000);
+  }
+
+  ngOnDestroy() {
+
+    clearInterval(this.updatePeopleInterval);
+
   }
 
   getPeople() {

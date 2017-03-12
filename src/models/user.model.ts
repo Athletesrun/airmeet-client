@@ -11,6 +11,7 @@ export class User {
         public password: string, //I know i know this is horrible. We'll fix it later. At least the password is hashed and salted
         public firstName: string,
         public lastName: string,
-        public event: number
+        public event: number,
+        public lastMessage: string
     ) {}
 }
