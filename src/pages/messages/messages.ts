@@ -4,9 +4,6 @@ import { NavController, NavParams, Content} from 'ionic-angular';
 import { HttpService } from '../../services/http.service';
 
 @Component({templateUrl: "conversation.html", providers: [HttpService]})
-
-//@todo implement fob
-
 export class Conversation {
 
 	private messages;
@@ -19,8 +16,6 @@ export class Conversation {
 		this.person = params.data.person;
 
 	}
-
-	//@todo order messages within conversation and in messages page
 
 	ngAfterViewInit() {
 
@@ -97,6 +92,32 @@ export class Conversation {
 
 }
 
+@Component({selector: 'newConversation', providers: [HttpService], templateUrl: 'newConversation.html'})
+
+export class newConversation {
+
+	private profiles;
+
+	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {}
+
+	ngOnInit() {
+
+		this.api.getAllProfiles().subscribe((profiles) => {
+
+			this.profiles = profiles
+
+		});
+
+	}
+
+	selectProfile(id, i) {
+
+		console.log("profile selected");
+
+	}
+
+}
+
 @Component({selector: 'messages', providers: [HttpService], templateUrl: 'messages.html'})
 
 export class Messages {
@@ -126,7 +147,7 @@ export class Messages {
 
 	}
 
-	itemTapped(userId, index) {
+	conversationTapped(userId, index) {
 
 		this.navCtrl.push(Conversation, {
 			person: this.conversations[index],
@@ -143,6 +164,10 @@ export class Messages {
 			console.log(err);
 		});
 
+	}
+
+	newConversation() {
+		this.navCtrl.push(newConversation);
 	}
 
 }

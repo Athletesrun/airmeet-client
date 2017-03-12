@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { HttpService } from '../servics/http.service';
 
 import { People, Person } from '../pages/people/people';
-import { Messages, Conversation } from '../pages/messages/messages';
+import { Messages, Conversation, newConversation } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
 import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture} from '../pages/settings/settings';
@@ -22,6 +22,7 @@ import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings
     Map,
     Settings,
     Conversation,
+    newConversation,
     Settings_Name,
     Settings_Phone,
     Settings_Description,
@@ -45,6 +46,7 @@ import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings
     Map,
     Settings,
     Conversation,
+    newConversation,
     Settings_Name,
     Settings_Phone,
     Settings_Description,

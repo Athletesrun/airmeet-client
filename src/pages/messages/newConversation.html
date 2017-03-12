@@ -3,7 +3,7 @@
         <button ion-button menuToggle id="pleaseshowup">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Messages</ion-title>
+        <ion-title>New Conversation</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
     <ion-list>
 
 
-        <ion-buttons (tap)="conversationTapped(user.id, i)" *ngFor="let user of conversations; let i = index;">
+        <ion-buttons (tap)="selectProfile(user.id, i)" *ngFor="let user of profiles; let i = index;">
             <ion-item>
                 <ion-avatar item-left>
                     <img src="/assets/profile.gif">
@@ -24,12 +24,5 @@
 
 
     </ion-list>
-
-
-    <ion-fab (tap)="newConversation()" right bottom style="margin: 10px;">
-        <button ion-fab>
-            <ion-icon name="add"></ion-icon>
-        </button>
-    </ion-fab>
 
 </ion-content>
