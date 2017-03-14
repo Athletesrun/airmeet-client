@@ -23,7 +23,7 @@ export class Person {
   }
 }
 
-@Component({templateUrl: "people.html", selector: "page-page1", providers: [HttpService]})
+@Component({templateUrl: "people.html", selector: "people", providers: [HttpService]})
 export class People {
 
   items:any;
@@ -40,7 +40,7 @@ export class People {
 
     this.updatePeopleInterval = setInterval(() => {
       this.getPeople();
-    }, 3000);
+    }, 5000);
   }
 
   ngOnDestroy() {

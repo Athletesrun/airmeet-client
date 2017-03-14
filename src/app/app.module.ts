@@ -6,6 +6,8 @@ import { MyApp } from './app.component';
 
 import { HttpService } from '../servics/http.service';
 
+import { Welcome } from '../pages/welcome/welcome';
+
 import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, newConversation } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
@@ -15,6 +17,7 @@ import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings
 @NgModule({
   declarations: [
     MyApp,
+    Welcome,
     People,
     Messages,
     Person,
@@ -39,6 +42,7 @@ import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    Welcome,
     People,
     Messages,
     Person,

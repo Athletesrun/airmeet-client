@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, NavController, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+
+import { Welcome } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
 import { Messages } from '../pages/messages/messages';
@@ -9,17 +11,25 @@ import { Map } from '../pages/map/map';
 import { Settings } from '../pages/settings/settings';
 
 
-@Component({
-  templateUrl: 'app.html'
-})
+@Component({templateUrl: 'app.html', providers: []})
+
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = People;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform) {
+
+    if(localStorage.getItem("signedIn") === "true") {
+
+      this.rootPage = People;
+
+    } else {
+      this.rootPage = Welcome;
+    }
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -48,8 +58,12 @@ export class MyApp {
   }
 
   openPage(page) {
+
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+
     this.nav.setRoot(page.component);
+
   }
+
 }
