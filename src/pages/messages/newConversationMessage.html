@@ -3,7 +3,7 @@
         <button ion-button menuToggle id="pleaseshowup">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title> {{ person.firstName }} {{ person.lastName }}</ion-title>
+        <ion-title>New Message to {{ person.firstName }} {{ person.lastName }}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -11,9 +11,9 @@
     <div *ngFor="let message of messages; let last = last">
 
         <ion-card class="sending" *ngIf="message.sender == userId">
-                <ion-card-content class="cardContent">
-                    {{ message.message }}
-                </ion-card-content>
+            <ion-card-content class="cardContent">
+                {{ message.message }}
+            </ion-card-content>
         </ion-card>
 
         <ion-card class="receiving" *ngIf="message.sender == person.id">
@@ -22,23 +22,19 @@
             </ion-card-content>
         </ion-card>
 
+
         {{ (last && needToScrollToBottom()) ? scrollToBottom(0) : ''}}
 
     </div>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-item>
-      <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
-    </ion-item>
-    <!--ion-fab right bottom style="margin: 10px;">
-      <button ion-fab>
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab-->
-    <button ion-fab mini icon-only class="enterButton" (click)="sendMessage($event)">
-        <ion-icon name="arrow-forward" round></ion-icon>
-    </button>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-item>
+            <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
+        </ion-item>
+        <button ion-fab mini icon-only class="enterButton" (click)="sendMessage($event)">
+            <ion-icon name="arrow-forward" round></ion-icon>
+        </button>
+    </ion-toolbar>
 </ion-footer>
