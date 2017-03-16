@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import { Message } from '../models/message.model';
 import { User } from '../models/user.model';
 import { Status } from '../models/status.model';
+import { Event } from '../models/event.model';
 
 @Injectable()
 export class HttpService {
@@ -120,7 +121,7 @@ export class HttpService {
 
     }
 
-    getEventInfo(): Observable<Status> {
+    getEventInfo(): Observable<Event> {
 
 	    return this.http.post(this.apiURL + "getEventInfo", {token: this.token}).map((res: Response) => {
 

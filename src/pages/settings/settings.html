@@ -20,6 +20,7 @@
       <ion-buttons (tap)="tapEvent('name')">
       <button ion-item>
         Name
+        <p>{{ profile.firstName }} {{ profile.lastName }}</p>
       </button>
       </ion-buttons>
 
@@ -36,9 +37,12 @@
       </ion-buttons>
 
       <ion-buttons (tap)="tapEvent('Phone')">
-      <button ion-item>
-        Phone number
-      </button>
+        <button ion-item>
+          Phone number
+        </button>
+        <p *ngIf="profile.phoneNumber">
+          {{ profile.phoneNumber}}
+        </p>
       </ion-buttons>
 
       <ion-buttons (tap)="tapEvent('LinkedIn')">
@@ -58,6 +62,11 @@
         Twitter
       </button>
       </ion-buttons>
+
+      <ion-item>
+        <ion-label>Share Location on Map</ion-label>
+        <ion-toggle checked="true"></ion-toggle>
+      </ion-item>
 
       <ion-buttons (tap)="tapEvent('signOut')">
         <button ion-item>

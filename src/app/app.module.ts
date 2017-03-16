@@ -12,7 +12,7 @@ import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
-import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture} from '../pages/settings/settings';
+import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture} from '../pages/settings/settings';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings
     Conversation,
     NewConversation,
     NewConversationMessage,
+    EventInfo,
     Settings_Name,
     Settings_Phone,
     Settings_Description,
@@ -53,6 +54,7 @@ import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings
     Conversation,
     NewConversation,
     NewConversationMessage,
+    EventInfo,
     Settings_Name,
     Settings_Phone,
     Settings_Description,

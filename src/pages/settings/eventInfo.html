@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Event Info
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+
+        <ion-card-header>
+            <strong>{{ eventName }}</strong>
+        </ion-card-header>
+
+        <ion-card-content>
+            <p>
+                {{ eventDescription }}
+            </p>
+            <p><strong>Date</strong></p>
+            <p>{{ eventDate }}</p>
+            <p><strong>Organizer</strong></p>
+            <p>{{ eventOrganizer }}</p>
+            <p><strong><a style="color: inherit;" href="{{ eventWebsite }}">Event Website</a></strong></p>
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>
