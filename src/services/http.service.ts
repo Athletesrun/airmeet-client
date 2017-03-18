@@ -59,7 +59,7 @@ export class HttpService {
 
     }
 
-    getOwnProfile(): Observable<Status> {
+    getOwnProfile(): Observable<User> {
 
         return this.http.post(this.apiURL + "getOwnProfile", {token: this.token}).map((res: Response) => {
 

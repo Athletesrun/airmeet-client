@@ -7,6 +7,8 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-input type="text" placeholder=Name value="{{data.name}}"></ion-input>
-    <button ion-button outline>Set as Name</button>
+    <form (ngSubmit)="setName()">
+        <ion-input type="text" [(ngModel])="changeName" placeholder="Name"></ion-input>
+        <button ion-button outline (click)="setName()">Set as Name</button>
+    </form>
 </ion-content>

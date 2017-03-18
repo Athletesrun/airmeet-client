@@ -62,13 +62,24 @@ export class EventInfo {
 
 }
 
-@Component({templateUrl: 'Settings_Name.html'})
+@Component({templateUrl: 'Settings_Name.html', providers: [HttpService]})
 export class Settings_Name {
-    data;
+
+    private profile;
+
     constructor(public navParams: NavParams) {
-      this.data = navParams.data;
+
+        console.log(navParams);
+
+        this.profile = navParams.data;
     }
+
+    setName() {
+
+    }
+
 }
+
 @Component({templateUrl: 'Settings_Phone.html'})
     export class Settings_Phone {
      constructor(public navParams: NavParams) {
@@ -105,7 +116,10 @@ export class Settings_Name {
 @Component({selector: 'settings', templateUrl: 'settings.html', providers: [ HttpService ]})
 export class Settings {
 
-    private profile = {};
+    private profile = {
+        firstName: "",
+        lastName: ""
+    };
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
 
@@ -133,10 +147,11 @@ export class Settings {
         // That's right, we're pushing to ourselves!
         if(event === "name") {
 
-            /*this.navCtrl.push(Settings_Name, {
-            name: this.name
+            this.navCtrl.push(Settings_Name, {
+                firstName: this.profile.firstName,
+                lastName: this.profile.lastName
             });
-            console.log(name);*/
+            console.log(name);
 
         } else if(event === "eventInfo") {
 
