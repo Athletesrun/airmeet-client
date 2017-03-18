@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import {StatusBar, Splashscreen, Keyboard} from 'ionic-native';
 
 import { Welcome } from '../pages/welcome/welcome';
 
@@ -50,6 +50,22 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+
+    if (this.platform.is('ios')) {
+      let
+        appEl = <HTMLElement>(document.getElementsByTagName('ION-APP')[0]),
+        appElHeight = appEl.clientHeight;
+
+      Keyboard.disableScroll(true);
+
+      window.addEventListener('native.keyboardshow', (e) => {
+        appEl.style.height = (appElHeight - (<any>e).keyboardHeight) + 'px';
+      });
+
+      window.addEventListener('native.keyboardhide', () => {
+        appEl.style.height = '100%';
+      });
+    }
 
     localStorage.setItem('token', "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODk4NTExOX0.9j8UrHWclPcqR_6cHsUz76cqpkkLwOtdt79aFZXnzE7ZpwMbNZWvdzZo1VByZvSYQhMbKVh16ClOTdCS9K3oY2HrGj52JK7mYCnY5xZGvA5EzqIjM4KHJ6cgLCAI-O1b5opb_gQhFVFKZmG3XCG9u1_amzAOFQCRwoqdXtuOAkeDRFQnboG4uM2Td54k98Puecydk1padLRO92HheqWHuHRYefp_UwzxxNmi2CJ-2KXvMxSj6MlCYkqwv8DYxIz99aVJaWxUJ7mxEGM5KKXJBBUpS5DqKWY8j8R0uAPF8OEl2Sq0CSKLHAuFxJ9qv7RUSIDpMFko8Pk1ldyQHE7srQ");
     localStorage.setItem('userId', "1");
