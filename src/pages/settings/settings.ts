@@ -4,6 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
+import { User } from '../../models/user.model';
+
 @Component({templateUrl: 'eventInfo.html', providers: [HttpService]})
 export class EventInfo {
 
@@ -156,7 +158,20 @@ export class Settings_Description {
 @Component({templateUrl: 'Settings_Interests.html', providers: [HttpService]})
 export class Settings_Interests {
 
-    constructor(private api: HttpService, private navCtrl: NavController) {
+    private newInterest:string;
+    private interests = [];
+
+    constructor(public navParams: NavParams, private api: HttpService, private navCtrl: NavController) {
+
+        if(navParams.data.interests !== null) {
+
+            this.interests = navParams.data.interests.interests;
+
+        }
+    }
+
+    addInterest() {
+
     }
 
 }
@@ -267,7 +282,9 @@ export class Settings_Twitter {
 @Component({selector: 'settings', templateUrl: 'settings.html', providers: [ HttpService ]})
 export class Settings {
 
-    private profile = {};
+    private profile = {
+        interests: {}
+    };
 
     private updateProfileInterval;
 
@@ -325,7 +342,9 @@ export class Settings {
 
         } else if(event === "Interests") {
 
-            this.navCtrl.push(Settings_Interests, {});
+            this.navCtrl.push(Settings_Interests, {
+                interests: this.profile.interests
+            });
 
         } else if(event === "Facebook") {
 

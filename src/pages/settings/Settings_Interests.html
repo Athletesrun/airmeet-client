@@ -1,11 +1,21 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            Change Interests
+            Edit Interests
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list>
+        <button ion-item *ngFor="let interest of interests; let last = last">
+            {{ interest }}
+            <ion-icon style="float: right;" name="remove-circle"></ion-icon>
+        </button>
+    </ion-list>
+    <hr>
+    <form (ngSubmit)="addInterest()">
+        <ion-input [(ngModel)]="newInterest" placeholder="New Interest" name="interest"></ion-input>
+        <button style="position: absolute; right: 10px;" mini icon-only ion-button outline type="submit"><ion-icon name="add-circle"></ion-icon></button>
+    </form>
 </ion-content>

@@ -44,8 +44,15 @@
       <ion-buttons (tap)="tapEvent('Interests')">
         <button ion-item>
           Interests
-          <p *ngIf="profile.interests">
-            {{ profile.interests}}
+          <p *ngIf="profile.interests !== null">
+            <ng-container *ngFor="let interest of profile.interests.interests; let last = last">
+              <span *ngIf="!last">
+                {{ interest }},
+              </span>
+              <span *ngIf="last">
+                {{ interest }}
+              </span>
+            </ng-container>
           </p>
         </button>
       </ion-buttons>
