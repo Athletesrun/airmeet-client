@@ -53,6 +53,7 @@ export class People {
     this.api.getAllProfiles().subscribe(
       (people) => {
         var peopletemp = [];
+        console.log(people);
         for (var i in people) {
           if (people[i].id !== this.userId) {
             peopletemp.push(people[i]);
