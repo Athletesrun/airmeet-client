@@ -69,7 +69,6 @@ export class Conversation {
 			}, (err) => {
 
 				console.log(err);
-				alert("An error occured");
 
 			});
 
@@ -84,8 +83,10 @@ export class Conversation {
 			this.messages = messages;
 
 
-		}, () => {
-			alert('An error has occured');
+		}, (err) => {
+
+			console.log('err');
+
 		});
 
 	}
@@ -195,7 +196,6 @@ export class NewConversationMessage {
 			}, (err) => {
 
 				console.log(err);
-				alert("An error occured");
 
 			});
 
@@ -209,9 +209,11 @@ export class NewConversationMessage {
 
 			this.messages = messages;
 
-		}, () => {
-			alert('An error has occured');
+		}, (err) => {
+
+			console.log(err);
 		});
+
 
 	}
 

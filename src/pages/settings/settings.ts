@@ -53,8 +53,6 @@ export class EventInfo {
 
             console.log(err);
 
-            alert(err);
-
         });
 
     }
@@ -97,10 +95,9 @@ export class Settings_Phone {
      private phoneNumber;
 
      setPhoneNumber() {
+         if(this.phoneNumber.trim().length <= 15) {
 
-         if(!isNaN(parseInt(this.phoneNumber))) {
-
-             this.api.updateProfile({phone: parseInt(this.phoneNumber)}).subscribe(() => {
+             this.api.updateProfile({phone: this.phoneNumber}).subscribe(() => {
 
                  console.log('got here');
 
@@ -114,11 +111,36 @@ export class Settings_Phone {
 
      }
 }
-@Component({templateUrl: 'Settings_Description.html'})
-    export class Settings_Description {
-        constructor(public navParams: NavParams) {
+
+@Component({templateUrl: 'Settings_Description.html', providers: [HttpService]})
+export class Settings_Description {
+
+    private description = "";
+
+    constructor(private api: HttpService, private navCtrl: NavController) {
+    }
+
+    setDescription() {
+
+        if(this.description.trim() !== "" && this.description.trim().length <= 180) {
+
+            this.api.updateProfile({description: this.description}).subscribe(() => {
+
+                this.navCtrl.popToRoot();
+
+            }, (err) => {
+                console.log(err);
+            });
+
+        } else {
+
+            console.log("Oops! Please enter a valid description that is less than 180 characters.");
+
+        }
+
     }
 }
+
 @Component({templateUrl: 'Settings_Facebook.html'})
     export class Settings_Facebook {
        constructor(public navParams: NavParams) {
@@ -127,11 +149,42 @@ export class Settings_Phone {
 @Component({templateUrl: 'Settings_LinkedIn.html'})
     export class Settings_LinkedIn {
      constructor(public navParams: NavParams) {
-    }
 }
-@Component({templateUrl: 'Settings_Twitter.html'})
-    export class Settings_Twitter {
-       constructor(public navParams: NavParams) {
+}
+@Component({templateUrl: 'Settings_Twitter.html', providers: [HttpService]})
+export class Settings_Twitter {
+
+    private handle = "";
+
+    constructor(private api: HttpService, private navCtrl: NavController) {
+    }
+
+    setTwitter() {
+
+        if(this.handle.trim().charAt(0) === "@") {
+
+            this.handle = this.handle.trim();
+
+            this.handle = this.handle.slice(1);
+
+        }
+
+        if(this.handle.trim() !== "" && this.handle.trim().length <= 16) {
+
+            this.api.updateProfile({twitter: this.handle}).subscribe(() => {
+
+                this.navCtrl.popToRoot();
+
+            }, (err) => {
+                console.log(err);
+            });
+
+        } else {
+
+            console.log("Oops! Please enter a valid handle that is 16 characters or less");
+
+        }
+
     }
 }
 @Component({templateUrl: 'Settings_Picture.html'})
@@ -148,7 +201,7 @@ export class Settings {
     private profile = {
         firstName: "",
         lastName: "",
-        phone: new Number()
+        phone: ""
     };
 
     private updateProfileInterval
@@ -180,7 +233,9 @@ export class Settings {
             this.profile = profile;
 
         }, (err) => {
-            alert(err);
+
+            console.log(err);
+
         });
 
     }

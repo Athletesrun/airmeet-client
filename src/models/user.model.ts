@@ -13,6 +13,6 @@ export class User {
         public lastName: string,
         public event: number,
         public lastMessage: string,
-        public phone: number
+        public phone: string
     ) {}
 }

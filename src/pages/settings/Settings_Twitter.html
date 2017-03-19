@@ -1,12 +1,14 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            Change Twitter @
+            Change Twitter
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-input type="text" placeholder="Twitter @" value=""></ion-input>
-    <button ion-button outline>Set as Twitter @</button>
+    <form (ngSubmit)="setTwitter()">
+        <ion-input [(ngModel)]="handle" placeholder="Twitter Handle e.g. @BillGates" name="twitterHandle">@</ion-input>
+        <button ion-button outline type="submit">Set as Twitter</button>
+    </form>
 </ion-content>
