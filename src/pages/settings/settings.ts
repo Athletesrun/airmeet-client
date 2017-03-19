@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -16,7 +16,6 @@ export class EventInfo {
     private updateInterval;
 
     constructor(private api: HttpService) {
-
     }
 
     ngOnInit() {
@@ -67,23 +66,53 @@ export class Settings_Name {
 
     private profile;
 
-    constructor(public navParams: NavParams) {
+    private firstName:string = "";
+    private lastName:string = "";
 
-        console.log(navParams);
-
-        this.profile = navParams.data;
+    constructor(private api: HttpService, private navCtrl: NavController) {
     }
 
     setName() {
+
+        if(this.firstName.trim() !== "" || this.lastName.trim() !== "") {
+
+            this.api.updateProfile({firstName: this.firstName, lastName: this.lastName}).subscribe(() => {
+
+                this.navCtrl.popToRoot();
+
+            }, (err) => {
+                console.log(err);
+            });
+        }
 
     }
 
 }
 
-@Component({templateUrl: 'Settings_Phone.html'})
-    export class Settings_Phone {
-     constructor(public navParams: NavParams) {
-    }
+@Component({templateUrl: 'Settings_Phone.html', providers: [HttpService]})
+export class Settings_Phone {
+
+     constructor(private api: HttpService, private navCtrl: NavController) {}
+
+     private phoneNumber;
+
+     setPhoneNumber() {
+
+         if(!isNaN(parseInt(this.phoneNumber))) {
+
+             this.api.updateProfile({phone: parseInt(this.phoneNumber)}).subscribe(() => {
+
+                 console.log('got here');
+
+                 this.navCtrl.popToRoot();
+
+             }, (err) => {
+                 console.log(err);
+             });
+
+         }
+
+     }
 }
 @Component({templateUrl: 'Settings_Description.html'})
     export class Settings_Description {
@@ -118,8 +147,11 @@ export class Settings {
 
     private profile = {
         firstName: "",
-        lastName: ""
+        lastName: "",
+        phone: new Number()
     };
+
+    private updateProfileInterval
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
 
@@ -127,7 +159,17 @@ export class Settings {
 
     ngOnInit() {
 
-        this.getProfile();
+        this.updateProfileInterval = setInterval(() => {
+
+            this.getProfile();
+
+        }, 500);
+
+    }
+
+    ngOnDestroy() {
+
+        clearInterval(this.updateProfileInterval);
 
     }
 
@@ -147,11 +189,7 @@ export class Settings {
         // That's right, we're pushing to ourselves!
         if(event === "name") {
 
-            this.navCtrl.push(Settings_Name, {
-                firstName: this.profile.firstName,
-                lastName: this.profile.lastName
-            });
-            console.log(name);
+            this.navCtrl.push(Settings_Name);
 
         } else if(event === "eventInfo") {
 

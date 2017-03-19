@@ -12,6 +12,7 @@ export class User {
         public firstName: string,
         public lastName: string,
         public event: number,
-        public lastMessage: string
+        public lastMessage: string,
+        public phone: number
     ) {}
 }

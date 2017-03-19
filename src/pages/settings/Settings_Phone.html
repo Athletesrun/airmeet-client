@@ -7,6 +7,8 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-input type="text" placeholder="Phone Number" value=""></ion-input>
-    <button ion-button outline>Set as Phone Number</button>
+    <form (ngSubmit)="setPhoneNumber()">
+        <ion-input [(ngModel)]="phoneNumber" name="phoneNumber" type="number" placeholder="Phone Number"></ion-input>
+        <button ion-button outline type="submit">Set as Phone Number</button>
+    </form>
 </ion-content>

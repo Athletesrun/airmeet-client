@@ -39,10 +39,10 @@
       <ion-buttons (tap)="tapEvent('Phone')">
         <button ion-item>
           Phone number
+          <p *ngIf="profile.phone">
+            {{ profile.phone}}
+          </p>
         </button>
-        <p *ngIf="profile.phoneNumber">
-          {{ profile.phoneNumber}}
-        </p>
       </ion-buttons>
 
       <ion-buttons (tap)="tapEvent('LinkedIn')">
