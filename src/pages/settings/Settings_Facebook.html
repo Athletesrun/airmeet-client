@@ -1,12 +1,14 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            Change Facebook URL
+            Change Facebook
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-input type="text" placeholder="Facebook URL" value=""></ion-input>
-    <button ion-button outline (tap)="tapEvent('Change Facebook URL')">Set as Facebook URL</button>
+    <form (ngSubmit)="setFacebook()">
+        <ion-input [(ngModel)]="link" placeholder="Link to Facebook profile" name="link">@</ion-input>
+        <button ion-button outline type="submit">Set as Facebook</button>
+    </form>
 </ion-content>

@@ -20,7 +20,9 @@
       <ion-buttons (tap)="tapEvent('name')">
       <button ion-item>
         Name
-        <p>{{ profile.firstName }} {{ profile.lastName }}</p>
+        <p *ngIf="profile.firstName && profile.lastName">
+          {{ profile.firstName }} {{ profile.lastName }}
+        </p>
       </button>
       </ion-buttons>
 
@@ -33,6 +35,18 @@
       <ion-buttons (tap)="tapEvent('Description')">
         <button ion-item>
           Description
+          <p *ngIf="profile.description">
+            {{ profile.description}}
+          </p>
+        </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent('Interests')">
+        <button ion-item>
+          Interests
+          <p *ngIf="profile.interests">
+            {{ profile.interests}}
+          </p>
         </button>
       </ion-buttons>
 
@@ -48,18 +62,27 @@
       <ion-buttons (tap)="tapEvent('LinkedIn')">
       <button ion-item>
        LinkedIn
+        <p *ngIf="profile.linkedin">
+          {{ profile.linkedin}}
+        </p>
       </button>
       </ion-buttons>
 
       <ion-buttons (tap)="tapEvent('Facebook')">
         <button ion-item>
           Facebook
+          <p *ngIf="profile.facebook">
+            {{ profile.facebook}}
+          </p>
         </button>
       </ion-buttons>
 
       <ion-buttons (tap)="tapEvent('Twitter')">
       <button ion-item>
         Twitter
+        <p *ngIf="profile.twitter">
+          @{{ profile.twitter}}
+        </p>
       </button>
       </ion-buttons>
 

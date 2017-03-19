@@ -1,12 +1,14 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            Change LinkedIn URL
+            Change LinkedIn
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-input type="text" placeholder="LinkedIn URL" value=""></ion-input>
-    <button ion-button outline>Set as LinkedIn URL</button>
+    <form (ngSubmit)="setLinkedIn()">
+        <ion-input [(ngModel)]="link" placeholder="Link to LinkedIn profile" name="link">@</ion-input>
+        <button ion-button outline type="submit">Set as LinkedIn</button>
+    </form>
 </ion-content>
