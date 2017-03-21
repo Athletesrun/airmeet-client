@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { MyApp } from './app.component';
 
@@ -13,6 +14,12 @@ import { Messages, Conversation, NewConversation, NewConversationMessage } from 
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
 import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture } from '../pages/settings/settings';
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '0d8749d3'
+  }
+};
 
 @NgModule({
   declarations: [
@@ -43,7 +50,8 @@ import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Descriptio
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
