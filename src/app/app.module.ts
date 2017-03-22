@@ -5,7 +5,7 @@ import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { MyApp } from './app.component';
 
-import { HttpService } from '../servics/http.service';
+// import { HttpService } from '../servics/http.service';
 
 import { Welcome, CreateAccount, signin, JoinEvent } from '../pages/welcome/welcome';
 

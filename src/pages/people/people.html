@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="openNavDetailsPage(item)" icon-left>
       <ion-avatar item-left>

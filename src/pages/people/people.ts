@@ -28,6 +28,10 @@ export class People {
 
   items:any;
 
+  isSearching:boolean;
+
+  element:any;
+
   private updatePeopleInterval;
 
   private userId = localStorage.getItem('userId');
@@ -49,17 +53,38 @@ export class People {
 
   }
 
+  search(ev: any) {
+    let val = ev.target.value;
+
+    console.log(val);
+
+    if (val !== "" && val !== undefined) {
+      this.isSearching = true;
+      this.element = ev.target;
+
+      this.api.searchUsers(val).subscribe(
+        (people) => {
+          this.items = people.results;
+          console.log(people.results);
+        }
+      )
+    }
+    else {
+      this.isSearching = false;
+    }
+  }
+
   getPeople() {
     this.api.getAllProfiles().subscribe(
       (people) => {
-        var peopletemp = [];
-        console.log(people);
-        for (var i in people) {
-          if (people[i].id !== this.userId) {
-            peopletemp.push(people[i]);
+        if (!this.isSearching) {
+          this.items = people;
+        }
+        else {
+          if (this.element.val) {
+            this.items = people;
           }
         }
-        this.items = peopletemp;
       },
       (err) => {
          console.log(err)

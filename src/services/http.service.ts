@@ -171,7 +171,7 @@ export class HttpService {
 
     searchUsers(query): Observable<Status> {
 
-        return this.http.post(this.apiURL + "searchUsers", {token: this.token, query: query}).map((res: Response) => {
+        return this.http.post(this.apiURL + "searchProfiles", {token: this.token, query: query}).map((res: Response) => {
 
             return res.json();
 
