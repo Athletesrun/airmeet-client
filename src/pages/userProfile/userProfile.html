@@ -19,4 +19,17 @@
   <div id="hello">
     {{ item.description }}
   </div>
+  <br>
+  <p *ngIf="item.facebook">
+    <ion-icon name="logo-facebook"></ion-icon>
+    {{ item.facebook }}
+  </p>
+  <p *ngIf="item.twitter">
+    <ion-icon name="logo-twitter"></ion-icon>
+    {{ item.twitter }}
+  </p>
+  <p *ngIf="item.linkedin">
+    <ion-icon name="logo-linkedin"></ion-icon>
+    {{ item.linkedin }}
+  </p>
 </ion-content>
