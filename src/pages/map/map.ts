@@ -1,38 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-page4',
-  templateUrl: 'map.html'
+    selector: 'map-page',
+    templateUrl: 'map.html'
 })
+
 export class Map {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+    private context:CanvasRenderingContext2D;
+    private canvas;
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
 
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
     }
-  }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(Map, {
-      item: item
-    });
-  }
+    ngOnInit() {
+
+        this.canvas = <HTMLCanvasElement>document.getElementById('mapCanvas');
+
+        this.context = this.canvas.getContext("2d");
+
+        let context = this.context;
+
+
+        let floorPlan = new Image();
+
+        floorPlan.src = "/assets/floorPlan.png";
+
+        floorPlan.onload = function() {
+
+            context.drawImage(floorPlan, 50, 50);
+
+        }
+
+    }
+
 }
