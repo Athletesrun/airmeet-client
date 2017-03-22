@@ -8,9 +8,9 @@
 
 <ion-content padding>
     <ion-list>
-        <button ion-item *ngFor="let interest of interests; let last = last">
+        <button (click)="removeInterest(i)" ion-item *ngFor="let interest of interests; let i = index;">
             {{ interest }}
-            <ion-icon style="float: right;" name="remove-circle"></ion-icon>
+            <ion-icon style="float: right; font-size: 30px; z-index: 9999;" name="remove-circle"></ion-icon>
         </button>
     </ion-list>
     <hr>

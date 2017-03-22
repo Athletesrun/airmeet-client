@@ -67,7 +67,14 @@ export class Settings_Name {
     private firstName:string = "";
     private lastName:string = "";
 
-    constructor(private api: HttpService, private navCtrl: NavController) {
+    private profileFirstName;
+    private profileLastName;
+
+    constructor(public navParams: NavParams, private api: HttpService, private navCtrl: NavController) {
+
+        this.profileFirstName = navParams.data.firstName;
+        this.profileLastName = navParams.data.lastName;
+
     }
 
     setName() {
@@ -95,7 +102,9 @@ export class Settings_Name {
 @Component({templateUrl: 'Settings_Phone.html', providers: [HttpService]})
 export class Settings_Phone {
 
-     constructor(private api: HttpService, private navCtrl: NavController) {}
+     constructor(public navParams: NavParams, private api: HttpService, private navCtrl: NavController) {
+
+     }
 
      private phoneNumber;
 
@@ -129,7 +138,10 @@ export class Settings_Description {
 
     private description = "";
 
-    constructor(private api: HttpService, private navCtrl: NavController) {
+    constructor(public navParams: NavParams, private api: HttpService, private navCtrl: NavController) {
+
+        //this.description = navParams.data.description;
+
     }
 
     setDescription() {
@@ -171,6 +183,36 @@ export class Settings_Interests {
     }
 
     addInterest() {
+
+        this.newInterest = this.newInterest.trim();
+
+        if(this.newInterest !== "") {
+
+            this.interests.push(this.newInterest);
+
+            this.newInterest = "";
+
+            this.api.updateProfile({interests: { interests: this.interests}}).subscribe(() => {
+
+            }, (err) => {
+                console.log(err);
+            })
+
+        }
+
+    }
+
+    removeInterest(i) {
+
+        console.log('here');
+
+        this.interests.splice(i, 1);
+
+        this.api.updateProfile({interests: { interests: this.interests}}).subscribe(() => {
+
+        }, (err) => {
+            console.log(err);
+        })
 
     }
 
@@ -240,7 +282,10 @@ export class Settings_Twitter {
 
     private handle = "";
 
-    constructor(private api: HttpService, private navCtrl: NavController) {
+    constructor(public navParams: NavParams, private api: HttpService, private navCtrl: NavController) {
+
+        //this.handle = navParams.data.twitter.handle;
+
     }
 
     setTwitter() {
@@ -283,7 +328,12 @@ export class Settings_Twitter {
 export class Settings {
 
     private profile = {
-        interests: {}
+        interests: {},
+        firstName: "",
+        lastName: "",
+        phone: "",
+        description: "",
+        twitter: ""
     };
 
     private updateProfileInterval;
@@ -326,7 +376,10 @@ export class Settings {
         // That's right, we're pushing to ourselves!
         if(event === "name") {
 
-            this.navCtrl.push(Settings_Name);
+            this.navCtrl.push(Settings_Name, {
+                firstName: this.profile.firstName,
+                lastName: this.profile.lastName
+            });
 
         } else if(event === "eventInfo") {
 
@@ -334,11 +387,15 @@ export class Settings {
 
         } else if(event === "Phone") {
 
-            this.navCtrl.push(Settings_Phone);
+            this.navCtrl.push(Settings_Phone, {
+                phone: this.profile.phone
+            });
 
         } else if(event === "Description") {
 
-            this.navCtrl.push(Settings_Description, {});
+            this.navCtrl.push(Settings_Description, {
+                description: this.profile.description
+            });
 
         } else if(event === "Interests") {
 
@@ -356,13 +413,13 @@ export class Settings {
 
         } else if(event === "Twitter") {
 
-            this.navCtrl.push(Settings_Twitter, {})
+            this.navCtrl.push(Settings_Twitter, {
+                twitter: this.profile.twitter
+            })
 
         } else if(event === "Picture") {
 
             this.navCtrl.push(Settings_Picture, {})
-
-        } else if(event === "Change Facebook URL"){
 
         }
     }
