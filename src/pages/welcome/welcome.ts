@@ -3,6 +3,8 @@ import { NavController, Content, NavParams} from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
+import {SHA2_256} from '../../services/sha2.service';
+
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
 export class Welcome {
