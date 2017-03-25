@@ -20,7 +20,12 @@ export class Welcome {
 
 }
 @Component({templateUrl: 'Create-Account.html'})
-
+export class ProfileCreation{
+  constructor(public navParams: NavParams, public navCtrl: NavController){}
+  join() {
+    this.navCtrl.push(JoinEvent);
+  }
+}
 export class CreateAccount {
 
     constructor(public navParams: NavParams, public navCtrl: NavController){}
@@ -28,7 +33,7 @@ export class CreateAccount {
         this.navCtrl.push(signin);
     }
     join() {
-        this.navCtrl.push(JoinEvent);
+        this.navCtrl.push(ProfileCreation);
     }
 }
 @Component({templateUrl: 'sign-in.html'})
