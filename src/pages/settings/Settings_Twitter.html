@@ -8,7 +8,7 @@
 
 <ion-content padding>
     <form (ngSubmit)="setTwitter()">
-        <ion-input [(ngModel)]="handle" placeholder="Twitter Handle e.g. @BillGates" name="twitterHandle">@</ion-input>
+        <ion-input single [(ngModel)]="handle" placeholder="Twitter Handle e.g. @BillGates" name="twitterHandle">@</ion-input>
         <button ion-button outline type="submit">Set as Twitter</button>
     </form>
 </ion-content>

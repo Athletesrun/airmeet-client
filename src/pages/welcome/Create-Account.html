@@ -1,9 +1,12 @@
-<ion-content padding>
-    <h1 class="createacct">Create A New Account</h1>
-    <ion-input type="text" placeholder="First Name" value=""></ion-input>
-    <ion-input type="text" placeholder="Last Name" value=""></ion-input>
-    <ion-input type="email" placeholder="Email" value=""></ion-input>
-    <ion-input type="password" placeholder="Password" value=""></ion-input>
-    <button ion-button large color="secondary" (tap)="join()">Create</button>
-    <button ion-button large clear (tap)="create()">Or Sign In</button>
+<ion-content padding class="blue">
+  <h1 class="createacct">Create A New Account</h1>
+  <form (ngSubmit)="join()">
+    <ion-input first [(ngModel)]="firstName" name="fistName" type="text" placeholder="First Name"></ion-input>
+    <ion-input [(ngModel)]="lastName" name="lastName" type="text" placeholder="Last Name"></ion-input>
+    <ion-input [(ngModel)]="email" name="email" type="text" placeholder="Email"></ion-input>
+    <ion-input last [(ngModel)]="password" name="password" type="password" placeholder="Password"></ion-input>
+    <br>
+    <button ion-button large color="secondary" type="submit" (tap)="join()">Create Account</button>
+  </form>
+  <button ion-button large (tap)="create()">Or Sign In</button>
 </ion-content>

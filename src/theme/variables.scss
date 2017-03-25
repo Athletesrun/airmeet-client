@@ -52,6 +52,27 @@ $colors: (
   }
 }
 
+ion-input {
+  font-size: 16px;
+  color: #141414;
+  background: white;
+  padding: 0 5px 0 5px;
+  border-bottom: 1px solid darkgray;
+}
+
+ion-input[first] {
+  border-radius: 5px 5px 0 0;
+}
+
+ion-input[last] {
+  border-radius: 0 0 5px 5px;
+  border-bottom: none;
+}
+
+ion-input[single] {
+  border-radius: 5px;
+  border-bottom: none;
+}
 
 // App Windows Variables
 // --------------------------------------------------

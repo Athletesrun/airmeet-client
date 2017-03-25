@@ -8,7 +8,7 @@
 
 <ion-content padding>
     <form (ngSubmit)="setFacebook()">
-        <ion-input [(ngModel)]="link" placeholder="Link to Facebook profile" name="link">@</ion-input>
+        <ion-input single [(ngModel)]="link" placeholder="Link to Facebook profile" name="link">@</ion-input>
         <button ion-button outline type="submit">Set as Facebook</button>
     </form>
 </ion-content>

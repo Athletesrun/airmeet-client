@@ -22,14 +22,21 @@
   <br>
   <p *ngIf="item.facebook">
     <ion-icon name="logo-facebook"></ion-icon>
-    {{ item.facebook }}
+    <a href="{{ item.facebook }}">Facebook</a>
   </p>
   <p *ngIf="item.twitter">
     <ion-icon name="logo-twitter"></ion-icon>
-    {{ item.twitter }}
+    <a href="{{ item.twitter }}">@{{item.twitter}}</a>
   </p>
   <p *ngIf="item.linkedin">
     <ion-icon name="logo-linkedin"></ion-icon>
-    {{ item.linkedin }}
+    <a href="{{ item.linkedin }}">LinkedIn</a>
   </p>
+  <br>
+  <div *ngIf="item.interests">
+    <h3>Interests:</h3>
+    <ul>
+      <li *ngFor="let interest of item.interests.interests; let i = index;">{{interest}}</li>
+    </ul>
+  </div>
 </ion-content>

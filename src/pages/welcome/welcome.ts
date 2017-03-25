@@ -3,6 +3,8 @@ import { NavController, Content, NavParams} from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
+import {SHA2_256} from '../../services/sha2.service';
+
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
 export class Welcome {
@@ -19,16 +21,27 @@ export class Welcome {
     }
 
 }
-@Component({templateUrl: 'Create-Account.html'})
 
+@Component({templateUrl: "Profile-Creation.html"})
+export class ProfileCreation{
+  constructor(public navParams: NavParams, public navCtrl: NavController){}
+  join() {
+    this.navCtrl.push(JoinEvent);
+  }
+}
+
+@Component({templateUrl: 'Create-Account.html'})
 export class CreateAccount {
+
+    firstName; lastName; email; password;
 
     constructor(public navParams: NavParams, public navCtrl: NavController){}
     create(){
         this.navCtrl.push(signin);
     }
     join() {
-        this.navCtrl.push(JoinEvent);
+      console.log(this.firstName, this.lastName, this.email, this.password);
+        this.navCtrl.push(ProfileCreation);
     }
 }
 @Component({templateUrl: 'sign-in.html'})

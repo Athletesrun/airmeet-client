@@ -8,7 +8,7 @@
 
 <ion-content padding>
     <form (ngSubmit)="setLinkedIn()">
-        <ion-input [(ngModel)]="link" placeholder="Link to LinkedIn profile" name="link">@</ion-input>
+        <ion-input single [(ngModel)]="link" placeholder="Link to LinkedIn profile" name="link">@</ion-input>
         <button ion-button outline type="submit">Set as LinkedIn</button>
     </form>
 </ion-content>

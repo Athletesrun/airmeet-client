@@ -1,8 +1,15 @@
+.blue{
+  background-color: #387ef5;
+}
 .bottom {
   position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
+  color: white;
+}
+ion-img {
+  background: transparent;
 }
 .heading{
   position: absolute;
@@ -10,13 +17,38 @@
   right: 0;
   left: 0;
   font-size: 50px;
+  color: white;
+}
+.heading2{
+  position: absolute;
+  top: 35px;
+  right: 0;
+  left: 0;
+  font-size: 40px;
+  color: white;
 }
 .Letsgetstarted{
   font-size: 42px;
+  color: white;
 }
 .createacct{
   font-size: 42px;
+  color: white;
 }
 .info{
   font-size: 25px;
+  color: white;
+  margin: 5px;
+}
+.info2 {
+  font-size: 25px;
+  color: white;
+  margin: 10px;
+}
+.logo{
+  font-size: 50vmin;
+  color: white;
+}
+.white{
+  color: white;
 }
