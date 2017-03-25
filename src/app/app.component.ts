@@ -28,7 +28,7 @@ export class MyApp {
       this.rootPage = People;
 
     } else {
-      this.rootPage = People;
+      this.rootPage = Welcome;
     }
 
     this.initializeApp();
