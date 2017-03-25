@@ -19,13 +19,16 @@ export class Welcome {
     }
 
 }
-@Component({templateUrl: 'Create-Account.html'})
+
+@Component({templateUrl: "Profile-Creation.html"})
 export class ProfileCreation{
   constructor(public navParams: NavParams, public navCtrl: NavController){}
   join() {
     this.navCtrl.push(JoinEvent);
   }
 }
+
+@Component({templateUrl: 'Create-Account.html'})
 export class CreateAccount {
 
     constructor(public navParams: NavParams, public navCtrl: NavController){}

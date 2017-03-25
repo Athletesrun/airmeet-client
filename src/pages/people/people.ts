@@ -79,6 +79,7 @@ export class People {
     }
     else {
       this.isSearching = false;
+      this.getPeople();
     }
   }
 
