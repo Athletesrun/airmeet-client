@@ -55,7 +55,7 @@ $colors: (
 ion-input {
   font-size: 16px;
   color: #141414;
-  background: white;
+  background: #f4f4f4;
   padding: 0 5px 0 5px;
   border-bottom: 1px solid darkgray;
 }
@@ -72,6 +72,14 @@ ion-input[last] {
 ion-input[single] {
   border-radius: 5px;
   border-bottom: none;
+}
+
+ion-input.error {
+  background-color: #FFCDD2;
+}
+
+ion-input.success {
+  background-color: #C8E6C9;
 }
 
 // App Windows Variables
