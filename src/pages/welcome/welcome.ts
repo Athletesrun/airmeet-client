@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, Content, NavParams} from 'ionic-angular';
+import { NavController, NavParams} from 'ionic-angular';
+
+import * as SHA2 from "../../services/sha.service";
 
 import { HttpService } from '../../services/http.service';
-
-import {SHA2_256} from '../../services/sha2.service';
 
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
@@ -30,18 +30,73 @@ export class ProfileCreation{
   }
 }
 
-@Component({templateUrl: 'Create-Account.html'})
+@Component({templateUrl: 'Create-Account.html', providers: [HttpService]})
 export class CreateAccount {
 
-    firstName; lastName; email; password;
+    firstName; lastName; email; password; states;
 
-    constructor(public navParams: NavParams, public navCtrl: NavController){}
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService){
+      this.states = {
+        firstName: "normal",
+        lastName: "normal",
+        email: "normal",
+        password: "normal"
+      }
+    }
     create(){
         this.navCtrl.push(signin);
     }
     join() {
+      this.states.email = "error";
+      let good = true;
+      if (!this.firstName) {
+        good = false;
+        this.states.firstName = "error";
+        alert("Do not leave your first name blank.")
+      }
+      else this.states.firstName = "success";
+      if (!this.lastName) {
+        good = false;
+        this.states.lastName = "error";
+        alert("Do not leave your last name blank.")
+      }
+      else this.states.lastName = "success";
+      if (!this.email) {
+        good = false;
+        this.states.email = "error";
+        alert("Do not leave email blank.")
+      } else if (!this.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        alert("Use a real email address.");
+        good = false;
+        this.states.email = "error";
+      }
+      else this.states.email = "success";
+      if (!this.password) {
+        good = false;
+        this.states.password = "error";
+        alert("Do not leave password blank.")
+      }
+      else if (this.password.length < 6) {
+        good = false;
+        this.states.password = "error";
+        alert("Password should be at least 6 characters.")
+      }
+      else this.states.password = "success";
+      if (good) {
+        this.api.register(this.email, SHA2.SHA2_256(this.password), this.firstName, this.lastName).subscribe(
+          (response) => {
+            if (response.status == "success") {
+              this.navCtrl.push(ProfileCreation);
+            }
+          },
+          (err) => {
+            console.log(err)
+          },
+          () => {
+          }
+        )
+      }
       console.log(this.firstName, this.lastName, this.email, this.password);
-        this.navCtrl.push(ProfileCreation);
     }
 }
 @Component({templateUrl: 'sign-in.html'})
