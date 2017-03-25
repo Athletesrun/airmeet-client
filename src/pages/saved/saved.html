@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Saved Content</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    Ben
+
+    <ion-tabs>
+        <ion-tab [root]="SavedProfiles" tabTitle="Profiles">Profiles</ion-tab>
+        <ion-tab [root]="SavedMessages" tabTitle="Messages">Messages</ion-tab>
+    </ion-tabs>
+</ion-content>

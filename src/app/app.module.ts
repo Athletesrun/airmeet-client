@@ -14,6 +14,9 @@ import { Messages, Conversation, NewConversation, NewConversationMessage } from 
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
 import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture } from '../pages/settings/settings';
+import { Saved } from '../pages/saved/saved';
+import { SavedProfiles } from '../pages/saved/savedProfiles';
+import { SavedMessages } from '../pages/saved/savedMessages';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -31,6 +34,9 @@ const cloudSettings: CloudSettings = {
     UserProfile,
     Map,
     Settings,
+    Saved,
+    SavedMessages,
+    SavedProfiles,
     Conversation,
     NewConversation,
     NewConversationMessage,
@@ -43,13 +49,15 @@ const cloudSettings: CloudSettings = {
     Settings_LinkedIn,
     Settings_Twitter,
     Settings_Picture,
-      CreateAccount,
-      signin,
-      JoinEvent
+    CreateAccount,
+    signin,
+    JoinEvent
 
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'bottom'
+    }),
     HttpModule,
     CloudModule.forRoot(cloudSettings)
   ],
@@ -67,6 +75,9 @@ const cloudSettings: CloudSettings = {
     NewConversation,
     NewConversationMessage,
     EventInfo,
+    Saved,
+    SavedMessages,
+    SavedProfiles,
     Settings_Name,
     Settings_Phone,
     Settings_Description,
@@ -75,9 +86,9 @@ const cloudSettings: CloudSettings = {
     Settings_LinkedIn,
     Settings_Twitter,
     Settings_Picture,
-      CreateAccount,
-      signin,
-      JoinEvent
+    CreateAccount,
+    signin,
+    JoinEvent
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

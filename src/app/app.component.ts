@@ -9,6 +9,7 @@ import { Messages } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
 import { Settings } from '../pages/settings/settings';
+import { Saved } from '../pages/saved/saved';
 
 
 @Component({templateUrl: 'app.html'})
@@ -27,7 +28,7 @@ export class MyApp {
       this.rootPage = People;
 
     } else {
-      this.rootPage = Welcome;
+      this.rootPage = People;
     }
 
     this.initializeApp();
@@ -38,6 +39,7 @@ export class MyApp {
       { title: 'Messages', component: Messages },
       { title: 'Your Profile', component: UserProfile },
       { title: 'Map', component: Map },
+      { title: 'Saved Content', component: Saved },
       { title: 'Settings', component: Settings }
     ];
 
