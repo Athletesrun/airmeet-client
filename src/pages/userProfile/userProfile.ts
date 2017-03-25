@@ -23,6 +23,7 @@ export class UserProfile {
   getPeople() {
     this.api.getOwnProfile().subscribe(
       (profile) => {
+        console.log(profile);
         this.item = profile;
       },
       (err) => {

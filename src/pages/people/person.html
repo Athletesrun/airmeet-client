@@ -7,10 +7,16 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="profile-ribbon"></div>
+  <div class="profile-ribbon">
+    <ion-fab top right edge id="messagefab">
+      <button ion-fab mini (click)="Message(item)">
+        <ion-icon name="chatbubbles"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
   <div style="background-image: url(/assets/profile.gif)" class="big-avatar"></div>
-  <ion-fab mini icon="message" id="messagefab"></ion-fab>
-  <ion-fab mini icon="oioioi" id="starfab"></ion-fab>
+
+  <!--ion-fab mini icon="oioioi" id="starfab"></ion-fab-->
   <div class="names">
     <h1>{{item.firstName}} {{item.lastName}}</h1>
   </div>
@@ -19,19 +25,25 @@
     {{ item.description }}
   </div>
   <br>
+  <p>
+  </p>
   <p *ngIf="item.facebook">
-    <ion-icon name="logo-facebook"></ion-icon> {{ item.facebook }}
+    <ion-icon name="logo-facebook"></ion-icon>
+    <a href="{{ item.facebook }}">Facebook</a>
   </p>
   <p *ngIf="item.twitter">
-    <ion-icon name="logo-twitter"></ion-icon> {{ item.twitter }}
+    <ion-icon name="logo-twitter"></ion-icon>
+    <a href="//twitter.com/{{ item.twitter }}">@{{item.twitter}}</a>
   </p>
   <p *ngIf="item.linkedin">
-    <ion-icon name="logo-linkedin"></ion-icon> {{ item.linkedin }}
+    <ion-icon name="logo-linkedin"></ion-icon>
+    <a href="{{ item.linkedin }}">LinkedIn</a>
   </p>
-  <!--hr>
-  <ul>
-    <li *ngFor="interest in item.interests.interests">
-      {{ interest }}
-    </li>
-  </ul-->
+  <br>
+  <div *ngIf="item.interests">
+    <h3>Interests:</h3>
+    <ul>
+      <li *ngFor="let interest of item.interests.interests; let i = index;">{{interest}}</li>
+    </ul>
+  </div>
 </ion-content>

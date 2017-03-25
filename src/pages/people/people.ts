@@ -4,6 +4,7 @@ import {NgStyle} from '@angular/common';
 import {HttpService} from '../../services/http.service';
 
 import {NavController, NavParams} from 'ionic-angular';
+import {Conversation} from "../messages/messages";
 
 
 @Component({
@@ -14,13 +15,21 @@ import {NavController, NavParams} from 'ionic-angular';
 export class Person {
   item;
 
+  constructor(params: NavParams, public navCtrl: NavController) {
+    this.item = params.data.item;
+  }
+
+  Message(person) {
+    console.log(person);
+    this.navCtrl.push(Conversation, {
+      person: person
+    })
+  }
+
   avatar(img) {
     return "background-image: url(" + img + ")";
   }
 
-  constructor(params: NavParams) {
-    this.item = params.data.item;
-  }
 }
 
 @Component({templateUrl: "people.html", selector: "people", providers: [HttpService]})
@@ -65,7 +74,6 @@ export class People {
       this.api.searchUsers(val).subscribe(
         (people) => {
           this.items = people.results;
-          console.log(people.results);
         }
       )
     }
