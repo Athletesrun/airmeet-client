@@ -1,8 +1,14 @@
+.blue{
+  background-color: #387ef5;
+}
 .bottom {
   position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
+}
+ion-img {
+  background: transparent;
 }
 .heading{
   position: absolute;
@@ -19,4 +25,7 @@
 }
 .info{
   font-size: 25px;
+}
+.logo{
+  font-size: 50vmin;
 }
