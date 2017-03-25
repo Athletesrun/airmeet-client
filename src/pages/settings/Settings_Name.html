@@ -8,8 +8,8 @@
 
 <ion-content padding>
     <form (ngSubmit)="setName()">
-        <ion-input [(ngModel)]="firstName" name="fistName" type="text" placeholder="First Name"></ion-input>
-        <ion-input [(ngModel)]="lastName" name="lastName" type="text" placeholder="Last Name"></ion-input>
+        <ion-input first [(ngModel)]="firstName" name="fistName" type="text" placeholder="First Name"></ion-input>
+        <ion-input last [(ngModel)]="lastName" name="lastName" type="text" placeholder="Last Name"></ion-input>
         <button ion-button outline type="submit">Set as Name</button>
     </form>
 </ion-content>

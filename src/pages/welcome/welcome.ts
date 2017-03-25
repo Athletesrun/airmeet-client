@@ -33,11 +33,14 @@ export class ProfileCreation{
 @Component({templateUrl: 'Create-Account.html'})
 export class CreateAccount {
 
+    firstName; lastName; email; password;
+
     constructor(public navParams: NavParams, public navCtrl: NavController){}
     create(){
         this.navCtrl.push(signin);
     }
     join() {
+      console.log(this.firstName, this.lastName, this.email, this.password);
         this.navCtrl.push(ProfileCreation);
     }
 }
