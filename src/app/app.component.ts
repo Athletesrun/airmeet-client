@@ -100,7 +100,7 @@ export class MyApp {
 
       this.socket.on('connect', () => {
 
-        console.log('connected YAY!!');
+        console.log('Connected to socket server');
 
       });
 
