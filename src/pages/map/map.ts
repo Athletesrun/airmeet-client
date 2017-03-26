@@ -1,26 +1,37 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 
 import * as io from 'socket.io-client';
 
-import * as PinchZoomCanvas from 'pinch-zoom-canvas';
-import * as Impetus from 'impetus';
+import {
+    GoogleMaps,
+    GoogleMap,
+    GoogleMapsEvent,
+    LatLng,
+    CameraPosition,
+    MarkerOptions,
+    Marker
+} from '@ionic-native/google-maps';
 
 @Component({
     selector: 'map-page',
-    templateUrl: 'map.html'
+    templateUrl: 'map.html',
+    providers: [
+        GoogleMaps
+    ]
 })
 
 export class Map {
 
-    private context:CanvasRenderingContext2D;
-    private canvas;
-
     socket: SocketIOClient.Socket;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    map: GoogleMap;
 
+    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform) {
+        platform.ready().then(() => {
+            this.loadMap();
+        })
     }
 
     ngOnInit() {
@@ -33,48 +44,48 @@ export class Map {
             console.log('connected YAY!!');
         });
 
+    }
 
+    loadMap() {
 
-        this.canvas = <HTMLCanvasElement>document.getElementById('mapCanvas');
+        const location = new LatLng(41.244184, -96.011941);
 
-        this.context = this.canvas.getContext("2d");
-
-        let context = this.context;
-        let canvas = this.canvas;
-
-
-        /*context.moveTo(0, 0);
-
-        context.lineTo(1000, 1000);
-        context.stroke();
-
-        let floorPlan = new Image();
-
-        floorPlan.src = "https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png";
-
-        floorPlan.onload = function() {
-
-            context.drawImage(floorPlan, 50, 50);
-
-        }*/
-
-        let pinchZoom = new PinchZoomCanvas({
-            canvas: canvas,
-            path: "https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png",
-            momentum: true,
-            zoomMax: 10,
-            doubletap: true,
-            onZoomEnd: (zoom, zoomed) => {
-                context.moveTo(0, 0);
-
-                context.lineTo(1000, 1000);
-                context.stroke();
+        this.map = new GoogleMap('map', {
+            backgroundColor: 'white',
+            controls: {
+                'compass': true,
+                'myLocationButton': true,
+                'indoorPicker': true,
+                'zoom': true
             },
-            onZoom: (zoom) => {
-
+            gestures: {
+                'scroll': true,
+                'tilt': false,
+                'rotate': true,
+                'zoom': true
+            },
+            camera: {
+                'latLng': location,
+                'tilt': 0,
+                'zoom': 23,
+                'bearing': 0
             }
         });
 
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+            console.log('Map is ready!');
+        });
+
+        let bounds = [
+            new LatLng(41.244184, -96.011941),
+            new LatLng(41.245184, -96.012941),
+        ]
+
+        this.map.addGroundOverlay({
+            url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
+            bounds: bounds,
+            opacity: 1
+        });
 
     }
 

@@ -17,15 +17,21 @@ export class HttpService {
 
 	constructor(private http: Http) {}
 
-	private apiURL = localStorage.getItem("apiURL");
+	private getApiURL() {
+        return localStorage.getItem("apiURL");
+    }
 
-	private token = localStorage.getItem("token");
+	private getToken() {
+	    return localStorage.getItem("token");
+    }
 
-	private userId = parseInt(localStorage.getItem("userId"));
+	private getUserId() {
+	    return parseInt(localStorage.getItem("userId"));
+    }
 
-    login(email, password): Observable<Status> { //DONT FORGET TO HASH THE PASSWORD!!!
+    login(email, password): Observable<Status> {
 
-        return this.http.post(this.apiURL + "accounts/login", {email: email, password: password}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "accounts/login", {email: email, password: password}).map((res: Response) => {
 
             return res.json();
 
@@ -37,7 +43,7 @@ export class HttpService {
 
     register(email, password, firstName, lastName): Observable<Status> {
 
-	    return this.http.post(this.apiURL + "accounts/register", {email: email, password: password, firstName: firstName, lastName: lastName}).map((res: Response) => {
+	    return this.http.post(this.getApiURL() + "accounts/register", {email: email, password: password, firstName: firstName, lastName: lastName}).map((res: Response) => {
 
 	        return res.json();
 
@@ -49,7 +55,7 @@ export class HttpService {
 
     getUserProfile(userId): Observable<Status> {
 
-        return this.http.post(this.apiURL + "getUserProfile", {token: this.token, userId: userId}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "getUserProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
             return res.json();
 
@@ -61,7 +67,7 @@ export class HttpService {
 
     getOwnProfile(): Observable<User> {
 
-        return this.http.post(this.apiURL + "getOwnProfile", {token: this.token}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "getOwnProfile", {token: this.getToken()}).map((res: Response) => {
 
             return res.json();
 
@@ -73,7 +79,7 @@ export class HttpService {
 
     getAllProfiles(): Observable<Status> {
 
-        return this.http.post(this.apiURL + "getAllProfiles", {token: this.token}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "getAllProfiles", {token: this.getToken()}).map((res: Response) => {
 
             return res.json();
 
@@ -85,9 +91,9 @@ export class HttpService {
 
     updateProfile(updates): Observable<Status> {
 
-	    updates.token = this.token;
+	    updates.token = this.getToken();
 
-        return this.http.post(this.apiURL + "updateProfile", updates).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "updateProfile", updates).map((res: Response) => {
 
             return res.json();
 
@@ -99,7 +105,7 @@ export class HttpService {
 
     joinEvent(eventCode): Observable<Status> {
 
-        return this.http.post(this.apiURL + "joinEvent", {token: this.token, eventCode: eventCode}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "joinEvent", {token: this.getToken(), eventCode: eventCode}).map((res: Response) => {
 
             return res.json();
 
@@ -111,7 +117,7 @@ export class HttpService {
 
     leaveEvent(): Observable<Status> {
 
-        return this.http.post(this.apiURL + "leaveEvent", {token: this.token}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "leaveEvent", {token: this.getToken()}).map((res: Response) => {
 
             return res.json();
 
@@ -123,7 +129,7 @@ export class HttpService {
 
     getEventInfo(): Observable<Event> {
 
-	    return this.http.post(this.apiURL + "getEventInfo", {token: this.token}).map((res: Response) => {
+	    return this.http.post(this.getApiURL() + "getEventInfo", {token: this.getToken()}).map((res: Response) => {
 
 	        return res.json();
 
@@ -135,7 +141,7 @@ export class HttpService {
 
     getConversation(id): Observable<Message>{
 
-        return this.http.post(this.apiURL + "getConversation", {token: this.token, userId: id}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "getConversation", {token: this.getToken(), userId: id}).map((res: Response) => {
 
             return res.json();
 
@@ -147,7 +153,7 @@ export class HttpService {
 
     getMessageList(): Observable<Message>{
 
-        return this.http.post(this.apiURL + "getMessageList", {token: this.token}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "getMessageList", {token: this.getToken()}).map((res: Response) => {
 
             return res.json();
 
@@ -159,7 +165,7 @@ export class HttpService {
 
     sendMessage(receiver, message): Observable<Status> {
 
-        return this.http.post(this.apiURL + "sendMessage", {token: this.token, message: message, receiver: receiver}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "sendMessage", {token: this.getToken(), message: message, receiver: receiver}).map((res: Response) => {
 
             return res.json();
 
@@ -171,7 +177,7 @@ export class HttpService {
 
     searchUsers(query): Observable<Status> {
 
-        return this.http.post(this.apiURL + "searchProfiles", {token: this.token, query: query}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "searchProfiles", {token: this.getToken(), query: query}).map((res: Response) => {
 
             return res.json();
 
