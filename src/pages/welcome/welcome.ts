@@ -99,11 +99,18 @@ export class CreateAccount {
       console.log(this.firstName, this.lastName, this.email, this.password);
     }
 }
-@Component({templateUrl: 'sign-in.html'})
+@Component({templateUrl: 'sign-in.html', providers: [HttpService]})
 
 export class signin {
 
-    constructor(public navParams: NavParams, public navCtrl: NavController){}
+    email; password; states;
+
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService){
+      this.states = {
+        email: "normal",
+        password: "normal"
+      }
+    }
 
     create() {
         this.navCtrl.push(CreateAccount);
@@ -112,17 +119,64 @@ export class signin {
         this.navCtrl.push(CreateAccount);
     }
     join() {
-        this.navCtrl.push(JoinEvent);
+      let good = true;
+      if (!this.email) {
+        good = false;
+        this.states.email = "error";
+      }
+      else this.states.email = "normal";
+      if (!this.password) {
+        good = false;
+        this.states.password = "error";
+      }
+      else this.states.password = "normal";
+      if (good) {
+        this.api.login(this.email, SHA2.SHA2_256(this.password)).subscribe(
+          (response) => {
+            if (response.status === "success") {
+              localStorage.setItem("userId", response.id);
+              localStorage.setItem("token", response.token);
+              this.navCtrl.push(JoinEvent);
+            }
+            else {
+              this.states.email = "error";
+              this.states.password = "error";
+            }
+          }
+        )
+      }
     }
 }
-@Component({templateUrl: 'Join-event.html'})
+@Component({templateUrl: 'Join-event.html', providers: [HttpService]})
 
 export class JoinEvent {
 
-    constructor(public navParams: NavParams, public navCtrl: NavController){}
+  status;
 
-    joinEvent() {
-        console.log("hello");
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService){
+      this.status = "normal"
+    }
+
+    joinEvent(event) {
+        let ip = event.target.value;
+        if (ip) {
+          if (ip.length === 8) {
+            this.api.joinEvent(ip).subscribe(
+              (res) => {
+                console.log(ip);
+                if (res.status === "success") {
+                  console.log("worked", res.eventId);
+                  localStorage.setItem("event", res.eventId);
+                }
+                else {
+                  this.status = "error";
+                  console.log(res);
+                }
+              }
+            )
+          }
+          else this.status = "normal";
+        }
     }
 
 }

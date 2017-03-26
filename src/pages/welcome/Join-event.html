@@ -1,6 +1,6 @@
 <ion-content class="blue">
     <h1 class="createacct">Join Event</h1>
     <p class="white">Enter Your Supplied Event Code Below</p>
-    <ion-input type="text" (keypress)="joinEvent()" placeholder="Event Code" value=""></ion-input>
-    <button ion-button large color="secondary">Submit</button>
+    <ion-input type="text" ngClass="{{status}}" (keyup)="joinEvent($event)" placeholder="Event Code" value=""></ion-input>
+    <button ion-button large color="secondary" >Submit</button>
 </ion-content>

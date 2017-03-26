@@ -3,5 +3,8 @@ export class Status {
         public status: string,
         public message: string,
         public results: string,
+        public token: string,
+        public id: string,
+        public eventId: string
     ) {}
 }

@@ -2,6 +2,15 @@ page-page2 {
 
 }
 
+.message-item {
+  width: 100%;
+  padding: 0;
+}
+
+.message-item>.item-inner {
+  padding: 0;
+}
+
 .sending {
   background-color: #007AFF;
   color: #FFFFFF;
