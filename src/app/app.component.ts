@@ -69,10 +69,6 @@ export class MyApp {
       });
     }
 
-    localStorage.setItem('token', "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODk4NTExOX0.9j8UrHWclPcqR_6cHsUz76cqpkkLwOtdt79aFZXnzE7ZpwMbNZWvdzZo1VByZvSYQhMbKVh16ClOTdCS9K3oY2HrGj52JK7mYCnY5xZGvA5EzqIjM4KHJ6cgLCAI-O1b5opb_gQhFVFKZmG3XCG9u1_amzAOFQCRwoqdXtuOAkeDRFQnboG4uM2Td54k98Puecydk1padLRO92HheqWHuHRYefp_UwzxxNmi2CJ-2KXvMxSj6MlCYkqwv8DYxIz99aVJaWxUJ7mxEGM5KKXJBBUpS5DqKWY8j8R0uAPF8OEl2Sq0CSKLHAuFxJ9qv7RUSIDpMFko8Pk1ldyQHE7srQ");
-    localStorage.setItem('userId', "1");
-    localStorage.setItem('event', '1');
-
     if(localStorage.getItem('useLocalServer') === 'true') {
 
       localStorage.setItem('apiURL', "http://localhost:8080/api/");
@@ -88,7 +84,7 @@ export class MyApp {
   openPage(page) {
 
     // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+    // we wouldn't want the back button to show in this scenario D3e9aC9q
 
     this.nav.setRoot(page.component);
 
