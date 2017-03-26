@@ -67,7 +67,7 @@ export class Map {
             camera: {
                 'latLng': location,
                 'tilt': 0,
-                'zoom': 23,
+                'zoom': 20,
                 'bearing': 0
             }
         });
@@ -77,8 +77,8 @@ export class Map {
         });
 
         let bounds = [
-            new LatLng(41.244184, -96.011941),
-            new LatLng(41.245184, -96.012941),
+            new LatLng(41.244076, -96.011664),
+            new LatLng(41.244473, -96.012196),
         ];
 
         this.map.addGroundOverlay({
