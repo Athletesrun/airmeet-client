@@ -187,6 +187,56 @@ export class HttpService {
 
     }
 
+    getSavedProfiles(): Observable<User> {
+        return this.http.post(this.getApiURL() + "getSavedProfiles", {token: this.getToken()}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    getSavedConversations(): Observable<Message> {
+        return this.http.post(this.getApiURL() + "getSavedConversations", {token: this.getToken()}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    getSavedConversation(userId): Observable<Message> {
+        return this.http.post(this.getApiURL() + "getSavedConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    saveProfile(profileId): Observable<Status> {
+        return this.http.post(this.getApiURL() + "saveProfile", {token: this.getToken(), profileId: profileId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    saveConversation(userId): Observable<Status> {
+        return this.http.post(this.getApiURL() + "saveConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
     private handleError(error: Response | any) {
     	console.log('error:' + error);
     	return 'REJECTED';

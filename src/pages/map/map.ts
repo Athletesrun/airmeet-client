@@ -79,7 +79,7 @@ export class Map {
         let bounds = [
             new LatLng(41.244184, -96.011941),
             new LatLng(41.245184, -96.012941),
-        ]
+        ];
 
         this.map.addGroundOverlay({
             url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
