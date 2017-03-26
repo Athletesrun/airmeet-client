@@ -4,6 +4,7 @@ import { NavController, NavParams} from 'ionic-angular';
 import * as SHA2 from "../../services/sha.service";
 
 import { HttpService } from '../../services/http.service';
+import {People} from "../people/people";
 
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
@@ -167,6 +168,8 @@ export class JoinEvent {
                 if (res.status === "success") {
                   console.log("worked", res.eventId);
                   localStorage.setItem("event", res.eventId);
+                  localStorage.setItem("signedIn", "true");
+                  this.navCtrl.setRoot(People);
                 }
                 else {
                   this.status = "error";
