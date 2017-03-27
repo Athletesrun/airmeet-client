@@ -24515,8 +24515,16 @@ map-page #map {
   height: 200px;
 }
 
+.welcomeContainer {
+  background-color: #387ef5;
+}
+
 .blue {
   background-color: #387ef5;
+}
+
+.welcomeH2 {
+  font-size: 3rem;
 }
 
 .bottom {
@@ -24560,15 +24568,19 @@ ion-img {
 }
 
 .info {
-  font-size: 25px;
+  font-size: 26px;
   color: white;
-  margin: 5px;
+  margin: auto;
+  text-align: center;
+  width: 80%;
 }
 
 .info2 {
-  font-size: 25px;
+  font-size: 26px;
   color: white;
-  margin: 10px;
+  margin: auto;
+  text-align: center;
+  width: 80%;
 }
 
 .logo {
@@ -24614,6 +24626,12 @@ ion-img {
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
+}
+
+.welcomeActionButton {
+  width: 80%;
+  font-size: 2.2rem;
+  font-weight: bold;
 }
 
 /* help */
