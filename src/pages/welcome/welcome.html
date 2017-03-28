@@ -1,25 +1,25 @@
-<ion-content>
+<ion-content class="welcomeContainer">
   <ion-slides>
     <ion-slide class="blue">
-      <h1 class="heading">Hello!</h1>
+      <h1 class="heading">Hello</h1>
       <ion-img width="200" height="200" src="assets/airplane.png"></ion-img>
-  <h2 class="white">Welcome to AirMeet</h2>
+  <h2 class="welcomeH2 white">Welcome to AirMeet</h2>
       <p class="bottom">Slide Right to Get Started</p>
     </ion-slide>
     <ion-slide class="blue">
       <ion-icon class="logo"name="cloud"></ion-icon>
-      <p class="info">AirMeet is an innovative new tool for engaging with fellow attendees at conferences and conventions</p>
+      <p class="info"><span class="welcomeInfoContent">AirMeet is an innovative new tool that enables attendees at conferences to engage and interact with other attendees.</span></p>
       <p class="bottom">Slide Right to Continue</p>
     </ion-slide>
     <ion-slide class="blue">
       <ion-icon class="logo"name="navigate"></ion-icon>
-      <p class="info2">AirMeet allows you to search for other attendants, view their profiles, message with them, and view their location on a map.</p>
+      <p class="info2"><span class="welcomeInfoContent">AirMeet allows you to search for other attendees, view their profiles, message with them, and find their location on an interactive map</span></p>
       <p class="bottom">Slide Right to Continue</p>
     </ion-slide>
     <ion-slide class="blue">
       <h1 class="Letsgetstarted">Let's get started!</h1>
-      <button ion-button large color="secondary" (tap)="Create('Acct')">Create A New Account</button>
-      <button ion-button large color="secondary" (tap)="Create('Sign')">Or Sign In</button>
+      <button class="welcomeActionButton" ion-button large color="secondary" (tap)="Create('Acct')">Create A New Account</button>
+      <button class="welcomeActionButton" ion-button large color="secondary" (tap)="Create('Sign')">Or Sign In</button>
     </ion-slide>
   </ion-slides>
 </ion-content>

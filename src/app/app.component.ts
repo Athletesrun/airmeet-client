@@ -11,22 +11,17 @@ import { Map } from '../pages/map/map';
 import { Settings } from '../pages/settings/settings';
 import { Saved } from '../pages/saved/saved';
 
-import * as io from 'socket.io-client';
+import { SocketService } from '../services/socket.service';
 
-@Component({templateUrl: 'app.html'})
+@Component({templateUrl: 'app.html', providers: [SocketService]})
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  socket: SocketIOClient.Socket;
-
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-
-  mapInterval;
-
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public sockets: SocketService) {
 
     if(localStorage.getItem("signedIn") === "true") {
 
@@ -83,32 +78,16 @@ export class MyApp {
     if(localStorage.getItem('useLocalServer') === 'true') {
 
       localStorage.setItem('apiURL', "http://localhost:8080");
+      localStorage.setItem('socketURL', "http://localhost:9090");
 
     } else {
 
       localStorage.setItem('apiURL', "https://api.airmeet.org");
+      localStorage.setItem('socketURL', "https://sockets.airmeet.org");
 
     }
 
-
-    this.socket = io.connect(localStorage.getItem('apiURL'), {
-      query: 'token=' + localStorage.getItem('token')
-    });
-
-
-    if(localStorage.getItem("inEvent") === "true" && localStorage.getItem("shareLocation") === "true") {
-
-      this.socket.on('connect', () => {
-
-        console.log('Connected to socket server');
-
-      });
-
-      this.mapInterval = setInterval(() => {
-        this.socket.emit('shareLocation');
-      }, 500);
-
-    }
+    this.sockets.beginSharingLocation();
 
   }
 

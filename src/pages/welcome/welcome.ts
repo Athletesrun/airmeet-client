@@ -169,6 +169,8 @@ export class JoinEvent {
                   console.log("worked", res.eventId);
                   localStorage.setItem("event", res.eventId);
                   localStorage.setItem("signedIn", "true");
+                  localStorage.setItem("inEvent", "true");
+                    localStorage.setItem("shareLocation", "true");
                   this.navCtrl.setRoot(People);
                 }
                 else {

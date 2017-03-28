@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
-import * as io from 'socket.io-client';
-
 import {
     GoogleMaps,
     GoogleMap,
@@ -24,8 +22,6 @@ import {
 
 export class Map {
 
-    socket: SocketIOClient.Socket;
-
     map: GoogleMap;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform) {
@@ -35,14 +31,6 @@ export class Map {
     }
 
     ngOnInit() {
-
-        this.socket = io.connect('localhost:8080', {
-            query: 'token=' + localStorage.getItem('token')
-        });
-
-        this.socket.on('connect', () => {
-            console.log('connected YAY!!');
-        });
 
     }
 
