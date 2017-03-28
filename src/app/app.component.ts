@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, NavController, Platform } from 'ionic-angular';
+import { Nav, NavController, Platform, MenuController } from 'ionic-angular';
 import {StatusBar, Splashscreen, Keyboard} from 'ionic-native';
 
 import { Welcome } from '../pages/welcome/welcome';
@@ -21,9 +21,11 @@ export class MyApp {
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public sockets: SocketService) {
+  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController) {
 
-    if(localStorage.getItem("signedIn") === "true") {
+    //localStorage.setItem('skipWelcome', 'true');
+
+    if(localStorage.getItem("skipWelcome") === "true") {
 
       this.rootPage = People;
 
@@ -36,6 +38,10 @@ export class MyApp {
 
     localStorage.setItem("inEvent", "true");
     localStorage.setItem("shareLocation", "true");
+
+    /*localStorage.setItem('token', 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODk4NTExOX0.9j8UrHWclPcqR_6cHsUz76cqpkkLwOtdt79aFZXnzE7ZpwMbNZWvdzZo1VByZvSYQhMbKVh16ClOTdCS9K3oY2HrGj52JK7mYCnY5xZGvA5EzqIjM4KHJ6cgLCAI-O1b5opb_gQhFVFKZmG3XCG9u1_amzAOFQCRwoqdXtuOAkeDRFQnboG4uM2Td54k98Puecydk1padLRO92HheqWHuHRYefp_UwzxxNmi2CJ-2KXvMxSj6MlCYkqwv8DYxIz99aVJaWxUJ7mxEGM5KKXJBBUpS5DqKWY8j8R0uAPF8OEl2Sq0CSKLHAuFxJ9qv7RUSIDpMFko8Pk1ldyQHE7srQ');
+    localStorage.setItem('userId', '1');
+    localStorage.setItem('event', '1');*/
 
     this.initializeApp();
 
@@ -89,6 +95,10 @@ export class MyApp {
 
     this.sockets.beginSharingLocation();
 
+  }
+
+  ngAfterViewInit() {
+    this.menu.swipeEnable(false, 'sideNavMenu');
   }
 
   openPage(page) {

@@ -29,8 +29,7 @@ export class SocketService {
         });
 
         this.socket.on('mapLocation', (data) => {
-            console.log('got map location');
-            console.log(data);
+            console.log('Received Map Location');
         });
     }
 
@@ -40,23 +39,34 @@ export class SocketService {
 
     }
 
-    beginSharingLocation() {
+    shareLocation() {
         this.mapInterval = setInterval(() => {
 
             if (localStorage.getItem("inEvent") === "true" && localStorage.getItem("shareLocation") === "true") {
 
-                navigator.geolocation.watchPosition((position) => {
+                navigator.geolocation.getCurrentPosition((position) => {
 
                     this.socket.emit('shareLocation', {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     });
 
-                });
+                    console.log(position);
+
+                }, (err) => {
+
+                    console.log(err);
+
+                }, {timeout: 3000});
 
             }
 
-        }, 2000);
+        }, 3000);
+    }
+
+    beginSharingLocation() {
+        this.shareLocation();
+        console.log('test async');
     }
 
 }

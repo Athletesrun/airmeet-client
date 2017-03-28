@@ -4,6 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
+import { Welcome } from '../welcome/welcome';
+
 import { User } from '../../models/user.model';
 
 @Component({templateUrl: 'eventInfo.html', providers: [HttpService]})
@@ -420,6 +422,16 @@ export class Settings {
         } else if(event === "Picture") {
 
             this.navCtrl.push(Settings_Picture, {})
+
+        } else if(event === "signOut") {
+            localStorage.removeItem('userId');
+            localStorage.removeItem('token');
+            localStorage.setItem('signedIn', 'false');
+            localStorage.setItem('inEvent', 'false');
+            localStorage.setItem('shareLocation', 'true');
+
+            this.navCtrl.setRoot(Welcome);
+            this.navCtrl.push(Welcome);
 
         }
     }

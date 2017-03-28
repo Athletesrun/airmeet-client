@@ -61,19 +61,19 @@ export class Map {
         });
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-            console.log('Map is ready!');
+
+            this.map.addGroundOverlay({
+                url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
+                bounds: bounds,
+                opacity: 1
+            });
+
         });
 
         let bounds = [
             new LatLng(41.244076, -96.011664),
             new LatLng(41.244473, -96.012196),
         ];
-
-        this.map.addGroundOverlay({
-            url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
-            bounds: bounds,
-            opacity: 1
-        });
 
     }
 
