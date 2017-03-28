@@ -4,7 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
-import { Welcome } from '../welcome/welcome';
+import { Welcome, JoinEvent } from '../welcome/welcome';
 
 import { User } from '../../models/user.model';
 
@@ -324,7 +324,11 @@ export class Settings_Twitter {
     }
 }
 
-
+@Component({templateUrl: 'privacyPolicy.html'})
+export class PrivacyPolicy {
+    constructor(public navParams: NavParams) {
+    }
+}
 
 @Component({selector: 'settings', templateUrl: 'settings.html', providers: [ HttpService ]})
 export class Settings {
@@ -421,17 +425,32 @@ export class Settings {
 
         } else if(event === "Picture") {
 
-            this.navCtrl.push(Settings_Picture, {})
+            this.navCtrl.push(Settings_Picture, {});
 
         } else if(event === "signOut") {
+
             localStorage.removeItem('userId');
             localStorage.removeItem('token');
             localStorage.setItem('signedIn', 'false');
             localStorage.setItem('inEvent', 'false');
-            localStorage.setItem('shareLocation', 'true');
 
             this.navCtrl.setRoot(Welcome);
             this.navCtrl.push(Welcome);
+
+        } else if(event === "leaveEvent") {
+
+            this.api.leaveEvent().subscribe(() => {
+
+                localStorage.setItem("inEvent", "false");
+                localStorage.removeItem("event");
+
+                this.navCtrl.setRoot(JoinEvent);
+                this.navCtrl.push(JoinEvent);
+            });
+
+        } else if(event === "privacyPolicy") {
+
+            this.navCtrl.push(PrivacyPolicy, {})
 
         }
     }

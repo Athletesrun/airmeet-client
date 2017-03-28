@@ -1,8 +1,8 @@
 <ion-content padding class="blue">
     <h1 class="createacct">Sign In</h1>
   <form (ngSubmit)="join()">
-    <ion-input ngClass="{{states.email}}" first [(ngModel)]="email" name="fistName" type="email" placeholder="First Name"></ion-input>
-    <ion-input last ngClass="{{states.password}}" [(ngModel)]="password" name="lastName" type="password" placeholder="Last Name"></ion-input>
+    <ion-input ngClass="{{states.email}}" first [(ngModel)]="email" name="fistName" type="email" placeholder="Email"></ion-input>
+    <ion-input last ngClass="{{states.password}}" [(ngModel)]="password" name="lastName" type="password" placeholder="Password"></ion-input>
     <br>
     <button ion-button large color="secondary" type="submit">Sign In</button>
   </form>

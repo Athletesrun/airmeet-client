@@ -98,6 +98,18 @@
         <ion-toggle checked="true"></ion-toggle>
       </ion-item>
 
+      <ion-buttons (tap)="tapEvent('privacyPolicy')">
+        <button ion-item>
+          Privacy Policy
+        </button>
+      </ion-buttons>
+
+      <ion-buttons (tap)="tapEvent('leaveEvent')">
+        <button ion-item>
+          Leave Event
+        </button>
+      </ion-buttons>
+
       <ion-buttons (tap)="tapEvent('signOut')">
         <button ion-item>
           Sign Out

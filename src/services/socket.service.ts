@@ -13,6 +13,8 @@ export class SocketService {
 
     private currentLocation;
 
+    private sharingLocation;
+
     constructor() {
 
         console.log(localStorage.getItem('socketURL'));
@@ -40,6 +42,9 @@ export class SocketService {
     }
 
     shareLocation() {
+
+        this.sharingLocation = true;
+
         this.mapInterval = setInterval(() => {
 
             if (localStorage.getItem("inEvent") === "true" && localStorage.getItem("shareLocation") === "true") {
@@ -66,7 +71,6 @@ export class SocketService {
 
     beginSharingLocation() {
         this.shareLocation();
-        console.log('test async');
     }
 
 }

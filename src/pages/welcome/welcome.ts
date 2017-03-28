@@ -87,7 +87,20 @@ export class CreateAccount {
         this.api.register(this.email, SHA2.SHA2_256(this.password), this.firstName, this.lastName).subscribe(
           (response) => {
             if (response.status == "success") {
+
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('signedIn', "true");
+
               this.navCtrl.push(ProfileCreation);
+
+            } else {
+
+                alert(response.message);
+                this.states.firstName = "normal";
+                this.states.lastName = "normal";
+                this.states.email = "normal";
+                this.states.password = "normal";
+
             }
           },
           (err) => {
@@ -135,9 +148,11 @@ export class signin {
         this.api.login(this.email, SHA2.SHA2_256(this.password)).subscribe(
           (response) => {
             if (response.status === "success") {
+
               localStorage.setItem("userId", response.id);
               localStorage.setItem("token", response.token);
               this.navCtrl.push(JoinEvent);
+
             }
             else {
               this.states.email = "error";
@@ -166,9 +181,7 @@ export class JoinEvent {
               (res) => {
                 console.log(ip);
                 if (res.status === "success") {
-                  console.log("worked", res.eventId);
                   localStorage.setItem("event", res.eventId);
-                  localStorage.setItem("signedIn", "true");
                   localStorage.setItem("inEvent", "true");
                     localStorage.setItem("shareLocation", "true");
                   this.navCtrl.setRoot(People);

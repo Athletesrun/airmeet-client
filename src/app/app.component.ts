@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform, MenuController } from 'ionic-angular';
 import {StatusBar, Splashscreen, Keyboard} from 'ionic-native';
 
-import { Welcome } from '../pages/welcome/welcome';
+import { Welcome, JoinEvent } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
 import { Messages } from '../pages/messages/messages';
@@ -23,25 +23,20 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
   constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController) {
 
-    //localStorage.setItem('skipWelcome', 'true');
-
-    if(localStorage.getItem("skipWelcome") === "true") {
+    if(localStorage.getItem("signedIn") === "true" && localStorage.getItem('inEvent') === "true") {
 
       this.rootPage = People;
+
+    } else if(localStorage.getItem("signedIn") === "true") {
+
+      this.rootPage = JoinEvent;
 
     } else {
 
       this.rootPage = Welcome;
       //@todo bring them to the right page within welcome or something idk
+
     }
-
-
-    localStorage.setItem("inEvent", "true");
-    localStorage.setItem("shareLocation", "true");
-
-    /*localStorage.setItem('token', 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQ4ODk4NTExOX0.9j8UrHWclPcqR_6cHsUz76cqpkkLwOtdt79aFZXnzE7ZpwMbNZWvdzZo1VByZvSYQhMbKVh16ClOTdCS9K3oY2HrGj52JK7mYCnY5xZGvA5EzqIjM4KHJ6cgLCAI-O1b5opb_gQhFVFKZmG3XCG9u1_amzAOFQCRwoqdXtuOAkeDRFQnboG4uM2Td54k98Puecydk1padLRO92HheqWHuHRYefp_UwzxxNmi2CJ-2KXvMxSj6MlCYkqwv8DYxIz99aVJaWxUJ7mxEGM5KKXJBBUpS5DqKWY8j8R0uAPF8OEl2Sq0CSKLHAuFxJ9qv7RUSIDpMFko8Pk1ldyQHE7srQ');
-    localStorage.setItem('userId', '1');
-    localStorage.setItem('event', '1');*/
 
     this.initializeApp();
 

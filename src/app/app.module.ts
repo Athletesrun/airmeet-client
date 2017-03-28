@@ -13,7 +13,7 @@ import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
-import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture } from '../pages/settings/settings';
+import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture, PrivacyPolicy } from '../pages/settings/settings';
 import { Saved } from '../pages/saved/saved';
 import { SavedProfiles } from '../pages/saved/savedProfiles';
 import { SavedMessages } from '../pages/saved/savedMessages';
@@ -49,6 +49,7 @@ const cloudSettings: CloudSettings = {
     Settings_LinkedIn,
     Settings_Twitter,
     Settings_Picture,
+    PrivacyPolicy,
     CreateAccount,
     signin,
     JoinEvent,
@@ -87,6 +88,7 @@ const cloudSettings: CloudSettings = {
     Settings_Twitter,
     Settings_Picture,
     CreateAccount,
+    PrivacyPolicy,
     signin,
     JoinEvent,
     ProfileCreation
