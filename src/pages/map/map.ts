@@ -26,6 +26,10 @@ export class Map {
 
     map: GoogleMap;
 
+    private populateInterval;
+
+    private markers = [];
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService) {
         platform.ready().then(() => {
             this.loadMap();
@@ -64,8 +68,6 @@ export class Map {
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
 
-            alert('ben');
-
             this.map.addGroundOverlay({
                 url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
                 bounds: bounds,
@@ -85,18 +87,43 @@ export class Map {
 
     populateMap() {
 
-        this.sockets.getLocations((locations) => {
+        this.populateInterval = setInterval(() => {
+            this.sockets.getLocations((locations) => {
 
-            //let markerPosition = new LatLng(lat, lng);
+                console.log(locations);
 
-            /*const marker = this.map.addMarker({
-                position: markerPosition,
-                title: 'Ben'
-            }).then((marker: Marker) => {
+                for(let i in locations) {
 
+                    let hasMatched = false;
 
-            });*/
-        });
+                    for(let x in this.markers) {
+                        if(locations[i].id === this.markers[x].id) {
+
+                            hasMatched = true;
+                            this.markers[x].setPosition(new LatLng(locations[i].lat, locations[i].lng));
+
+                        }
+                    }
+
+                    if(hasMatched === false) {
+
+                        const marker = this.map.addMarker({
+                            position: new LatLng(locations[i].lat, locations[i].lng),
+                            title: locations[i].id
+                        }).then((marker: Marker) => {
+
+                            this.markers.push({
+                                id: locations[i].id,
+                                marker: marker
+                            })
+
+                        });
+
+                    }
+
+                }
+            });
+        }, 500);
 
     }
 

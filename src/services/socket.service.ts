@@ -32,9 +32,11 @@ export class SocketService {
 
         this.socket.on('mapLocation', (data) => {
 
-            console.log('Received Map location');
+            console.log('Recieved location');
 
-            /*for(let i in this.locations) {
+            let foundInArray = false;
+
+            for(let i in this.locations) {
                 if(this.locations[i].id == data.id) {
                     foundInArray = true;
                     this.locations[i] = data;
@@ -43,12 +45,15 @@ export class SocketService {
 
             if(foundInArray === false) {
                 this.locations.push(data);
-            }*/
+            }
 
         });
     }
 
     getLocations(callback) {
+
+        console.log('getting locations');
+        console.log(this.locations);
 
         callback(this.locations);
 
@@ -65,8 +70,8 @@ export class SocketService {
                 navigator.geolocation.getCurrentPosition((position) => {
 
                     this.socket.emit('shareLocation', {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
                     });
 
                 }, (err) => {
