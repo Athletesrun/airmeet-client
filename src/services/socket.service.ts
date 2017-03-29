@@ -32,9 +32,9 @@ export class SocketService {
 
         this.socket.on('mapLocation', (data) => {
 
-            let foundInArray = false;
+            console.log('Received Map location');
 
-            for(let i in this.locations) {
+            /*for(let i in this.locations) {
                 if(this.locations[i].id == data.id) {
                     foundInArray = true;
                     this.locations[i] = data;
@@ -43,7 +43,7 @@ export class SocketService {
 
             if(foundInArray === false) {
                 this.locations.push(data);
-            }
+            }*/
 
         });
     }
