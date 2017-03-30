@@ -31,13 +31,26 @@ export class SocketService {
         });
 
         this.socket.on('mapLocation', (data) => {
-            console.log('Received Map Location');
+
+            console.log('Received Map location');
+
+            /*for(let i in this.locations) {
+                if(this.locations[i].id == data.id) {
+                    foundInArray = true;
+                    this.locations[i] = data;
+                }
+            }
+
+            if(foundInArray === false) {
+                this.locations.push(data);
+            }*/
+
         });
     }
 
-    getLocations() {
+    getLocations(callback) {
 
-        return this.locations;
+        callback(this.locations);
 
     }
 
@@ -55,8 +68,6 @@ export class SocketService {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     });
-
-                    console.log(position);
 
                 }, (err) => {
 
