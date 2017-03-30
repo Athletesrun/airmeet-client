@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform, MenuController } from 'ionic-angular';
 import {StatusBar, Splashscreen, Keyboard} from 'ionic-native';
 
-import { Welcome, JoinEvent } from '../pages/welcome/welcome';
+import { Welcome, JoinEvent, LoginSuccess } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
 import { Messages } from '../pages/messages/messages';

@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 
 // import { HttpService } from '../servics/http.service';
 
-import { Welcome, CreateAccount, signin, JoinEvent, ProfileCreation } from '../pages/welcome/welcome';
+import { Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess } from '../pages/welcome/welcome';
 
 import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
@@ -53,7 +53,8 @@ const cloudSettings: CloudSettings = {
     CreateAccount,
     signin,
     JoinEvent,
-    ProfileCreation
+    ProfileCreation,
+    LoginSuccess
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -91,7 +92,8 @@ const cloudSettings: CloudSettings = {
     PrivacyPolicy,
     signin,
     JoinEvent,
-    ProfileCreation
+    ProfileCreation,
+    LoginSuccess
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

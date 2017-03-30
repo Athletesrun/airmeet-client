@@ -23,11 +23,32 @@ export class Welcome {
 
 }
 
-@Component({templateUrl: "Profile-Creation.html"})
+@Component({templateUrl: "Profile-Creation.html", providers: [HttpService]})
 export class ProfileCreation{
-  constructor(public navParams: NavParams, public navCtrl: NavController){}
+  status; description; interests; facebook; phone; twitter;
+  constructor(public navParams: NavParams, public navCtrl: NavController,  public api: HttpService){
+    this.status = {
+      description: "normal",
+      interests: "normal",
+      facebook: "normal",
+      phone: "normal",
+      twitter: "normal",
+      linkedin: "normal"
+    };
+  }
   join() {
     this.navCtrl.push(JoinEvent);
+  }
+  update(a) {
+    let obj = {};
+    obj[a] = this[a];
+    this.api.updateProfile(obj).subscribe((status) => {
+        console.log(status);
+        this.status[a] += " success";
+      },
+      (err) => {
+        console.log(err)
+    })
   }
 }
 
@@ -183,8 +204,13 @@ export class JoinEvent {
                 if (res.status === "success") {
                   localStorage.setItem("event", res.eventId);
                   localStorage.setItem("inEvent", "true");
-                    localStorage.setItem("shareLocation", "true");
-                  this.navCtrl.setRoot(People);
+                  localStorage.setItem("shareLocation", "true");
+                  this.api.getEventInfo().subscribe((res) => {
+                    this.navCtrl.push(LoginSuccess, {
+                      eventName: res.name
+                    })
+                  }, (err) => console.log(err));
+                  //this.navCtrl.setRoot(People);
                 }
                 else {
                   this.status = "error";
@@ -198,3 +224,24 @@ export class JoinEvent {
     }
 
 }
+
+@Component({templateUrl: 'success.html', providers: [HttpService]})
+
+export class LoginSuccess {
+
+  eventName; plane;
+
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService) {
+    this.eventName = this.navParams.data.eventName;
+    this.plane = "step1";
+  }
+
+  ngOnInit() {
+    setTimeout(() => this.plane = "step2", 500);
+    setTimeout(() => this.plane = "step3", 3000);
+    setTimeout(() => this.navCtrl.setRoot(People), 4000);
+    //setTimeout(() => this.navCtrl.setRoot(People), 3000);
+  }
+
+}
+

@@ -3,47 +3,47 @@
     <ion-slide>
       <h1 class="heading2">Nice! Now let's add some information to your profile</h1>
       <h2 class="white">Add a description</h2>
-      <ion-input class="textbox" type="text" placeholder="Description (100 or less Characters)" value=""></ion-input>
+      <ion-input [ngClass]="status.description" class="textbox" type="text" maxlength="180" [(ngModel)]="description" placeholder="Description (180 or fewer characters)" value=""></ion-input>
       <div class="flex">
-        <button ion-button class="button2" large color="secondary">Add</button>
+        <button ion-button class="button2" (click)="update('description', 180)" large color="secondary">Add</button>
       </div>
-      <p class="bottom">Slide Right to Skip</p>
+      <p class="bottom" [ngClass]="status.description">Slide Left to Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo"name="call"></ion-icon>
       <h1 class="white">Add a phone number</h1>
-      <ion-input single class="textbox" type="number" placeholder="Phone number" value=""></ion-input>
+      <ion-input single class="textbox" [(ngModel)]="phone" [ngClass]="status.phone" type="number" placeholder="Phone number" value=""></ion-input>
       <div class="flex">
-        <button ion-button class="button2" large color="secondary">Add</button>
+        <button ion-button class="button2" (click)="update('phone', 7)" large color="secondary">Add</button>
       </div>
-      <p class="bottom">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.phone">Slide Right To Skip</p>
     </ion-slide>
     <ion-slide>
-      <ion-icon class="logo"name="logo-facebook"></ion-icon>
+      <ion-icon class="logo" name="logo-facebook"></ion-icon>
       <h1 class="white">Add a link to your Facebook profile</h1>
-      <ion-input class="textbox" type="text" placeholder="Facebook link" value=""></ion-input>
+      <ion-input class="textbox" [(ngModel)]="facebook" [ngClass]="status.facebook" type="text" placeholder="Facebook link" value=""></ion-input>
       <div class="flex">
-        <button ion-button class="button2" large color="secondary">Add</button>
+        <button ion-button class="button2" large (click)="update('facebook', 50)" color="secondary">Add</button>
       </div>
-      <p class="bottom">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.facebook">Slide Right To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo"name="logo-twitter"></ion-icon>
       <h1 class="white">Add your Twitter handle</h1>
-      <ion-input class="textbox" type="text" placeholder="Twitter" value=""></ion-input>
+      <ion-input class="textbox" [(ngModel)]="twitter" [ngClass]="status.twitter" type="text" placeholder="Twitter" value=""></ion-input>
       <div class="flex">
-        <button ion-button class="button2" large color="secondary">Add</button>
+        <button ion-button class="button2" (click)="update('twitter', 50)" large color="secondary">Add</button>
       </div>
-      <p class="bottom">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.twitter">Slide Right To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo" name="logo-linkedin"></ion-icon>
       <h1 class="white">Add a link to your LinkedIn profile</h1>
-      <ion-input class="textbox" type="text" placeholder="LinkedIn link" value=""></ion-input>
+      <ion-input class="textbox" [(ngModel)]="linkedin" [ngClass]="status.linkedin" type="text" placeholder="LinkedIn link" value=""></ion-input>
       <div class="flex">
-        <button ion-button class="button2" large color="secondary">Add</button>
+        <button ion-button class="button2" (click)="update('linkedin', 50)" large color="secondary">Add</button>
       </div>
-      <p class="bottom">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.linkedin">Slide Right To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo"name="camera"></ion-icon>
