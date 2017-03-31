@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform, MenuController } from 'ionic-angular';
 import {StatusBar, Splashscreen, Keyboard} from 'ionic-native';
 
+import { Storage } from '@ionic/storage';
+
 import { Welcome, JoinEvent, LoginSuccess } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
@@ -22,34 +24,43 @@ export class MyApp {
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService) {
+  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage) {
 
-    if(localStorage.getItem("signedIn") === "true" && localStorage.getItem('inEvent') === "true") {
+    storage.ready().then(() => {
 
-      this.rootPage = People;
+      storage.get('signedIn').then((signedIn) => {
+        storage.get('inEvent').then((inEvent) => {
+          if (signedIn === "true" && inEvent === "true") {
 
-    } else if(localStorage.getItem("signedIn") === "true") {
+            this.rootPage = People;
 
-      this.rootPage = JoinEvent;
+          } else if (signedIn === "true") {
 
-    } else {
+            this.rootPage = JoinEvent;
 
-      this.rootPage = Welcome;
-      //@todo bring them to the right page within welcome or something idk
+          } else {
 
-    }
+            this.rootPage = Welcome;
+            //@todo bring them to the right page within welcome or something idk
 
-    this.initializeApp();
+          }
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'People', component: People },
-      { title: 'Messages', component: Messages },
-      { title: 'Your Profile', component: UserProfile },
-      { title: 'Map', component: Map },
-      { title: 'Saved Content', component: Saved },
-      { title: 'Settings', component: Settings }
-    ];
+          this.initializeApp();
+
+          // used for an example of ngFor and navigation
+          this.pages = [
+            {title: 'People', component: People},
+            {title: 'Messages', component: Messages},
+            {title: 'Your Profile', component: UserProfile},
+            {title: 'Map', component: Map},
+            {title: 'Saved Content', component: Saved},
+            {title: 'Settings', component: Settings}
+          ];
+        });
+
+      });
+
+    });
 
   }
 
@@ -60,7 +71,7 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
-
+    /*
     if (this.platform.is('ios')) {
       let
         appEl = <HTMLElement>(document.getElementsByTagName('ION-APP')[0]),
@@ -76,18 +87,25 @@ export class MyApp {
         appEl.style.height = '100%';
       });
     }
+    */
 
-    if(localStorage.getItem('useLocalServer') === 'true') {
+    this.storage.get('useLocalServer').then((useLocalServer) => {
+      this.storage.get('apiURL').then((apiURL) => {
 
-      localStorage.setItem('apiURL', "http://localhost:8080");
-      localStorage.setItem('socketURL', "http://localhost:9090");
+        if(useLocalServer === 'true') {
 
-    } else {
+          this.storage.set('apiURL', "http://localhost:8080");
+          this.storage.set('socketURL', "http://localhost:9090");
 
-      localStorage.setItem('apiURL', "https://api.airmeet.org");
-      localStorage.setItem('socketURL', "https://sockets.airmeet.org");
+        } else {
 
-    }
+          this.storage.set('apiURL', "https://api.airmeet.org");
+          this.storage.set('socketURL', "https://sockets.airmeet.org");
+
+        }
+      });
+
+    });
 
     this.sockets.beginSharingLocation();
 

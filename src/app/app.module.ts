@@ -7,6 +7,8 @@ import { MyApp } from './app.component';
 
 // import { HttpService } from '../servics/http.service';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 import { Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess } from '../pages/welcome/welcome';
 
 import { People, Person } from '../pages/people/people';
@@ -60,6 +62,7 @@ const cloudSettings: CloudSettings = {
     IonicModule.forRoot(MyApp, {
       tabsPlacement: 'bottom'
     }),
+    IonicStorageModule.forRoot(),
     HttpModule,
     CloudModule.forRoot(cloudSettings)
   ],

@@ -15,7 +15,7 @@
         <ion-buttons (tap)="conversationTapped(user.id, i)" *ngFor="let user of conversations; let i = index;">
             <ion-item>
                 <ion-avatar item-left>
-                    <img src="/assets/profile.gif">
+                    <img src="assets/profile.gif">
                 </ion-avatar>
                 <h2>{{ user.firstName }} {{ user.lastName }}</h2>
                 <p>{{ user.lastMessage }}</p>
