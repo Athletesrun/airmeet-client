@@ -6,6 +6,8 @@ import { SocketService } from '../../services/socket.service';
 
 import {Subscription} from 'rxjs/Subscription';
 
+import { Storage } from '@ionic/storage'
+
 import {
     GoogleMaps,
     GoogleMap,
@@ -29,11 +31,17 @@ export class Map {
     map: GoogleMap;
 
     private markers = [];
+    private userId;
 
     public locationSubscription: Subscription;
     public removedLocationSubscription: Subscription;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage) {
+        this.storage.ready().then(() => {
+          this.storage.get('userId').then((val) => {
+            this.userId = parseInt(val);
+          })
+        })
 
         platform.ready().then(() => {
             this.loadMap();
@@ -122,7 +130,7 @@ export class Map {
 
             this.removedLocationSubscription = this.sockets.removedLocation$.subscribe((location) => {
 
-                if(location.id.toString() !== localStorage.getItem('userId')) {
+                if(location.id.toString() !== this.userId) {
 
                     for (let i in this.markers) {
 

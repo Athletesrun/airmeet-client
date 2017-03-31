@@ -6,6 +6,8 @@ import { HttpService } from '../../services/http.service';
 
 import { Welcome, JoinEvent } from '../welcome/welcome';
 
+import { Storage } from '@ionic/storage';
+
 import { User } from '../../models/user.model';
 
 @Component({templateUrl: 'eventInfo.html', providers: [HttpService]})
@@ -344,7 +346,7 @@ export class Settings {
 
     private updateProfileInterval;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
 
     }
 
@@ -429,10 +431,10 @@ export class Settings {
 
         } else if(event === "signOut") {
 
-            localStorage.removeItem('userId');
-            localStorage.removeItem('token');
-            localStorage.setItem('signedIn', 'false');
-            localStorage.setItem('inEvent', 'false');
+            this.storage.set('userId', null);
+            this.storage.set('token', null);
+            this.storage.set('signedIn', 'false');
+            this.storage.set('inEvent', 'false');
 
             this.navCtrl.setRoot(Welcome);
             this.navCtrl.push(Welcome);
@@ -441,8 +443,8 @@ export class Settings {
 
             this.api.leaveEvent().subscribe(() => {
 
-                localStorage.setItem("inEvent", "false");
-                localStorage.removeItem("event");
+                this.storage.set("inEvent", "false");
+                this.storage.set("event", null);
 
                 this.navCtrl.setRoot(JoinEvent);
                 this.navCtrl.push(JoinEvent);

@@ -3,6 +3,7 @@ import { NavController, NavParams, Slides } from 'ionic-angular';
 
 import * as SHA2 from "../../services/sha.service";
 
+import { Storage } from '@ionic/storage';
 import { HttpService } from '../../services/http.service';
 import {People} from "../people/people";
 import {Camera, CameraOptions} from "@ionic-native/camera";
@@ -76,7 +77,7 @@ export class CreateAccount {
 
     firstName; lastName; email; password; states;
 
-    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService){
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public storage: Storage){
       this.states = {
         firstName: "normal",
         lastName: "normal",
@@ -128,8 +129,8 @@ export class CreateAccount {
           (response) => {
             if (response.status == "success") {
 
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('signedIn', "true");
+                this.storage.set('token', response.token);
+                this.storage.set('signedIn', "true");
 
               this.navCtrl.push(ProfileCreation);
 
@@ -159,7 +160,7 @@ export class signin {
 
     email; password; states;
 
-    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService){
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public storage: Storage){
       this.states = {
         email: "normal",
         password: "normal"
@@ -189,8 +190,9 @@ export class signin {
           (response) => {
             if (response.status === "success") {
 
-              localStorage.setItem("userId", response.id);
-              localStorage.setItem("token", response.token);
+              console.log(response);
+              this.storage.set("userId", response.id);
+              this.storage.set("token", response.token);
               this.navCtrl.push(JoinEvent);
 
             }
@@ -209,7 +211,7 @@ export class JoinEvent {
 
   status;
 
-    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService){
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public storage: Storage){
       this.status = "normal"
     }
 
@@ -221,14 +223,16 @@ export class JoinEvent {
               (res) => {
                 console.log(ip);
                 if (res.status === "success") {
-                  localStorage.setItem("event", res.eventId);
-                  localStorage.setItem("inEvent", "true");
-                  localStorage.setItem("shareLocation", "true");
-                  this.api.getEventInfo().subscribe((res) => {
-                    this.navCtrl.push(LoginSuccess, {
-                      eventName: res.name
-                    })
-                  }, (err) => console.log(err));
+                  this.storage.set("event", res.eventId);
+                  this.storage.set("inEvent", "true");
+                  this.storage.set("shareLocation", "true").then(() =>
+                  {
+                    this.api.getEventInfo().subscribe((res) => {
+                      this.navCtrl.push(LoginSuccess, {
+                        eventName: res.name
+                      })
+                    }, (err) => console.log(err));
+                  })
                   //this.navCtrl.setRoot(People);
                 }
                 else {
