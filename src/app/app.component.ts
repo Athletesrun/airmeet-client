@@ -60,7 +60,7 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
-
+    /*
     if (this.platform.is('ios')) {
       let
         appEl = <HTMLElement>(document.getElementsByTagName('ION-APP')[0]),
@@ -76,6 +76,7 @@ export class MyApp {
         appEl.style.height = '100%';
       });
     }
+    */
 
     if(localStorage.getItem('useLocalServer') === 'true') {
 
