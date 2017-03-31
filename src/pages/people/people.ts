@@ -3,19 +3,19 @@ import {NgStyle} from '@angular/common';
 
 import {HttpService} from '../../services/http.service';
 
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, ToastController} from 'ionic-angular';
 import {Conversation} from "../messages/messages";
 
 
 @Component({
   templateUrl: 'person.html',
-  providers: [NgStyle, HttpService],
+  providers: [NgStyle, HttpService, ToastController],
 
 })
 export class Person {
   item;
 
-  constructor(params: NavParams, public navCtrl: NavController) {
+  constructor(params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController) {
     this.item = params.data.item;
   }
 
@@ -24,6 +24,23 @@ export class Person {
     this.navCtrl.push(Conversation, {
       person: person
     })
+  }
+
+  Save(person) {
+    this.api.saveProfile(person.id).subscribe((res) => {
+      if (res.status === "success") {
+        let toast = this.toast.create({
+          message: 'Profile has been saved!',
+          duration: 3000
+        });
+        toast.present();
+      }
+      else console.log(res);
+    },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   avatar(img) {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams } from 'ionic-angular';
 
+import { Person } from '../people/people';
 import { HttpService } from '../../services/http.service';
 
 @Component({
@@ -20,7 +20,13 @@ export class SavedProfiles {
 
     ngOnInit() {
       this.api.getSavedProfiles().subscribe((res) => {
-        console.log(res);
+        this.profiles = res;
+      })
+    }
+
+    showProfile(profile) {
+      this.navCtrl.push(Person, {
+        item: profile
       })
     }
 
