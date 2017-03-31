@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Storage } from '@ionic/storage';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -13,9 +14,7 @@ import { Event } from '../models/event.model';
 @Injectable()
 export class HttpService {
 
-    //@todo allow for switching between user accounts
-
-	constructor(private http: Http) {}
+	constructor(private http: Http, public storage: Storage) {}
 
 	private getApiURL() {
         return localStorage.getItem("apiURL");

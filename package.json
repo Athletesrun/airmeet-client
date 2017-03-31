@@ -23,7 +23,7 @@
     "@ionic-native/core": "^3.2.3",
     "@ionic-native/google-maps": "^3.4.4",
     "@ionic/cloud-angular": "^0.11.0",
-    "@ionic/storage": "1.1.7",
+    "@ionic/storage": "2.0.0",
     "base-64": "^0.1.0",
     "hammerjs": "^2.0.8",
     "impetus": "^0.8.3",
