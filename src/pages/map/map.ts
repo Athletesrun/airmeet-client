@@ -4,6 +4,8 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 
 import { SocketService } from '../../services/socket.service';
 
+import {Subscription} from 'rxjs/Subscription';
+
 import {
     GoogleMaps,
     GoogleMap,
@@ -30,13 +32,23 @@ export class Map {
 
     private markers = [];
 
+    public subscription: Subscription;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService) {
+
         platform.ready().then(() => {
             this.loadMap();
-        })
+        });
+
+        this.subscription = this.sockets.mapLocation$.subscribe((location) => {
+            console.log(location);
+        });
+
     }
 
-    ngOnInit() {
+    ngOnDestroy() {
+
+        this.subscription.unsubscribe();
 
     }
 
@@ -74,8 +86,6 @@ export class Map {
                 opacity: 1
             });
 
-            this.populateMap();
-
         });
 
         let bounds = [
@@ -83,9 +93,11 @@ export class Map {
             new LatLng(41.244473, -96.012196),
         ];
 
+        this.sockets.getAllLocations();
+
     }
 
-    populateMap() {
+    /*populateMap() {
 
         this.populateInterval = setInterval(() => {
             this.sockets.getLocations((locations) => {
@@ -124,6 +136,62 @@ export class Map {
                 }
             });
         }, 500);
+
+    }*/
+
+
+
+    removeLocation(userId) {
+
+        if(userId !== localStorage.getItem('userId')) {
+
+            for (let i in this.markers) {
+
+                if (this.markers[i].id === userId) {
+
+                    this.markers[i].marker.remove();
+
+                    this.markers.splice(parseInt(i), 1);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    public addLocation(data) {
+
+        let hasMatched = false;
+
+        for(let i in this.markers) {
+
+            if(this.markers[i].id === data.id) {
+
+                hasMatched = true;
+
+                this.markers[i].setPosition(new LatLng(data.lat, data.lng));
+
+            }
+
+        }
+
+        if(hasMatched === false) {
+
+            const marker = this.map.addMarker({
+                position: new LatLng(data.lat, data.lng),
+                title: data.name
+            }).then((marker: Marker) => {
+
+                this.markers.push({
+                    id: data.id,
+                    marker: marker
+                })
+
+            });
+
+        }
 
     }
 

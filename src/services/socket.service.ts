@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 import * as io from 'socket.io-client';
 
@@ -9,15 +10,14 @@ export class SocketService {
 
     private mapInterval;
 
-    private locations = [];
-
     private currentLocation;
 
     private sharingLocation;
 
-    constructor() {
+    private mapLocationSource = new Subject();
+    public mapLocation$ = this.mapLocationSource.asObservable();
 
-        console.log(localStorage.getItem('socketURL'));
+    constructor() {
 
         this.socket = io.connect(localStorage.getItem('socketURL'), {
             query: 'token=' + localStorage.getItem('token')
@@ -28,34 +28,39 @@ export class SocketService {
 
             console.log('Connected to socket server');
 
+
+
         });
 
         this.socket.on('mapLocation', (data) => {
 
-            console.log('Recieved location');
+            console.log('ben');
 
-            let foundInArray = false;
+            this.mapLocationSource.next(data);
 
-            for(let i in this.locations) {
-                if(this.locations[i].id == data.id) {
-                    foundInArray = true;
-                    this.locations[i] = data;
-                }
-            }
-
-            if(foundInArray === false) {
-                this.locations.push(data);
-            }
+            //this.map.addLocation(data);
 
         });
+
+        this.socket.on('removeLocation', (data) => {
+
+            //this.map.removeLocation(data.id);
+
+        });
+
     }
 
-    getLocations(callback) {
+    getAllLocations() {
 
-        console.log('getting locations');
-        console.log(this.locations);
+        this.socket.emit('getAllLocations', (locations) => {
 
-        callback(this.locations);
+            for(let i in locations) {
+
+                //this.map.addLocation(locations[i]);
+
+            }
+
+        })
 
     }
 
