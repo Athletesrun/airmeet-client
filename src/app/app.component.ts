@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform, MenuController } from 'ionic-angular';
 import {StatusBar, Splashscreen, Keyboard} from 'ionic-native';
 
-import { Welcome, JoinEvent } from '../pages/welcome/welcome';
+import { Welcome, JoinEvent, LoginSuccess } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
 import { Messages } from '../pages/messages/messages';
@@ -12,8 +12,9 @@ import { Settings } from '../pages/settings/settings';
 import { Saved } from '../pages/saved/saved';
 
 import { SocketService } from '../services/socket.service';
+import { HttpService } from '../services/http.service';
 
-@Component({templateUrl: 'app.html', providers: [SocketService]})
+@Component({templateUrl: 'app.html', providers: [SocketService, HttpService]})
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -21,7 +22,7 @@ export class MyApp {
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController) {
+  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService) {
 
     if(localStorage.getItem("signedIn") === "true" && localStorage.getItem('inEvent') === "true") {
 

@@ -1,3 +1,20 @@
 <ion-content>
-    Saved Profiles
+  <div *ngIf="!profiles">
+    <ion-card class="blue white">
+      <ion-card-header>
+        <ion-card-title class="white">You don't have any saved profiles!</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        When you find someone you want to contact later, click on the <ion-icon name="star"></ion-icon> to save it here.
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-list>
+    <button ion-item *ngFor="let profile of profiles" (click)="showProfile(profile)" icon-left>
+      <ion-avatar item-left>
+        <img src="/assets/profile.gif">
+      </ion-avatar>
+      {{profile.firstName}} {{profile.lastName}}
+    </button>
+  </ion-list>
 </ion-content>

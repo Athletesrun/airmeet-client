@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Slides } from 'ionic-angular';
 
 import * as SHA2 from "../../services/sha.service";
 
 import { HttpService } from '../../services/http.service';
 import {People} from "../people/people";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
@@ -23,11 +24,50 @@ export class Welcome {
 
 }
 
-@Component({templateUrl: "Profile-Creation.html"})
+@Component({templateUrl: "Profile-Creation.html", providers: [HttpService, Camera]})
 export class ProfileCreation{
-  constructor(public navParams: NavParams, public navCtrl: NavController){}
+  @ViewChild(Slides) slides: Slides;
+  status; description; interests; facebook; phone; twitter;
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera){
+    this.status = {
+      description: "normal",
+      interests: "normal",
+      facebook: "normal",
+      phone: "normal",
+      twitter: "normal",
+      linkedin: "normal"
+    };
+  }
   join() {
     this.navCtrl.push(JoinEvent);
+  }
+
+  take() {
+    const options: CameraOptions = {
+      quality: 100,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      console.log(imageData);
+    }, (err) => {
+      console.log(err)
+      // Handle error
+    });
+  }
+  update(a) {
+    let obj = {};
+    obj[a] = this[a];
+    this.api.updateProfile(obj).subscribe((status) => {
+        console.log(status);
+        this.status[a] += " success";
+        setTimeout(() => this.slides.slideNext(), 500);
+      },
+      (err) => {
+        console.log(err)
+    })
   }
 }
 
@@ -183,8 +223,13 @@ export class JoinEvent {
                 if (res.status === "success") {
                   localStorage.setItem("event", res.eventId);
                   localStorage.setItem("inEvent", "true");
-                    localStorage.setItem("shareLocation", "true");
-                  this.navCtrl.setRoot(People);
+                  localStorage.setItem("shareLocation", "true");
+                  this.api.getEventInfo().subscribe((res) => {
+                    this.navCtrl.push(LoginSuccess, {
+                      eventName: res.name
+                    })
+                  }, (err) => console.log(err));
+                  //this.navCtrl.setRoot(People);
                 }
                 else {
                   this.status = "error";
@@ -198,3 +243,24 @@ export class JoinEvent {
     }
 
 }
+
+@Component({templateUrl: 'success.html', providers: [HttpService]})
+
+export class LoginSuccess {
+
+  eventName; plane;
+
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService) {
+    this.eventName = this.navParams.data.eventName;
+    this.plane = "step1";
+  }
+
+  ngOnInit() {
+    setTimeout(() => this.plane = "step2", 500);
+    setTimeout(() => this.plane = "step3", 3000);
+    setTimeout(() => this.navCtrl.setRoot(People), 4000);
+    //setTimeout(() => this.navCtrl.setRoot(People), 3000);
+  }
+
+}
+

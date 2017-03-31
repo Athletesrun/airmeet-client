@@ -13,6 +13,11 @@
         <ion-icon name="chatbubbles"></ion-icon>
       </button>
     </ion-fab>
+    <ion-fab top left edge id="savefab">
+      <button ion-fab mini (click)="Save(item)">
+        <ion-icon name="star"></ion-icon>
+      </button>
+    </ion-fab>
   </div>
   <div style="background-image: url(/assets/profile.gif)" class="big-avatar"></div>
 
@@ -40,8 +45,8 @@
     <a href="{{ item.linkedin }}">LinkedIn</a>
   </p>
   <br>
-  <div *ngIf="item.interests">
-    <h3>Interests:</h3>
+  <div>
+    <h3 *ngIf="item.interests.interests.length > 0">Interests:</h3>
     <ul>
       <li *ngFor="let interest of item.interests.interests; let i = index;">{{interest}}</li>
     </ul>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
@@ -28,11 +28,10 @@ export class Map {
 
     map: GoogleMap;
 
-    private populateInterval;
-
     private markers = [];
 
-    public subscription: Subscription;
+    public locationSubscription: Subscription;
+    public removedLocationSubscription: Subscription;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService) {
 
@@ -40,15 +39,12 @@ export class Map {
             this.loadMap();
         });
 
-        this.subscription = this.sockets.mapLocation$.subscribe((location) => {
-            console.log(location);
-        });
-
     }
 
     ngOnDestroy() {
 
-        this.subscription.unsubscribe();
+        this.locationSubscription.unsubscribe();
+        this.removedLocationSubscription.unsubscribe();
 
     }
 
@@ -86,112 +82,72 @@ export class Map {
                 opacity: 1
             });
 
+            this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
+
+                let hasMatched = false;
+
+                for(let i in this.markers) {
+
+                    if(this.markers[i].id === location.id) {
+
+                        hasMatched = true;
+
+                        this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
+
+                        break;
+
+                    }
+
+                }
+
+                if(hasMatched === false) {
+
+                    const marker = this.map.addMarker({
+                        position: new LatLng(location.lat, location.lng),
+                        title: location.name
+                    }).then((marker: Marker) => {
+
+                        this.markers.push({
+                            id: location.id,
+                            marker: marker
+                        })
+
+                    });
+
+                }
+
+            });
+
+            this.removedLocationSubscription = this.sockets.removedLocation$.subscribe((location) => {
+
+                if(location.id.toString() !== localStorage.getItem('userId')) {
+
+                    for (let i in this.markers) {
+
+                        if (this.markers[i].id === location.id) {
+
+                            this.markers[i].marker.remove();
+
+                            this.markers.splice(parseInt(i), 1);
+
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+            this.sockets.getAllLocations();
+
         });
 
         let bounds = [
             new LatLng(41.244076, -96.011664),
             new LatLng(41.244473, -96.012196),
         ];
-
-        this.sockets.getAllLocations();
-
-    }
-
-    /*populateMap() {
-
-        this.populateInterval = setInterval(() => {
-            this.sockets.getLocations((locations) => {
-
-                console.log(locations);
-
-                for(let i in locations) {
-
-                    let hasMatched = false;
-
-                    for(let x in this.markers) {
-                        if(locations[i].id === this.markers[x].id) {
-
-                            hasMatched = true;
-                            this.markers[x].setPosition(new LatLng(locations[i].lat, locations[i].lng));
-
-                        }
-                    }
-
-                    if(hasMatched === false) {
-
-                        const marker = this.map.addMarker({
-                            position: new LatLng(locations[i].lat, locations[i].lng),
-                            title: locations[i].id
-                        }).then((marker: Marker) => {
-
-                            this.markers.push({
-                                id: locations[i].id,
-                                marker: marker
-                            })
-
-                        });
-
-                    }
-
-                }
-            });
-        }, 500);
-
-    }*/
-
-
-
-    removeLocation(userId) {
-
-        if(userId !== localStorage.getItem('userId')) {
-
-            for (let i in this.markers) {
-
-                if (this.markers[i].id === userId) {
-
-                    this.markers[i].marker.remove();
-
-                    this.markers.splice(parseInt(i), 1);
-
-                }
-
-            }
-
-        }
-
-    }
-
-    public addLocation(data) {
-
-        let hasMatched = false;
-
-        for(let i in this.markers) {
-
-            if(this.markers[i].id === data.id) {
-
-                hasMatched = true;
-
-                this.markers[i].setPosition(new LatLng(data.lat, data.lng));
-
-            }
-
-        }
-
-        if(hasMatched === false) {
-
-            const marker = this.map.addMarker({
-                position: new LatLng(data.lat, data.lng),
-                title: data.name
-            }).then((marker: Marker) => {
-
-                this.markers.push({
-                    id: data.id,
-                    marker: marker
-                })
-
-            });
-
-        }
 
     }
 

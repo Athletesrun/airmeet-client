@@ -20,6 +20,18 @@
 ion-img {
   background: transparent;
 }
+#event-code {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 15vw;
+  width: 9ex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 2.75ex;
+}
 .heading{
   position: absolute;
   top: 35px;
@@ -43,6 +55,8 @@ ion-img {
 .createacct{
   font-size: 42px;
   color: white;
+  margin-top: 50px;
+  text-align: center;
 }
 .info{
   font-size: 26px;
@@ -50,6 +64,9 @@ ion-img {
   margin: auto;
   text-align: center;
   width: 80%;
+}
+.bottom.success {
+  content: "Slide Left to Continue"
 }
 .info2 {
   font-size: 26px;
@@ -65,6 +82,9 @@ ion-img {
 }
 .white{
   color: white;
+}
+#event-subheading {
+  text-align: center;
 }
 .textbox{
   position: absolute;
@@ -89,6 +109,43 @@ ion-img {
   width: 80%;
   font-size: 2.2rem;
   font-weight: bold;
+}
+
+#hi-success {
+  font-size: 5rem;
+  text-align: center;
+  text-justify: distribute;
+  padding-bottom: 50px;
+}
+
+#welcome-success {
+  font-size: 2rem;
+  text-align: center;
+  text-justify: distribute;
+  margin-bottom: -10px;
+}
+
+#event-name-success {
+  font-size: 150%;
+  text-align: center;
+  text-justify: distribute;
+  font-family: "Bree Serif", serif;
+}
+
+#plane-success {
+  width: calc(100% - 25px);
+  height: 100%;
+  margin: 10px;
+  transition: 1000ms cubic-bezier(0.42, 0, 0, 0.98);
+  /*  */
+}
+
+#plane-success.step1 {
+  transform: translate(-500px, 250px);
+}
+
+#plane-success.step3 {
+  transform: translate(500px, -250px);
 }
 
 /* help */

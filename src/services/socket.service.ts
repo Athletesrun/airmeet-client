@@ -3,6 +3,8 @@ import { Subject } from 'rxjs/Subject';
 
 import * as io from 'socket.io-client';
 
+import { Location } from '../models/location.model';
+
 @Injectable()
 export class SocketService {
 
@@ -14,8 +16,11 @@ export class SocketService {
 
     private sharingLocation;
 
-    private mapLocationSource = new Subject();
+    private mapLocationSource = new Subject<Location>();
     public mapLocation$ = this.mapLocationSource.asObservable();
+
+    private removedLocationSource = new Subject<Location>();
+    public removedLocation$ = this.removedLocationSource.asObservable();
 
     constructor() {
 
@@ -34,17 +39,13 @@ export class SocketService {
 
         this.socket.on('mapLocation', (data) => {
 
-            console.log('ben');
-
             this.mapLocationSource.next(data);
-
-            //this.map.addLocation(data);
 
         });
 
         this.socket.on('removeLocation', (data) => {
 
-            //this.map.removeLocation(data.id);
+            this.removedLocationSource.next(data);
 
         });
 
@@ -56,7 +57,7 @@ export class SocketService {
 
             for(let i in locations) {
 
-                //this.map.addLocation(locations[i]);
+                this.mapLocationSource.next(locations[i]);
 
             }
 
