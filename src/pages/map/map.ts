@@ -84,36 +84,38 @@ export class Map {
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
-                let hasMatched = false;
+                if(location.id.toString() !== localStorage.getItem('userId')) {
+                    let hasMatched = false;
 
-                for(let i in this.markers) {
+                    for (let i in this.markers) {
 
-                    if(this.markers[i].id === location.id) {
+                        if (this.markers[i].id === location.id) {
 
-                        hasMatched = true;
+                            hasMatched = true;
 
-                        this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
+                            this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
 
-                        break;
+                            break;
+
+                        }
 
                     }
 
-                }
+                    if (hasMatched === false) {
 
-                if(hasMatched === false) {
+                        const marker = this.map.addMarker({
+                            position: new LatLng(location.lat, location.lng),
+                            title: location.name
+                        }).then((marker: Marker) => {
 
-                    const marker = this.map.addMarker({
-                        position: new LatLng(location.lat, location.lng),
-                        title: location.name
-                    }).then((marker: Marker) => {
+                            this.markers.push({
+                                id: location.id,
+                                marker: marker
+                            })
 
-                        this.markers.push({
-                            id: location.id,
-                            marker: marker
-                        })
+                        });
 
-                    });
-
+                    }
                 }
 
             });
