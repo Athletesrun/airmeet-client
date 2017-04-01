@@ -60,8 +60,6 @@ export class People {
 
   private updatePeopleInterval;
 
-  private userId = localStorage.getItem('userId');
-
   constructor(public nav: NavController, private api: HttpService) {
   }
 

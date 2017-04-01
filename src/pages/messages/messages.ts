@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
+import { Storage } from '@ionic/storage'
 
 @Component({templateUrl: "conversation.html", providers: [HttpService]})
 export class Conversation {
@@ -12,12 +13,17 @@ export class Conversation {
 
 	private alreadyScrolledToBottom = false;
 
-	private userId = parseInt(localStorage.getItem('userId'));
+	private userId;
 
-	constructor(params: NavParams, private api: HttpService) {
-		this.person = params.data.person;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
+    this.person = navParams.data.person;
 
-	}
+    this.storage.ready().then(() => {
+      this.storage.get('userId').then((val) => {
+        this.userId = parseInt(val);
+      })
+    })
+  }
 
 	ngOnInit() {
 
@@ -76,10 +82,11 @@ export class Conversation {
 
 	}
 
-	updateMessages() {
+	updateMessages() {//hi
 
 		this.api.getConversation(this.person.id).subscribe((messages) => {
 
+      console.log(messages);
 			this.messages = messages;
 
 
@@ -137,12 +144,17 @@ export class NewConversationMessage {
 	private person;
 	private messages;
 	private updateInterval;
-	private userId = parseInt(localStorage.getItem('userId'));
+	private userId;
 
 	private alreadyScrolledToBottom = false;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
 		this.person = navParams.data.person;
+		this.storage.ready().then(() => {
+		  this.storage.get('userId').then((val) => {
+		    this.userId = parseInt(val);
+      })
+    })
 	}
 
 	needToScrollToBottom() {
