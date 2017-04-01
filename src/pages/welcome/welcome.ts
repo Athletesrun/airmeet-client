@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { HttpService } from '../../services/http.service';
 import { People } from "../people/people";
 import { Camera, CameraOptions } from "@ionic-native/camera";
+import { Settings } from '../settings/settings'
 
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
@@ -57,12 +58,9 @@ export class ProfileCreation{
       const fileTransfer: TransferObject = this.transfer.create();
       let options: FileUploadOptions = {
         fileKey: 'file',
-        fileName: 'image.jpg',
-        params: {
-          token: localStorage.getItem("token")
-        },
+        fileName: 'image.jpg'
       };
-      fileTransfer.upload(imageData, localStorage.getItem("apiURL") + "/api/updateProfilePicture", options)
+      fileTransfer.upload(imageData, localStorage.getItem("apiURL") + "/api/updateProfilePicture/" + localStorage.getItem('token'), options)
         .then((res) => {
           console.log(res);
         }, (err) => {
@@ -233,6 +231,10 @@ export class JoinEvent {
 
     constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public storage: Storage){
       this.status = "normal"
+    }
+
+    showSettings() {
+      this.navCtrl.push(Settings);
     }
 
     joinEvent(event) {

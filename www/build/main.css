@@ -24635,6 +24635,11 @@ map-page #map {
   background-color: #387ef5;
 }
 
+#settingsFab {
+  bottom: 50px;
+  right: 25px;
+}
+
 .blue {
   background-color: #387ef5;
 }

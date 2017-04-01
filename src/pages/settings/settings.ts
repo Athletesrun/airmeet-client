@@ -287,10 +287,12 @@ export class Settings {
         twitter: ""
     };
 
+    inEvent;
+
     private updateProfileInterval;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
-
+      this.inEvent = localStorage.getItem('inEvent');
     }
 
     ngOnInit() {

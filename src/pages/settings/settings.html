@@ -98,7 +98,7 @@
         </button>
       </ion-buttons>
 
-      <ion-buttons (tap)="tapEvent('leaveEvent')">
+      <ion-buttons *ngIf="inEvent" (tap)="tapEvent('leaveEvent')">
         <button ion-item>
           Leave Event
         </button>
