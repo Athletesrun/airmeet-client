@@ -67,28 +67,32 @@ export class SocketService {
 
     shareLocation() {
 
-        this.sharingLocation = true;
+        document.addEventListener('deviceready', () => {
+            this.sharingLocation = true;
 
-        this.mapInterval = setInterval(() => {
+            console.log('begin sharing location deviceready');
 
-            if (localStorage.getItem("inEvent") === "true" && localStorage.getItem("shareLocation") === "true") {
+            this.mapInterval = setInterval(() => {
 
-                navigator.geolocation.getCurrentPosition((position) => {
+                if (localStorage.getItem("inEvent") === "true" && localStorage.getItem("shareLocation") === "true") {
 
-                    this.socket.emit('shareLocation', {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    });
+                    navigator.geolocation.getCurrentPosition((position) => {
 
-                }, (err) => {
+                        this.socket.emit('shareLocation', {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        });
 
-                    //console.log(err);
+                    }, (err) => {
 
-                }, {timeout: 3000});
+                        //console.log(err);
 
-            }
+                    }, {timeout: 3000});
 
-        }, 3000);
+                }
+
+            }, 3000);
+        }, false);
     }
 
     beginSharingLocation() {
