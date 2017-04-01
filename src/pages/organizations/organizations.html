@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle id="pleaseshowup">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>People</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+  Organizations will go here
+  <ion-list>
+    <button ion-item icon-left>
+      <ion-avatar item-left>
+        <img src="assets/profile.gif">
+      </ion-avatar>
+      {{item.firstName}} {{item.lastName}}
+    </button>
+  </ion-list>
+</ion-content>

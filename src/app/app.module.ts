@@ -17,6 +17,7 @@ import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
 import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture, PrivacyPolicy } from '../pages/settings/settings';
 import { Saved } from '../pages/saved/saved';
+import { Organization, Organizations } from '../pages/organizations/organizations';
 import { SavedProfiles } from '../pages/saved/savedProfiles';
 import { SavedMessages } from '../pages/saved/savedMessages';
 
@@ -55,6 +56,8 @@ const cloudSettings: CloudSettings = {
     CreateAccount,
     signin,
     JoinEvent,
+    Organization,
+    Organizations,
     ProfileCreation,
     LoginSuccess
   ],
@@ -95,6 +98,8 @@ const cloudSettings: CloudSettings = {
     PrivacyPolicy,
     signin,
     JoinEvent,
+    Organization,
+    Organizations,
     ProfileCreation,
     LoginSuccess
   ],

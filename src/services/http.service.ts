@@ -236,6 +236,46 @@ export class HttpService {
         });
     }
 
+    unsaveProfile(userId): Observable<Status> {
+        return this.http.post(this.getApiURL() + "/api/unsaveProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    unsaveConversation(userId): Observable<Status> {
+        return this.http.post(this.getApiURL() + "/api/saveConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    checkIfSavedProfile(userId): Observable<Status> {
+        return this.http.post(this.getApiURL() + "/api/checkIfSavedProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    checkIfSavedConversation(userId): Observable<Status> {
+        return this.http.post(this.getApiURL() + "/api/checkIfSavedConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
     private handleError(error: Response | any) {
     	console.log('error:' + error);
     	return 'REJECTED';
