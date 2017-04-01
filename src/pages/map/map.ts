@@ -84,11 +84,11 @@ export class Map {
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
 
-            this.map.addGroundOverlay({
+            /*this.map.addGroundOverlay({
                 url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
                 bounds: bounds,
                 opacity: 1
-            });
+            });*/
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 

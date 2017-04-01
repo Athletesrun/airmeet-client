@@ -1,0 +1,22 @@
+{
+  "locations": [
+    {
+      "name": "Creighton Prep",
+      "id": 1,
+      "lat": 1234,
+      "lng": 1234
+    },
+    {
+      "name": "Millard West",
+      "id": 2,
+      "lat": 1234,
+      "lng": 1234
+    },
+    {
+      "name": "Skutt",
+      "id": 3,
+      "lat": 1234,
+      "lng": 1234
+    }
+  ]
+}

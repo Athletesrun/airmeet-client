@@ -15,11 +15,12 @@ import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
-import { Settings, EventInfo, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture, PrivacyPolicy } from '../pages/settings/settings';
+import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture, PrivacyPolicy } from '../pages/settings/settings';
 import { Saved } from '../pages/saved/saved';
 import { Organization, Organizations } from '../pages/organizations/organizations';
 import { SavedProfiles } from '../pages/saved/savedProfiles';
 import { SavedMessages } from '../pages/saved/savedMessages';
+import { EventInfo } from '../pages/eventInfo/eventInfo';
 
 const cloudSettings: CloudSettings = {
   'core': {

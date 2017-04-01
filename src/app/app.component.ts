@@ -8,6 +8,7 @@ import { Welcome, JoinEvent, LoginSuccess } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
 import { Organizations } from '../pages/organizations/organizations';
+import { EventInfo } from '../pages/eventInfo/eventInfo';
 import { Messages } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
@@ -51,10 +52,11 @@ export class MyApp {
           // used for an example of ngFor and navigation
           this.pages = [
             {title: 'People', component: People},
-            {title: 'Organizations', component: Organizations},
             {title: 'Messages', component: Messages},
             {title: 'Your Profile', component: UserProfile},
             {title: 'Map', component: Map},
+            {title: 'Organizations', component: Organizations},
+            {title: 'Event Info', component: EventInfo },
             {title: 'Saved Content', component: Saved},
             {title: 'Settings', component: Settings}
           ];

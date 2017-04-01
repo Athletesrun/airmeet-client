@@ -20,12 +20,17 @@ export class Organization {
 @Component({templateUrl: "organizations.html", selector: "people", providers: [HttpService]})
 export class Organizations {
 
+  private organizations;
+
   private userId = localStorage.getItem('userId');
 
   constructor(public nav: NavController, private api: HttpService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+
+  }
 
   ngOnDestroy() { }
 

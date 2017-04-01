@@ -8,63 +8,6 @@ import { Welcome, JoinEvent } from '../welcome/welcome';
 
 import { Storage } from '@ionic/storage';
 
-import { User } from '../../models/user.model';
-
-@Component({templateUrl: 'eventInfo.html', providers: [HttpService]})
-export class EventInfo {
-
-    private eventName;
-    private eventOrganizer;
-    private eventWebsite;
-    private eventDate;
-    private eventDescription;
-
-    private updateInterval;
-
-    constructor(private api: HttpService) {
-    }
-
-    ngOnInit() {
-
-        this.getEventInfo();
-
-        this.updateInterval = setInterval(() => {
-            this.getEventInfo();
-        }, 8000);
-
-    }
-
-    onNgDestroy() {
-
-        clearInterval(this.updateInterval);
-
-    }
-
-    getEventInfo() {
-
-        this.api.getEventInfo().subscribe((event) => {
-
-            this.eventName = event.name;
-            this.eventOrganizer = event.organizer;
-            this.eventWebsite = event.website;
-            this.eventDescription = event.description;
-
-            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-            event.date = new Date(event.date);
-
-            this.eventDate = months[event.date.getMonth()] + " " + event.date.getDate() + ", " + event.date.getFullYear();
-
-        }, (err) => {
-
-            console.log(err);
-
-        });
-
-    }
-
-}
-
 @Component({templateUrl: 'Settings_Name.html', providers: [HttpService]})
 export class Settings_Name {
 
@@ -388,10 +331,6 @@ export class Settings {
                 firstName: this.profile.firstName,
                 lastName: this.profile.lastName
             });
-
-        } else if(event === "eventInfo") {
-
-            this.navCtrl.push(EventInfo);
 
         } else if(event === "Phone") {
 
