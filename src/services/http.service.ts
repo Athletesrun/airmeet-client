@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
+/*
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
+*/
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,7 +18,7 @@ import { Event } from '../models/event.model';
 @Injectable()
 export class HttpService {
 
-	constructor(private http: Http, public storage: Storage) {}
+	constructor(private http: Http, public storage: Storage/*, private transfer: Transfer, private file: File*/) {}
 
 	private getApiURL() {
         return localStorage.getItem("apiURL");
@@ -23,6 +27,21 @@ export class HttpService {
 	private getToken() {
 	    return localStorage.getItem("token");
     }
+
+    private dataURItoBlob(dataURI) {
+      let byteString = atob(dataURI.split(',')[1]);
+
+      let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      let ab = new ArrayBuffer(byteString.length);
+      let ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ab], {type: mimeString});
+
+  }
 
 	private getUserId() {
 	    return parseInt(localStorage.getItem("userId"));
@@ -235,6 +254,14 @@ export class HttpService {
             return Observable.throw(error.json().error || "Server Error");
         });
     }
+    /*
+    updateProfilePicture(file) {
+        // let blob = this.dataURItoBlob(file);
+
+
+      return setInterval(() => { if(results) }, 10)
+    }
+    */
 
     unsaveProfile(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/unsaveProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
