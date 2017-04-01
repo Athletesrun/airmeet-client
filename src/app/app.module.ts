@@ -27,6 +27,7 @@ const cloudSettings: CloudSettings = {
   }
 };
 
+
 @NgModule({
   declarations: [
     MyApp,
