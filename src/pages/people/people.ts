@@ -13,10 +13,20 @@ import {Conversation} from "../messages/messages";
 
 })
 export class Person {
-  item;
+  item; saved;
 
   constructor(params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController) {
     this.item = params.data.item;
+  }
+
+  ngOnInit() {
+    this.updateSave();
+  }
+
+  updateSave() {
+    this.api.checkIfSavedProfile(this.item.id).subscribe((res) => {
+      this.saved = res.status;
+    })
   }
 
   Message(person) {
@@ -34,9 +44,28 @@ export class Person {
           duration: 3000
         });
         toast.present();
+        this.updateSave();
       }
       else console.log(res);
     },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  unSave(person) {
+    this.api.unsaveProfile(person.id).subscribe((res) => {
+        if (res.status === "success") {
+          let toast = this.toast.create({
+            message: 'Profile has been removed!',
+            duration: 3000
+          });
+          toast.present();
+          this.updateSave();
+        }
+        else console.log(res);
+      },
       (err) => {
         console.log(err);
       }
