@@ -31,6 +31,8 @@ export class MyApp {
     storage.ready().then(() => {
 
       storage.get('signedIn').then((signedIn) => {
+        storage.get('userId').then((res) => localStorage.setItem('userId', res));
+        storage.get('token').then((res) => localStorage.setItem('token', res));
         storage.get('inEvent').then((inEvent) => {
           if (signedIn === "true" && inEvent === "true") {
 

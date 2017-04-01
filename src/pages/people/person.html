@@ -14,8 +14,11 @@
       </button>
     </ion-fab>
     <ion-fab top left edge id="savefab">
-      <button ion-fab mini (click)="Save(item)">
+      <button *ngIf="saved" ion-fab mini (click)="unSave(item)">
         <ion-icon name="star"></ion-icon>
+      </button>
+      <button *ngIf="!saved" ion-fab mini (click)="Save(item)">
+        <ion-icon name="star-outline"></ion-icon>
       </button>
     </ion-fab>
   </div>

@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Slides } from 'ionic-angular';
 
 import * as SHA2 from "../../services/sha.service";
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
 
 import { Storage } from '@ionic/storage';
 import { HttpService } from '../../services/http.service';
@@ -25,11 +27,11 @@ export class Welcome {
 
 }
 
-@Component({templateUrl: "Profile-Creation.html", providers: [HttpService, Camera]})
+@Component({templateUrl: "Profile-Creation.html", providers: [HttpService, Camera, Transfer, File]})
 export class ProfileCreation{
   @ViewChild(Slides) slides: Slides;
   status; description; interests; facebook; phone; twitter;
-  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera){
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File){
     this.status = {
       description: "normal",
       interests: "normal",
@@ -46,16 +48,26 @@ export class ProfileCreation{
   take() {
     const options: CameraOptions = {
       quality: 100,
+      destinationType: this.camera.DestinationType.NATIVE_URI,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      cameraDirection: 1
     };
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
-      console.log(imageData);
-    }, (err) => {
-      console.log(err)
-      // Handle error
+      const fileTransfer: TransferObject = this.transfer.create();
+      let options: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: 'image.jpg',
+        params: {
+          token: localStorage.getItem("token")
+        },
+      };
+      fileTransfer.upload(imageData, localStorage.getItem("apiURL") + "/api/updateProfilePicture", options)
+        .then((res) => {
+          console.log(res);
+        }, (err) => {
+          console.log(err);
+        })
     });
   }
   update(a) {
@@ -130,6 +142,7 @@ export class CreateAccount {
             if (response.status == "success") {
 
                 this.storage.set('token', response.token);
+                localStorage.setItem('token', response.token);
                 this.storage.set('signedIn', "true");
 
               this.navCtrl.push(ProfileCreation);
@@ -192,7 +205,10 @@ export class signin {
 
               console.log(response);
               this.storage.set("userId", response.id);
+              localStorage.setItem("userId", response.id);
               this.storage.set("token", response.token);
+              localStorage.setItem("token", response.token);
+              this.storage.set('signedIn', "true");
               this.navCtrl.push(JoinEvent);
 
             }
@@ -224,7 +240,9 @@ export class JoinEvent {
                 console.log(ip);
                 if (res.status === "success") {
                   this.storage.set("event", res.eventId);
+                  localStorage.setItem("event", res.eventId);
                   this.storage.set("inEvent", "true");
+                  localStorage.setItem("inEvent", "true");
                   this.storage.set("shareLocation", "true").then(() =>
                   {
                     this.api.getEventInfo().subscribe((res) => {
@@ -232,7 +250,7 @@ export class JoinEvent {
                         eventName: res.name
                       })
                     }, (err) => console.log(err));
-                  })
+                  });
                   //this.navCtrl.setRoot(People);
                 }
                 else {
