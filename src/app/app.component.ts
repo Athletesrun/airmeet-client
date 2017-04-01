@@ -45,7 +45,6 @@ export class MyApp {
           } else {
 
             this.rootPage = Welcome;
-            //@todo bring them to the right page within welcome or something idk
 
           }
 
@@ -95,23 +94,23 @@ export class MyApp {
     }
     */
 
-    this.storage.get('useLocalServer').then((useLocalServer) => {
-      this.storage.get('apiURL').then((apiURL) => {
+    //this.storage.get('useLocalServer').then((useLocalServer) => {
+      //this.storage.get('apiURL').then((apiURL) => {
 
-        if(useLocalServer === 'true') {
+        if(localStorage.getItem('userLocalServer') === 'true') {
 
-          this.storage.set('apiURL', "http://localhost:8080");
-          this.storage.set('socketURL', "http://localhost:9090");
+            localStorage.setItem("apiURL", "http://localhost:8080");
+            localStorage.setItem("socketURL", "http://localhost:9090");
 
         } else {
 
-          this.storage.set('apiURL', "https://api.airmeet.org");
-          this.storage.set('socketURL', "https://sockets.airmeet.org");
+            localStorage.setItem("apiURL", "https://api.airmeet.org");
+            localStorage.setItem("socketURL", "https://sockets.airmeet.org");
 
         }
-      });
+      //});
 
-    });
+    //});
 
     this.sockets.beginSharingLocation();
 

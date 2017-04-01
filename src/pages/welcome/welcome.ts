@@ -7,8 +7,8 @@ import { File } from '@ionic-native/file';
 
 import { Storage } from '@ionic/storage';
 import { HttpService } from '../../services/http.service';
-import {People} from "../people/people";
-import {Camera, CameraOptions} from "@ionic-native/camera";
+import { People } from "../people/people";
+import { Camera, CameraOptions } from "@ionic-native/camera";
 
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
@@ -144,6 +144,9 @@ export class CreateAccount {
                 this.storage.set('token', response.token);
                 localStorage.setItem('token', response.token);
                 this.storage.set('signedIn', "true");
+                localStorage.setItem('signedIn', "true");
+                this.storage.set('userId', response.id);
+                localStorage.setItem('userId', response.id);
 
               this.navCtrl.push(ProfileCreation);
 
@@ -209,6 +212,7 @@ export class signin {
               this.storage.set("token", response.token);
               localStorage.setItem("token", response.token);
               this.storage.set('signedIn', "true");
+              localStorage.setItem('signedIn', "true");
               this.navCtrl.push(JoinEvent);
 
             }
@@ -243,6 +247,8 @@ export class JoinEvent {
                   localStorage.setItem("event", res.eventId);
                   this.storage.set("inEvent", "true");
                   localStorage.setItem("inEvent", "true");
+
+                  localStorage.setItem("shareLocation", "true");
                   this.storage.set("shareLocation", "true").then(() =>
                   {
                     this.api.getEventInfo().subscribe((res) => {

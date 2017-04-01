@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -370,10 +370,16 @@ export class Settings {
 
         } else if(event === "signOut") {
 
-            this.storage.set('userId', null);
-            this.storage.set('token', null);
-            this.storage.set('signedIn', 'false');
-            this.storage.set('inEvent', 'false');
+            this.storage.remove('userId');
+            localStorage.removeItem('userId');
+            this.storage.remove('token');
+            localStorage.removeItem('token');
+            this.storage.remove('signedIn');
+            localStorage.removeItem('signedIn');
+            this.storage.remove('inEvent');
+            localStorage.removeItem('inEvent');
+            this.storage.remove('event');
+            localStorage.removeItem('event');
 
             this.navCtrl.setRoot(Welcome);
             this.navCtrl.push(Welcome);
@@ -382,8 +388,10 @@ export class Settings {
 
             this.api.leaveEvent().subscribe(() => {
 
-                this.storage.set("inEvent", "false");
-                this.storage.set("event", null);
+                this.storage.remove("inEvent");
+                localStorage.removeItem("inEvent");
+                this.storage.remove("event");
+                localStorage.removeItem("event");
 
                 this.navCtrl.setRoot(JoinEvent);
                 this.navCtrl.push(JoinEvent);
