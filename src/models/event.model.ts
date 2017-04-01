@@ -5,6 +5,7 @@ export class Event {
         public name: string,
         public description: string,
         public website: string,
-        public organizer: string
+        public organizer: string,
+        public schedule: Object
     ){}
 }

@@ -34,24 +34,16 @@ page-page1 {
   text-align: center;
 }
 
-#messagefab {
-  top: 125px;
+#organizationDescription {
+  font-size: 20px;
 }
 
-#messagefab > button {
-  box-shadow: #2d2d2d 0 2px 5px;
+#organizationWebsite {
+  text-align: center;
+  margin: auto;
 }
 
-#savefab {
-  top: 125px;
+#organizationWebsiteLink {
+  font-size: 20px;
+  color: inherit;
 }
-
-#savefab > button {
-  box-shadow: #2d2d2d 0 2px 5px;
-}
-/*
-.profile-split {
-  border: 2px solid;
-}
-*/
-

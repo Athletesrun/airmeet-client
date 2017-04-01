@@ -82,7 +82,7 @@ export class SocketService {
 
                 }, (err) => {
 
-                    console.log(err);
+                    //console.log(err);
 
                 }, {timeout: 3000});
 

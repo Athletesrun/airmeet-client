@@ -3,10 +3,25 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Map</ion-title>
+    <ion-title>Event Info</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="noScroll">
-  <div id="map"></div>
+  <div id="eventInfoContainer">
+    <h2 id="eventName">{{ eventName }}</h2>
+    <p id="eventDate">{{ eventDate }}</p>
+    <hr style="height: 1px;">
+    <p id="eventDescription">{{ eventDescription}}</p>
+    <hr style="height: 1px;">
+    <h3 id="eventScheduleHeader">Schedule</h3>
+    <ul *ngIf="eventSchedule" id="eventScheduleList">
+      <li *ngFor="let item of eventSchedule.schedule">
+        <p id="scheduleItem"><span id="scheduleTime">{{item.time}}</span> <span id="scheduleEvent">{{item.event}}</span></p>
+      </li>
+    </ul>
+    <hr style="height: 1px;">
+    <p id="eventWebsite"><a id="eventWebsiteLink" href="{{eventWebsite}}">Website</a></p>
+    <p id="hostedBy">Hosted by {{ eventOrganizer}}</p>
+  </div>
 </ion-content>

@@ -24429,6 +24429,70 @@ ion-app._gmaps_cdv_ .nav-decor {
   background-color: transparent !important;
 }
 
+event-info #eventName {
+  font-size: 30px;
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+}
+
+event-info #eventDate {
+  font-size: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+event-info #eventDescription {
+  padding: 10px;
+  font-size: 20px;
+}
+
+event-info #eventWebsite {
+  font-size: 18px;
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+}
+
+event-info #eventScheduleHeader {
+  font-size: 26px;
+  text-align: center;
+  margin: auto;
+  padding: 5px;
+}
+
+event-info #eventScheduleList {
+  list-style: none;
+}
+
+event-info #scheduleItem {
+  padding: 2px;
+  font-size: 20px;
+}
+
+event-info #scheduleTime {
+  font-weight: bold;
+}
+
+event-info #eventWebsiteLink {
+  color: inherit;
+}
+
+event-info #hostedBy {
+  padding-top: 10px;
+  font-size: 18px;
+  text-align: center;
+  margin: auto;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+ion-app._gmaps_cdv_ .nav-decor {
+  background-color: transparent !important;
+}
+
 map-page #map {
   height: 100%;
 }
@@ -24498,27 +24562,20 @@ map-page #map {
   text-align: center;
 }
 
-#messagefab {
-  top: 125px;
+#organizationDescription {
+  font-size: 20px;
 }
 
-#messagefab > button {
-  box-shadow: #2d2d2d 0 2px 5px;
+#organizationWebsite {
+  text-align: center;
+  margin: auto;
 }
 
-#savefab {
-  top: 125px;
+#organizationWebsiteLink {
+  font-size: 20px;
+  color: inherit;
 }
 
-#savefab > button {
-  box-shadow: #2d2d2d 0 2px 5px;
-}
-
-/*
-.profile-split {
-  border: 2px solid;
-}
-*/
 .profile-ribbon {
   position: absolute;
   width: 100%;

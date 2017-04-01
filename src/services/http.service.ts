@@ -14,6 +14,7 @@ import { Message } from '../models/message.model';
 import { User } from '../models/user.model';
 import { Status } from '../models/status.model';
 import { Event } from '../models/event.model';
+import { Organization } from '../models/organization.model';
 
 @Injectable()
 export class HttpService {
@@ -295,6 +296,26 @@ export class HttpService {
 
     checkIfSavedConversation(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/checkIfSavedConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    getAllOrganizations(): Observable<Status> {
+        return this.http.post(this.getApiURL() + "/api/getAllOrganizations", {token: this.getToken() }).map((res: Response) => {
+
+            return res.json();
+
+        }).catch((error: any) => {
+            return Observable.throw(error.json().error || "Server Error");
+        });
+    }
+
+    getOrganization(organizationId): Observable<Organization> {
+        return this.http.post(this.getApiURL() + "/api/getOrganization", {token: this.getToken(), organizationId: organizationId }).map((res: Response) => {
 
             return res.json();
 

@@ -82,17 +82,16 @@ export class Conversation {
 
 	}
 
-	updateMessages() {//hi
+	updateMessages() {
 
 		this.api.getConversation(this.person.id).subscribe((messages) => {
 
-      console.log(messages);
 			this.messages = messages;
 
 
 		}, (err) => {
 
-			console.log('err');
+			console.log(err);
 
 		});
 

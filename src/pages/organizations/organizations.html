@@ -3,19 +3,19 @@
     <button ion-button menuToggle id="pleaseshowup">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>People</ion-title>
+    <ion-title>Organizations</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
-  Organizations will go here
+  <!--<ion-searchbar (ionInput)="search($event)"></ion-searchbar>-->
   <ion-list>
-    <button ion-item icon-left>
+    <button *ngFor="let organization of organizations" (click)="open(organization.id)" ion-item icon-left>
       <ion-avatar item-left>
-        <img src="/assets/profile.gif">
+        <img *ngIf="organization.picture === null" src="/assets/organization.svg">
+        <img *ngIf="organization.picture !== null" src="https://s3.us-east-2.amazonaws.com/airmeet-uploads/organizations/{{picture}}">
       </ion-avatar>
-      {{item.firstName}} {{item.lastName}}
+      {{ organization.name }}
     </button>
   </ion-list>
 </ion-content>

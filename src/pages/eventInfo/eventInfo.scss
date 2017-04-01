@@ -6,10 +6,62 @@ ion-app._gmaps_cdv_ .nav-decor{
   background-color: transparent !important;
 }
 
-map-page {
+event-info {
 
-  #map {
-    height: 100%;
+  #eventName {
+    font-size: 30px;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+  }
+
+  #eventDate {
+    font-size: 20px;
+    text-align: center;
+    margin: auto;
+  }
+
+  #eventDescription {
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  #eventWebsite {
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+  }
+
+  #eventScheduleHeader {
+    font-size: 26px;
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+  }
+
+  #eventScheduleList {
+    list-style: none;
+  }
+
+  #scheduleItem {
+    padding: 2px;
+    font-size: 20px;
+  }
+
+  #scheduleTime {
+    font-weight: bold;
+  }
+
+  #eventWebsiteLink {
+    color: inherit;
+  }
+
+  #hostedBy {
+    padding-top: 10px;
+    font-size: 18px;
+    text-align: center;
+    margin: auto;
   }
 
 }

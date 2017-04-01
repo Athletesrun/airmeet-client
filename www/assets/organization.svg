@@ -1,0 +1,28 @@
+<?xml version="1.0"?><svg width="1133.8544881889766" height="793.7007874015749" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient595">
+   <stop id="stop596" offset="0" stop-color="#000"/>
+   <stop id="stop597" offset="1" stop-color="#fff"/>
+  </linearGradient>
+  <linearGradient id="linearGradient598" xlink:href="#linearGradient595"/>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_7">
+   <g id="g1377">
+    <rect height="13.745544" id="rect1265" width="380.293243" x="337.911224" y="485.220123" stroke-width="1pt" fill-rule="evenodd" fill="#000000"/>
+    <rect height="13.745544" id="rect1266" width="426.111676" x="315.001994" y="516.147659" stroke-width="1pt" fill-rule="evenodd" fill="#000000"/>
+    <rect height="13.745544" id="rect1267" width="458.184554" x="298.965519" y="547.075211" stroke-width="1pt" fill-rule="evenodd" fill="#000000"/>
+   </g>
+   <g id="g1381">
+    <rect height="13.745544" id="rect1264" width="380.293243" x="337.911224" y="279.037018" stroke-width="1pt" fill-rule="evenodd" fill="#000000"/>
+    <path d="m337.911011,248.110016l0,13.745026l190.145996,-60.70903l190.146973,60.70903l0,-13.745026l-190.146973,-60.709l-190.145996,60.709z" id="path1269" stroke-width="1pt" fill-rule="evenodd" fill="#000000"/>
+    <path d="m388.671997,261.855103l36.200012,0l103.184998,-33.218018l103.140991,33.025024l38.669983,0.316986l-141.810974,-47.087006l-139.38501,46.963013z" id="path1271" stroke-width="1pt" fill-rule="evenodd" fill="#000000"/>
+   </g>
+   <rect fill="#000000" stroke-width="1.0247pt" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="343.145508" y="303.299194" width="29" height="173" id="svg_1"/>
+   <rect fill="#000000" stroke-width="1.0247pt" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="392.895508" y="303.299194" width="29" height="173" id="svg_4"/>
+   <rect fill="#000000" stroke-width="1.0247pt" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="635.145508" y="302.299194" width="29" height="173" id="svg_5"/>
+   <rect fill="#000000" stroke-width="1.0247pt" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="684.895508" y="302.299194" width="29" height="173" id="svg_6"/>
+  </g>
+ </g>
+</svg>
