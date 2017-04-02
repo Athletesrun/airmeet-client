@@ -8,6 +8,10 @@ import {Subscription} from 'rxjs/Subscription';
 
 import { Storage } from '@ionic/storage'
 
+import { Person } from '../people/people';
+
+import { HttpService } from '../../services/http.service';
+
 import {
     GoogleMaps,
     GoogleMap,
@@ -22,7 +26,8 @@ import {
     selector: 'map-page',
     templateUrl: 'map.html',
     providers: [
-        GoogleMaps
+        GoogleMaps,
+        HttpService
     ]
 })
 
@@ -36,7 +41,7 @@ export class Map {
     public locationSubscription: Subscription;
     public removedLocationSubscription: Subscription;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService) {
         this.storage.ready().then(() => {
           this.storage.get('userId').then((val) => {
             this.userId = parseInt(val);
@@ -92,8 +97,6 @@ export class Map {
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
-                console.log(location);
-
                 if(location.id.toString() !== localStorage.getItem('userId')) {
                     let hasMatched = false;
 
@@ -113,14 +116,7 @@ export class Map {
 
                     if (hasMatched === false) {
 
-                        console.log(location);
-
                         let picture;
-
-                        let iconSize = {
-                            height: 20,
-                            width: 20
-                        }
 
                         if(location.picture) {
 
@@ -134,19 +130,27 @@ export class Map {
 
                         const marker = this.map.addMarker({
                             position: new LatLng(location.lat, location.lng),
-                            title: location.name,
+                            markerClick: (marker: Marker) => {
+
+                                marker.hideInfoWindow();
+
+                                this.api.getUserProfile(marker.get('id')).subscribe((user) => {
+                                    this.navCtrl.push(Person, {
+                                        item: user
+                                    });
+                                });
+                                
+                            },
                             icon: {
                                 url: picture,
                                 size: {
-                                    height: 20,
-                                    width: 20
+                                    height: 40,
+                                    width: 40
                                 }
                             }
                         }).then((marker: Marker) => {
 
-                            //marker.setIcon({
-
-                            //});
+                            marker.set('id', location.id);
 
                             this.markers.push({
                                 id: location.id,

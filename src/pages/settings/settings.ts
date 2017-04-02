@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, MenuController, NavParams } from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 
@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 import {DomSanitizer} from "@angular/platform-browser";
 import {Transfer, FileUploadOptions, TransferObject} from "@ionic-native/transfer";
 import { Camera, CameraOptions } from "@ionic-native/camera";
+import {SocketService} from "../../services/socket.service";
 
 @Component({templateUrl: 'Settings_Name.html', providers: [HttpService]})
 export class Settings_Name {
@@ -328,7 +329,9 @@ export class Settings {
 
     private updateProfileInterval;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
+    private shareLocationStatus = true;
+
+    constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public menu: MenuController, public sockets: SocketService) {
       this.inEvent = localStorage.getItem('inEvent');
     }
 
@@ -345,6 +348,30 @@ export class Settings {
     ngOnDestroy() {
 
         clearInterval(this.updateProfileInterval);
+
+    }
+
+    updateShareLocation() {
+
+        if(this.shareLocationStatus === true) {
+
+            this.storage.set('shareLocation', 'true').then(() => {
+
+                localStorage.setItem('shareLocation', 'true');
+
+            });
+
+        } else {
+
+            this.storage.set('shareLocation', 'false').then(() => {
+
+                localStorage.removeItem('shareLocation');
+
+                this.sockets.stopSharingLocation();
+
+            });
+
+        }
 
     }
 
@@ -409,6 +436,8 @@ export class Settings {
 
         } else if(event === "signOut") {
 
+            this.menu.swipeEnable(false, 'sideNavMenu');
+
             this.storage.remove('userId');
             localStorage.removeItem('userId');
             this.storage.remove('token');
@@ -426,6 +455,8 @@ export class Settings {
         } else if(event === "leaveEvent") {
 
             this.api.leaveEvent().subscribe(() => {
+
+                this.menu.swipeEnable(false, 'sideNavMenu');
 
                 this.storage.remove("inEvent");
                 localStorage.removeItem("inEvent");

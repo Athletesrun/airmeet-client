@@ -60,7 +60,7 @@ export class Conversation {
 
 		this.updateInterval = setInterval(() => {
 			this.updateMessages();
-		}, 1000);
+		}, 1200);
 
 	}
 

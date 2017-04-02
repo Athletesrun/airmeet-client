@@ -117,7 +117,13 @@ export class MyApp {
   }
 
   ngAfterViewInit() {
-    this.menu.swipeEnable(false, 'sideNavMenu');
+
+    if(localStorage.getItem("signedIn") === "true" && localStorage.getItem("inEvent") === "true") {
+      this.menu.swipeEnable(true, 'sideNavMenu');
+    } else {
+      this.menu.swipeEnable(false, 'sideNavMenu');
+    }
+
   }
 
   openPage(page) {

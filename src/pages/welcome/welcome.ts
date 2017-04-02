@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Slides } from 'ionic-angular';
+import { NavController, NavParams, Slides, MenuController } from 'ionic-angular';
 
 import * as SHA2 from "../../services/sha.service";
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
@@ -292,15 +292,21 @@ export class LoginSuccess {
 
   eventName; plane;
 
-  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public menu: MenuController) {
     this.eventName = this.navParams.data.eventName;
     this.plane = "step1";
   }
 
   ngOnInit() {
+
     setTimeout(() => this.plane = "step2", 500);
     setTimeout(() => this.plane = "step3", 3000);
-    setTimeout(() => this.navCtrl.setRoot(People), 4000);
+    setTimeout(() => {
+
+        this.menu.swipeEnable(true, 'sideNavMenu');
+
+        this.navCtrl.setRoot(People);
+    }, 4000);
     //setTimeout(() => this.navCtrl.setRoot(People), 3000);
   }
 

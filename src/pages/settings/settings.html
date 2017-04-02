@@ -89,7 +89,7 @@
 
       <ion-item>
         <ion-label>Share Location on Map</ion-label>
-        <ion-toggle checked="true"></ion-toggle>
+        <ion-toggle [(ngModel)]="shareLocationStatus" (ionChange)="updateShareLocation(item)" checked="true"></ion-toggle>
       </ion-item>
 
       <ion-buttons (tap)="tapEvent('privacyPolicy')">

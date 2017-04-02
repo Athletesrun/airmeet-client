@@ -98,4 +98,10 @@ export class SocketService {
         this.shareLocation();
     }
 
+    stopSharingLocation() {
+
+        this.socket.emit('stopSharingLocation');
+
+    }
+
 }
