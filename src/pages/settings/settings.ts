@@ -271,6 +271,7 @@ export class Settings_Twitter {
     export class Settings_Picture {
       image; showImg; sObj;
      constructor(public navParams: NavParams, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer) {
+       this.image = "https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + localStorage.getItem("userId") + ".jpg";
     }
   take(location) {
     const options1: CameraOptions = {
@@ -281,16 +282,18 @@ export class Settings_Twitter {
       cameraDirection: this.camera.Direction.FRONT,
       correctOrientation: true,
       sourceType: location === "camera" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
-      targetWidth: 500,
-      targetHeight: 500
+      targetWidth: 200,
+      targetHeight: 200
     };
     this.camera.getPicture(options1).then((imageData) => {
-      this.showImg = true;
       this.image = imageData;
-      console.log(this.ds.bypassSecurityTrustUrl(imageData));
+      this.upload();
     }, (err) => {
       console.log(err);
     });
+  }
+  getSanitizedUrl() {
+       return this.ds.bypassSecurityTrustUrl(this.image);
   }
   upload() {
     const fileTransfer: TransferObject = this.transfer.create();

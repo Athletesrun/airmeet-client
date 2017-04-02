@@ -20,6 +20,12 @@ export class UserProfile {
     this.getPeople();
   }
 
+  getImage(){
+    let a = "url(https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + localStorage.getItem("userId") + ".jpg)";
+    console.log(a);
+    return a
+  }
+
   getPeople() {
     this.api.getOwnProfile().subscribe(
       (profile) => {

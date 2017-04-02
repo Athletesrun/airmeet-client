@@ -13,13 +13,17 @@ import {DomSanitizer} from "@angular/platform-browser";
 
 })
 export class Person {
-
-  item;
-  saved;
+  item; saved; image;
 
   constructor(params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController, private sanitizer: DomSanitizer) {
     this.item = params.data.item;
+    this.image = {"background-image": "url(" + this.getImage() + ")"}
+  }
 
+  getImage(){
+    let a = "url(https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + this.item.id + ".jpg)";
+    console.log(a);
+    return a
   }
 
   ngOnInit() {

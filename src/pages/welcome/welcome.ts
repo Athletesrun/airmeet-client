@@ -56,29 +56,32 @@ export class ProfileCreation{
       cameraDirection: this.camera.Direction.FRONT,
       correctOrientation: true,
       sourceType: location === "camera" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
-      targetWidth: 500,
-      targetHeight: 500
+      targetWidth: 200,
+      targetHeight: 200
     };
     this.camera.getPicture(options1).then((imageData) => {
-      this.showImg = true;
-      console.log(this.showImg);
-      this.image = this.ds.bypassSecurityTrustUrl(imageData);
+      this.upload(imageData);
     }, (err) => {
       console.log(err);
     });
   }
-  upload() {
+  upload(image) {
     const fileTransfer: TransferObject = this.transfer.create();
     let options: FileUploadOptions = {
       fileKey: 'picture',
       fileName: 'image.jpg'
     };
-    fileTransfer.upload(this.image, localStorage.getItem("apiURL") + "/api/updateProfilePicture/" + localStorage.getItem('token'), options)
+    fileTransfer.upload(image, localStorage.getItem("apiURL") + "/api/updateProfilePicture/" + localStorage.getItem('token'), options)
     .then((res) => {
-      console.log(res);
+      this.completeImage(res);
     }, (err) => {
       console.log(err);
     })
+  }
+  completeImage(status) {
+    if(status.json().status === "success") {
+
+    };
   }
   update(a) {
     let obj = {};
