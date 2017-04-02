@@ -3,19 +3,21 @@ import { NavController, NavParams, Content } from 'ionic-angular';
 
 import { HttpService } from '../../services/http.service';
 import { Storage } from '@ionic/storage'
+import { ToastController } from 'ionic-angular';
 
-@Component({templateUrl: "conversation.html", providers: [HttpService]})
+@Component({templateUrl: "conversation.html", providers: [HttpService, ToastController]})
 export class Conversation {
 
 	private messages;
 	private person;
 	private updateInterval;
+	saved;
 
 	private alreadyScrolledToBottom = false;
 
 	private userId;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController) {
     this.person = navParams.data.person;
 
     this.storage.ready().then(() => {
@@ -25,9 +27,36 @@ export class Conversation {
     })
   }
 
+  updateSave() {
+    this.api.checkIfSavedConversation(this.userId).subscribe((res) => {
+      console.log(res);
+      this.saved = res.status;
+    })
+  }
+
+  save() {
+    this.api.saveConversation(this.userId).subscribe((res) => {
+      console.log(res);
+        if (res.status === "success") {
+          let toast = this.toast.create({
+            message: 'Conversation has been saved!',
+            duration: 3000
+          });
+          toast.present();
+          this.updateSave();
+        }
+        else console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
 	ngOnInit() {
 
 		this.updateMessages();
+		this.updateSave();
 
 		this.updateInterval = setInterval(() => {
 			this.updateMessages();

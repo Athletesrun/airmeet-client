@@ -24502,6 +24502,10 @@ map-page #map {
   padding: 0;
 }
 
+.md #save-button {
+  color: white !important;
+}
+
 .message-item > .item-inner {
   padding: 0;
 }

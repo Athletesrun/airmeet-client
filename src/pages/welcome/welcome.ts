@@ -10,6 +10,7 @@ import { HttpService } from '../../services/http.service';
 import { People } from "../people/people";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { Settings } from '../settings/settings'
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({selector: "welcome-page", templateUrl: "welcome.html", providers: [HttpService]})
 
@@ -31,8 +32,8 @@ export class Welcome {
 @Component({templateUrl: "Profile-Creation.html", providers: [HttpService, Camera, Transfer, File]})
 export class ProfileCreation{
   @ViewChild(Slides) slides: Slides;
-  status; description; interests; facebook; phone; twitter;
-  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File){
+  status; description; interests; facebook; phone; twitter; image; showImg;
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer){
     this.status = {
       description: "normal",
       interests: "normal",
@@ -46,27 +47,38 @@ export class ProfileCreation{
     this.navCtrl.push(JoinEvent);
   }
 
-  take() {
-    const options: CameraOptions = {
+  take(location) {
+    const options1: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.NATIVE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      cameraDirection: 1
+      cameraDirection: this.camera.Direction.FRONT,
+      correctOrientation: true,
+      sourceType: location === "camera" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
+      targetWidth: 500,
+      targetHeight: 500
     };
-    this.camera.getPicture(options).then((imageData) => {
-      const fileTransfer: TransferObject = this.transfer.create();
-      let options: FileUploadOptions = {
-        fileKey: 'file',
-        fileName: 'image.jpg'
-      };
-      fileTransfer.upload(imageData, localStorage.getItem("apiURL") + "/api/updateProfilePicture/" + localStorage.getItem('token'), options)
-        .then((res) => {
-          console.log(res);
-        }, (err) => {
-          console.log(err);
-        })
+    this.camera.getPicture(options1).then((imageData) => {
+      this.showImg = true;
+      console.log(this.showImg);
+      this.image = this.ds.bypassSecurityTrustUrl(imageData);
+    }, (err) => {
+      console.log(err);
     });
+  }
+  upload() {
+    const fileTransfer: TransferObject = this.transfer.create();
+    let options: FileUploadOptions = {
+      fileKey: 'picture',
+      fileName: 'image.jpg'
+    };
+    fileTransfer.upload(this.image, localStorage.getItem("apiURL") + "/api/updateProfilePicture/" + localStorage.getItem('token'), options)
+    .then((res) => {
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    })
   }
   update(a) {
     let obj = {};

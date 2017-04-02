@@ -5,8 +5,11 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HttpService } from '../../services/http.service';
 
 import { Welcome, JoinEvent } from '../welcome/welcome';
-
+import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
+import {DomSanitizer} from "@angular/platform-browser";
+import {Transfer, FileUploadOptions, TransferObject} from "@ionic-native/transfer";
+import { Camera, CameraOptions } from "@ionic-native/camera";
 
 @Component({templateUrl: 'Settings_Name.html', providers: [HttpService]})
 export class Settings_Name {
@@ -263,10 +266,44 @@ export class Settings_Twitter {
 
     }
 }
-@Component({templateUrl: 'Settings_Picture.html'})
+@Component({templateUrl: 'Settings_Picture.html', providers: [Camera, Transfer, File]})
     export class Settings_Picture {
-     constructor(public navParams: NavParams) {
+      image; showImg; sObj;
+     constructor(public navParams: NavParams, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer) {
     }
+  take(location) {
+    const options1: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.NATIVE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      cameraDirection: this.camera.Direction.FRONT,
+      correctOrientation: true,
+      sourceType: location === "camera" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
+      targetWidth: 500,
+      targetHeight: 500
+    };
+    this.camera.getPicture(options1).then((imageData) => {
+      this.showImg = true;
+      this.image = imageData;
+      console.log(this.ds.bypassSecurityTrustUrl(imageData));
+    }, (err) => {
+      console.log(err);
+    });
+  }
+  upload() {
+    const fileTransfer: TransferObject = this.transfer.create();
+    let options: FileUploadOptions = {
+      fileKey: 'picture',
+      fileName: 'image.jpg'
+    };
+    fileTransfer.upload(this.image, localStorage.getItem("apiURL") + "/api/updateProfilePicture/" + localStorage.getItem('token'), options)
+      .then((res) => {
+        console.log(res);
+      }, (err) => {
+        console.log(err);
+      })
+  }
 }
 
 @Component({templateUrl: 'privacyPolicy.html'})
