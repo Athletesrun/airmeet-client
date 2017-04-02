@@ -6,6 +6,7 @@ import {HttpService} from '../../services/http.service';
 import {NavController, NavParams, ToastController} from 'ionic-angular';
 import {Conversation} from "../messages/messages";
 
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   templateUrl: 'person.html',
@@ -13,10 +14,14 @@ import {Conversation} from "../messages/messages";
 
 })
 export class Person {
-  item; saved;
+
+  item;
+  saved;
 
   constructor(params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController) {
+
     this.item = params.data.item;
+
   }
 
   ngOnInit() {

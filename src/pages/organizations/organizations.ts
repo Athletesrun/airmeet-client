@@ -8,7 +8,7 @@ import {NavController, NavParams, ToastController} from 'ionic-angular';
 
 @Component({
 templateUrl: 'organization.html',
-providers: [NgStyle, HttpService, ToastController],
+providers: [NgStyle, HttpService],
 })
 export class Organization {
 

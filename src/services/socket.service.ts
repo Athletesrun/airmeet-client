@@ -68,9 +68,8 @@ export class SocketService {
     shareLocation() {
 
         document.addEventListener('deviceready', () => {
-            this.sharingLocation = true;
 
-            console.log('begin sharing location deviceready');
+            this.sharingLocation = true;
 
             this.mapInterval = setInterval(() => {
 

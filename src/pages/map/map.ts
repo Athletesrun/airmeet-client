@@ -92,6 +92,8 @@ export class Map {
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
+                console.log(location);
+
                 if(location.id.toString() !== localStorage.getItem('userId')) {
                     let hasMatched = false;
 
@@ -111,15 +113,45 @@ export class Map {
 
                     if (hasMatched === false) {
 
+                        console.log(location);
+
+                        let picture;
+
+                        let iconSize = {
+                            height: 20,
+                            width: 20
+                        }
+
+                        if(location.picture) {
+
+                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
+
+                        } else {
+
+                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
+
+                        }
+
                         const marker = this.map.addMarker({
                             position: new LatLng(location.lat, location.lng),
-                            title: location.name
+                            title: location.name,
+                            icon: {
+                                url: picture,
+                                size: {
+                                    height: 20,
+                                    width: 20
+                                }
+                            }
                         }).then((marker: Marker) => {
+
+                            //marker.setIcon({
+
+                            //});
 
                             this.markers.push({
                                 id: location.id,
                                 marker: marker
-                            })
+                            });
 
                         });
 

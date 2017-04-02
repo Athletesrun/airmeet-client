@@ -31,8 +31,6 @@ export class EventInfo {
 
         this.api.getEventInfo().subscribe((event) => {
 
-            console.log(event);
-
             this.eventName = event.name;
             this.eventDescription = event.description;
             this.eventSchedule = event.schedule;

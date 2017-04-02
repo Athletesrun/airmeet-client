@@ -29,7 +29,7 @@
     <h1>{{item.firstName}} {{item.lastName}}</h1>
   </div>
   <hr>
-  <div style="font-size: 18px;" id="hello">
+  <div id="hello">
     {{ item.description }}
   </div>
   <br>
@@ -37,21 +37,21 @@
   </p>
   <p *ngIf="item.facebook">
     <ion-icon name="logo-facebook"></ion-icon>
-    <a style="color: inherit; font-size: 18px;" href="{{ item.facebook }}">Facebook</a>
+    <a style="color: inherit; font-sizez: 18px;" href="{{ item.facebook }}">Facebook</a>
   </p>
   <p *ngIf="item.twitter">
     <ion-icon name="logo-twitter"></ion-icon>
-    <a style="color: inherit; font-size: 18px;" href="https://twitter.com/{{ item.twitter }}">@{{item.twitter}}</a>
+    <a style="color: inherit" href="https://twitter.com/{{ item.twitter }}">@{{item.twitter}}</a>
   </p>
   <p *ngIf="item.linkedin">
     <ion-icon name="logo-linkedin"></ion-icon>
-    <a style="color: inherit; font-size: 18px;" href="{{ item.linkedin }}">LinkedIn</a>
+    <a style="color: inherit" href="{{ item.linkedin }}">LinkedIn</a>
   </p>
   <br>
   <div>
     <h3 *ngIf="item.interests.interests.length > 0">Interests:</h3>
     <ul>
-      <li *ngFor="let interest of item.interests.interests; let i = index;" style="font-size: 18px;">{{interest}}</li>
+      <li *ngFor="let interest of item.interests.interests; let i = index;">{{interest}}</li>
     </ul>
   </div>
 </ion-content>
