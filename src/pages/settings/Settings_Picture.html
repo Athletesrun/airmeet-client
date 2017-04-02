@@ -7,5 +7,8 @@
 </ion-header>
 
 <ion-content padding>
-    <button ion-button outline>Useless button</button>
+  <ion-img *ngIf="showImg" [src]="sObj"></ion-img>
+  <button ion-button outline (click)="take('library')">Camera Roll</button>
+  <button ion-button outline (click)="take('camera')">Camera</button>
+  <button ion-button outline *ngIf="showImg" (click)="upload()">Upload</button>
 </ion-content>
