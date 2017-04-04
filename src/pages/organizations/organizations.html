@@ -12,7 +12,7 @@
   <ion-list>
     <button *ngFor="let organization of organizations" (click)="open(organization.id)" ion-item icon-left>
       <ion-avatar item-left>
-        <img *ngIf="organization.picture === null" src="/assets/organization.svg">
+        <img *ngIf="organization.picture === null" src="/assets/organization.png">
         <img *ngIf="organization.picture !== null" src="https://s3.us-east-2.amazonaws.com/airmeet-uploads/organizations/{{picture}}">
       </ion-avatar>
       {{ organization.name }}

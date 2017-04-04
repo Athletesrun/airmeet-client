@@ -21,6 +21,7 @@ import { Organization, Organizations } from '../pages/organizations/organization
 import { SavedProfiles } from '../pages/saved/savedProfiles';
 import { SavedMessages } from '../pages/saved/savedMessages';
 import { EventInfo } from '../pages/eventInfo/eventInfo';
+import { Offline } from '../pages/offline/offline';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -61,7 +62,8 @@ const cloudSettings: CloudSettings = {
     Organization,
     Organizations,
     ProfileCreation,
-    LoginSuccess
+    LoginSuccess,
+      Offline
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -103,7 +105,8 @@ const cloudSettings: CloudSettings = {
     Organization,
     Organizations,
     ProfileCreation,
-    LoginSuccess
+    LoginSuccess,
+      Offline
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

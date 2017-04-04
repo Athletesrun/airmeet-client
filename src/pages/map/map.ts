@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
 import { Storage } from '@ionic/storage'
 
 import { Person } from '../people/people';
+import { Organization } from '../organizations/organizations';
 
 import { HttpService } from '../../services/http.service';
 
@@ -90,14 +91,6 @@ export class Map {
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
 
-            /*this.map.addGroundOverlay({
-                url: 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/floorPlan.png',
-                bounds: bounds,
-                opacity: 1
-            });*/
-
-            document.getElementById('map').style.display="block";
-
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
                 if(location.id.toString() !== localStorage.getItem('userId')) {
@@ -149,8 +142,8 @@ export class Map {
                             icon: {
                                 url: picture,
                                 size: {
-                                    height: 40,
-                                    width: 40
+                                    height: 35,
+                                    width: 35
                                 }
                             }
                         }).then((marker: Marker) => {
@@ -166,6 +159,64 @@ export class Map {
 
                     }
                 }
+
+
+
+            });
+
+            this.api.getAllOrganizations().subscribe((organizations) => {
+
+                for(let i in organizations) {
+
+                    if(organizations[i].lat && organizations[i].lng) {
+
+                        let picture;
+
+                        if(organizations[i].picture) {
+
+                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + organizations[i].picture;
+
+                        } else {
+
+                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/organizations/organization.png'
+
+                        }
+
+                        console.log(picture);
+
+                        const marker = this.map.addMarker({
+                            position: new LatLng(organizations[i].lat, organizations[i].lng),
+                            markerClick: (marker: Marker) => {
+
+                                marker.hideInfoWindow();
+
+                                this.navCtrl.push(Organization, {
+                                    organizationId: parseInt(marker.get('id'))
+                                });
+
+                            },
+                            icon: {
+                                url: picture,
+                                size: {
+                                    height: 35,
+                                    width: 35
+                                }
+                            }
+                        }).then((marker: Marker) => {
+
+                            console.log(organizations[i].id);
+
+                            marker.set('id', organizations[i].id);
+
+                        });
+
+                    }
+
+                }
+
+            }, (error) => {
+
+                console.log(error);
 
             });
 

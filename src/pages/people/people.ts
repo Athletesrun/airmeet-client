@@ -21,8 +21,13 @@ export class Person {
   }
 
   getImage(){
-    let a = "url(https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + this.item.id + ".jpg)";
-    console.log(a);
+    let a;
+    if (this.item.picture !== null) {
+      a = "url(https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + this.item.picture + ")";
+    }
+    else {
+      a = "url(assets/profile.gif)"
+    }
     return a
   }
 
@@ -57,10 +62,14 @@ export class Person {
       }
       else console.log(res);
     },
-      (error) => {
-        console.log(error);
+      (err) => {
+        console.log(err);
       }
     );
+  }
+
+  findOnMap() {
+
   }
 
   unSave(person) {

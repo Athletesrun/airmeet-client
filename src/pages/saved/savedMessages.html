@@ -1,3 +1,25 @@
 <ion-content>
-    Saved Messages
+  <div *ngIf="!conversations">
+    <ion-card class="blue white">
+      <ion-card-header>
+        <ion-card-title class="white">You don't have any saved messages!</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        When you're talking to someone and want to pick up later, click on the <ion-icon name="star-outline"></ion-icon> to save it here.
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-list>
+
+    <ion-buttons (tap)="conversationTapped(user)" *ngFor="let user of conversations; let i = index;">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/profile.gif">
+        </ion-avatar>
+        <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+        <p>{{ user.lastMessage }}</p>
+      </ion-item>
+    </ion-buttons>
+
+  </ion-list>
 </ion-content>

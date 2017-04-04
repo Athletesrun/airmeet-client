@@ -2,8 +2,8 @@
   <ion-slides>
     <ion-slide class="blue">
       <h1 class="heading">Hello!</h1>
-      <ion-img width="280" height="280" src="assets/airplane.png"></ion-img>
-  <h2 class="welcomeH2 white">Welcome to AirMeet</h2>
+      <ion-img width="280" height="280" src="assets/airplane.png" id="plane-success" [ngClass]="plane"></ion-img>
+      <h2 class="welcomeH2 white" [ngClass]="welcome">Welcome to AirMeet</h2>
       <p class="bottom">Slide Right to Get Started</p>
     </ion-slide>
     <ion-slide class="blue">
@@ -19,7 +19,7 @@
     <ion-slide class="blue">
       <h1 class="Letsgetstarted">Let's get started</h1>
       <button class="welcomeActionButton" ion-button large color="secondary" (tap)="Create('Acct')">Create An Account</button>
-      <button class="welcomeActionButton" ion-button large color="secondary" (tap)="Create('Sign')">Or Sign In</button>
+      <button class="welcomeActionButton" ion-button large color="secondary" (tap)="Create('Sign')">Sign In</button>
     </ion-slide>
   </ion-slides>
 </ion-content>

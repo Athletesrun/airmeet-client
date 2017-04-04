@@ -16,7 +16,16 @@ import {DomSanitizer} from "@angular/platform-browser";
 
 export class Welcome {
 
-    constructor(private api: HttpService, public navCtrl: NavController) {}
+    plane; welcome;
+
+    constructor(private api: HttpService, public navCtrl: NavController) {
+      this.plane = "step1";
+    }
+
+    ngOnInit() {
+      setTimeout(() => this.plane = "step2", 1000);
+      setTimeout(() => this.welcome = "step2", 1250);
+    }
 
     Create(event, item){
         if (event === "Acct"){

@@ -10,10 +10,11 @@ import {HttpService} from '../../services/http.service';
   providers: [HttpService]
 })
 export class UserProfile {
-  item;
+  item; fullpic;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
     this.item = {};
+    this.fullpic = null;
   }
 
   ngOnInit() {
@@ -21,8 +22,13 @@ export class UserProfile {
   }
 
   getImage(){
-    let a = "url(https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + localStorage.getItem("userId") + ".jpg)";
-    console.log(a);
+    let a;
+    if (this.item.picture !== null) {
+      a = "url(https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/" + this.item.picture + ")";
+    }
+    else {
+      a = "url(assets/profile.gif)"
+    }
     return a
   }
 
