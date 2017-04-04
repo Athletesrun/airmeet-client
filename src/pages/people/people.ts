@@ -33,6 +33,8 @@ export class Person {
   updateSave() {
     this.api.checkIfSavedProfile(this.item.id).subscribe((res) => {
       this.saved = res.status;
+    }, (error) => {
+      console.log(error);
     })
   }
 
@@ -55,8 +57,8 @@ export class Person {
       }
       else console.log(res);
     },
-      (err) => {
-        console.log(err);
+      (error) => {
+        console.log(error);
       }
     );
   }
@@ -125,6 +127,8 @@ export class People {
       this.api.searchUsers(val).subscribe(
         (people) => {
           this.items = people.results;
+        }, (error) => {
+          console.log(error);
         }
       )
     }
@@ -148,9 +152,6 @@ export class People {
       },
       (err) => {
          console.log(err)
-      },
-      () => {
-
       }
     )
   }

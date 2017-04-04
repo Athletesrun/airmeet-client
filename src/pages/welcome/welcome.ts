@@ -175,8 +175,6 @@ export class CreateAccount {
           },
           (err) => {
             console.log(err)
-          },
-          () => {
           }
         )
       }
@@ -233,7 +231,9 @@ export class signin {
               this.states.email = "error";
               this.states.password = "error";
             }
-          }
+          }, (error) => {
+              console.log(error);
+            }
         )
       }
     }
@@ -280,7 +280,9 @@ export class JoinEvent {
                   this.status = "error";
                   console.log(res);
                 }
-              }
+              }, (error) => {
+                  console.log(error);
+                }
             )
           }
           else this.status = "normal";

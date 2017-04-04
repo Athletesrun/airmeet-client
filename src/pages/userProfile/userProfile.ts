@@ -34,9 +34,6 @@ export class UserProfile {
       },
       (err) => {
         console.log(err)
-      },
-      () => {
-        console.log("something");
       }
     )
   }

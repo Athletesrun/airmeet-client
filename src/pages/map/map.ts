@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 
 import { SocketService } from '../../services/socket.service';
 
@@ -41,7 +41,7 @@ export class Map {
     public locationSubscription: Subscription;
     public removedLocationSubscription: Subscription;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController) {
         this.storage.ready().then(() => {
           this.storage.get('userId').then((val) => {
             this.userId = parseInt(val);
@@ -49,6 +49,7 @@ export class Map {
         })
 
         platform.ready().then(() => {
+
             this.loadMap();
         });
 
@@ -95,6 +96,8 @@ export class Map {
                 opacity: 1
             });*/
 
+            document.getElementById('map').style.display="block";
+
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
                 if(location.id.toString() !== localStorage.getItem('userId')) {
@@ -138,6 +141,8 @@ export class Map {
                                     this.navCtrl.push(Person, {
                                         item: user
                                     });
+                                }, (error) => {
+                                    console.log(error);
                                 });
                                 
                             },

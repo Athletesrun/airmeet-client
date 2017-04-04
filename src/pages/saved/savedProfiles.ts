@@ -21,7 +21,9 @@ export class SavedProfiles {
     ngOnInit() {
       this.api.getSavedProfiles().subscribe((res) => {
         this.profiles = res;
-      })
+      }, (error) => {
+          console.log(error);
+      });
     }
 
     showProfile(profile) {

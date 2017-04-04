@@ -468,6 +468,8 @@ export class Settings {
 
                 this.navCtrl.setRoot(JoinEvent);
                 this.navCtrl.push(JoinEvent);
+            }, (error) => {
+                console.log(error);
             });
 
         } else if(event === "privacyPolicy") {

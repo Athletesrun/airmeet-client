@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {NgStyle} from '@angular/common';
 
 import {HttpService} from '../../services/http.service';
 
@@ -8,7 +7,7 @@ import {NavController, NavParams, ToastController} from 'ionic-angular';
 
 @Component({
 templateUrl: 'organization.html',
-providers: [NgStyle, HttpService],
+providers: [HttpService],
 })
 export class Organization {
 
@@ -18,7 +17,7 @@ export class Organization {
     private organizationDescription;
     private organizationWebsite;
 
-    constructor(params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController) {
+    constructor(params: NavParams, public navCtrl: NavController, public api: HttpService) {
 
         this.organizationId = params.data.id;
 

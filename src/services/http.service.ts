@@ -55,8 +55,10 @@ export class HttpService {
             return res.json();
 
         }).catch((error: any) => {
+
             return Observable.throw(error.json().error || "Server Error");
-        })
+
+        });
 
     }
 

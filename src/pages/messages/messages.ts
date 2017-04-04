@@ -31,7 +31,9 @@ export class Conversation {
     this.api.checkIfSavedConversation(this.userId).subscribe((res) => {
       console.log(res);
       this.saved = res.status;
-    })
+    }, (error) => {
+    	console.log(error);
+	})
   }
 
   save() {
@@ -65,7 +67,6 @@ export class Conversation {
 	}
 
 	ngOnDestroy() {
-
 		clearInterval(this.updateInterval);
 
 	}
@@ -150,6 +151,10 @@ export class NewConversation {
 		this.api.getAllProfiles().subscribe((profiles) => {
 
 			this.profiles = profiles
+
+		}, (error) => {
+
+			console.log(error);
 
 		});
 
