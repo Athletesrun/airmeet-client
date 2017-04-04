@@ -5,9 +5,11 @@
         </button>
         <ion-title> {{ person.firstName }} {{ person.lastName }}</ion-title>
       <ion-buttons end>
-        <button ion-button icon-only id="save-button" clear color="white" (click)="save()">
-          <ion-icon *ngIf="saved" name="star"></ion-icon>
-          <ion-icon *ngIf="!saved" name="star-outline"></ion-icon>
+        <button ion-button icon-only *ngIf="saved" class="white" clear color="white" (click)="save()">
+          <ion-icon name="star"></ion-icon>
+        </button>
+        <button ion-button icon-only *ngIf="!saved" class="white" clear color="white" (click)="save()">
+          <ion-icon name="star-outline"></ion-icon>
         </button>
       </ion-buttons>
     </ion-navbar>

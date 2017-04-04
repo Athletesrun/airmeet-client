@@ -28,7 +28,7 @@ export class Conversation {
   }
 
   updateSave() {
-    this.api.checkIfSavedConversation(this.userId).subscribe((res) => {
+    this.api.checkIfSavedConversation(this.person.id).subscribe((res) => {
       console.log(res);
       this.saved = res.status;
     }, (error) => {
@@ -36,8 +36,26 @@ export class Conversation {
 	})
   }
 
+  unSave() {
+    this.api.unsaveConversation(this.person.id).subscribe((res) => {
+      console.log(res);
+      if (res.status === "success") {
+        let toast = this.toast.create({
+          message: 'Conversation has been removed!',
+          duration: 3000
+        });
+        toast.present();
+        this.updateSave();
+      }
+      else console.log(res);
+    },
+    (err) => {
+      console.log(err);
+    })
+  }
+
   save() {
-    this.api.saveConversation(this.userId).subscribe((res) => {
+    this.api.saveConversation(this.person.id).subscribe((res) => {
       console.log(res);
         if (res.status === "success") {
           let toast = this.toast.create({
