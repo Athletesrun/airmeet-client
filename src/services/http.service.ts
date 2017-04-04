@@ -277,7 +277,7 @@ export class HttpService {
     }
 
     unsaveConversation(userId): Observable<Status> {
-        return this.http.post(this.getApiURL() + "/api/saveConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
+        return this.http.post(this.getApiURL() + "/api/unsaveConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
             return res.json();
 
