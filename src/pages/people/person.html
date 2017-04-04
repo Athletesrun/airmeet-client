@@ -3,6 +3,14 @@
     <ion-title>
       {{ item.title }}
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="saved" class="md-white" clear color="white" (click)="unSave(item)">
+        <ion-icon name="star"></ion-icon>
+      </button>
+      <button ion-button icon-only *ngIf="!saved" class="md-white" clear color="white" (click)="Save(item)">
+        <ion-icon name="star-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -14,11 +22,8 @@
       </button>
     </ion-fab>
     <ion-fab top left edge id="savefab">
-      <button *ngIf="saved" ion-fab mini (click)="unSave(item)">
-        <ion-icon name="star"></ion-icon>
-      </button>
-      <button *ngIf="!saved" ion-fab mini (click)="Save(item)">
-        <ion-icon name="star-outline"></ion-icon>
+      <button  ion-fab mini (click)="findOnMap(item)">
+        <ion-icon name="pin"></ion-icon>
       </button>
     </ion-fab>
   </div>

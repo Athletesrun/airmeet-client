@@ -6,6 +6,10 @@
   color: white !important;
 }
 
+.md .md-white {
+  color: white !important;
+}
+
 ion-input {
   font-size: 16px;
   color: #141414;
@@ -24648,8 +24652,14 @@ map-page #map {
   background-color: #387ef5;
 }
 
+.welcomeH2.step2 {
+  opacity: 1;
+}
+
 .welcomeH2 {
   font-size: 3rem;
+  transition: 1s ease-in;
+  opacity: 0;
 }
 
 .bottom {

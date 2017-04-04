@@ -11,8 +11,14 @@
   background-color: #387ef5;
 }
 
+.welcomeH2.step2 {
+  opacity: 1;
+}
+
 .welcomeH2 {
   font-size: 3rem;
+  transition: 1s ease-in;
+  opacity: 0;
 }
 
 .bottom {
