@@ -20,9 +20,7 @@ export class Offline {
 
         this.networkSubscription = this.network.onConnect().subscribe(() => {
 
-            this.navCtrl.pop().then((data) => {
-                console.log(data);
-            });
+            this.navCtrl.pop();
 
         });
 

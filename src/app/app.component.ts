@@ -119,9 +119,15 @@ export class MyApp {
 
     this.network.onDisconnect().subscribe(() => {
 
-      this.nav.push(Offline).then((data) => {
-        console.log(data);
-      });
+      setTimeout(() => {
+
+        if(!this.network.type || this.network.type === 'none') {
+          this.nav.push(Offline).then((data) => {
+            console.log(data);
+          });
+        }
+
+      }, 2000);
 
     });
 

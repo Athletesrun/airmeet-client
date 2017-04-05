@@ -91,6 +91,8 @@ export class Map {
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
 
+            document.getElementById('map').removeAttribute('style');
+
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
                 if(location.id.toString() !== localStorage.getItem('userId')) {
