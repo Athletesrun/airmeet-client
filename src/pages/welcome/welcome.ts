@@ -5,6 +5,8 @@ import * as SHA2 from "../../services/sha.service";
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 
+import { Saved } from '../saved/saved';
+
 import { Storage } from '@ionic/storage';
 import { HttpService } from '../../services/http.service';
 import { People } from "../people/people";
@@ -263,6 +265,11 @@ export class JoinEvent {
 
     showSettings() {
       this.navCtrl.push(Settings);
+    }
+
+    showSavedContent() {
+
+        this.navCtrl.push(Saved);
     }
 
     joinEvent(event) {
