@@ -12,8 +12,6 @@ export class SocketService {
 
     private mapInterval;
 
-    private currentLocation;
-
     private sharingLocation;
 
     private mapLocationSource = new Subject<Location>();

@@ -7,6 +7,8 @@ import {NavController, NavParams, ToastController} from 'ionic-angular';
 import {Conversation} from "../messages/messages";
 import {DomSanitizer} from "@angular/platform-browser";
 
+import { Map } from '../map/map';
+
 @Component({
   templateUrl: 'person.html',
   providers: [NgStyle, HttpService, ToastController],
@@ -15,7 +17,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class Person {
   item; saved; image;
 
-  constructor(params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController, private sanitizer: DomSanitizer) {
+  constructor(public params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController, private sanitizer: DomSanitizer) {
     this.item = params.data.item;
     this.image = {"background-image": "url(" + this.getImage() + ")"}
   }
@@ -69,6 +71,10 @@ export class Person {
   }
 
   findOnMap() {
+
+    this.navCtrl.push(Map, {
+      userToFind: this.item
+    });
 
   }
 

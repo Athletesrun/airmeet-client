@@ -22,7 +22,7 @@
       </button>
     </ion-fab>
     <ion-fab top left edge id="savefab">
-      <button  ion-fab mini (click)="findOnMap(item)">
+      <button  ion-fab mini (click)="findOnMap()">
         <ion-icon name="pin"></ion-icon>
       </button>
     </ion-fab>
@@ -40,7 +40,7 @@
   <br>
   <p>
     <ion-icon name="mail"></ion-icon>
-    <a href="mailto:{{ item.email }}"></a>
+    <a style="color: inherit" href="mailto:{{ item.email }}">{{item.email}}</a>
   </p>
   <p *ngIf="item.facebook">
     <ion-icon name="logo-facebook"></ion-icon>

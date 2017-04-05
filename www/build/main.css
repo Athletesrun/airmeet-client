@@ -24524,6 +24524,7 @@ event-info #hostedBy {
   font-size: 18px;
   text-align: center;
   margin: auto;
+  padding-bottom: 10px;
 }
 
 .no-scroll {
@@ -24608,7 +24609,7 @@ map-page #map {
 }
 
 #organizationDescription {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #organizationWebsite {

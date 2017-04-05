@@ -18,8 +18,6 @@ import {
     GoogleMap,
     GoogleMapsEvent,
     LatLng,
-    CameraPosition,
-    MarkerOptions,
     Marker
 } from '@ionic-native/google-maps';
 
@@ -42,12 +40,22 @@ export class Map {
     public locationSubscription: Subscription;
     public removedLocationSubscription: Subscription;
 
+    private userToFind;
+
+    removeLocationInterval;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController) {
         this.storage.ready().then(() => {
           this.storage.get('userId').then((val) => {
             this.userId = parseInt(val);
-          })
-        })
+          });
+        });
+
+        if(navParams.data.userToFind) {
+
+            this.userToFind = navParams.data.userToFind;
+
+        }
 
         platform.ready().then(() => {
 
@@ -56,7 +64,27 @@ export class Map {
 
     }
 
+    ngOnInit() {
+
+        this.removeLocationInterval = setInterval(() => {
+
+            for(let i = this.markers.length -1; i >= 0; i--) {
+                if(this.markers[i].time + 10000 < Date.now()) {
+
+                    this.markers[i].marker.remove();
+
+                    this.markers.splice(i, 1);
+
+                }
+            }
+
+        }, 5000);
+
+    }
+
     ngOnDestroy() {
+
+        clearInterval(this.removeLocationInterval);
 
         this.locationSubscription.unsubscribe();
         this.removedLocationSubscription.unsubscribe();
@@ -105,6 +133,7 @@ export class Map {
                             hasMatched = true;
 
                             this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
+                            this.markers[i].time = Date.now();
 
                             break;
 
@@ -126,7 +155,7 @@ export class Map {
 
                         }
 
-                        const marker = this.map.addMarker({
+                        this.map.addMarker({
                             position: new LatLng(location.lat, location.lng),
                             markerClick: (marker: Marker) => {
 
@@ -154,7 +183,8 @@ export class Map {
 
                             this.markers.push({
                                 id: location.id,
-                                marker: marker
+                                marker: marker,
+                                time: Date.now()
                             });
 
                         });
@@ -162,9 +192,40 @@ export class Map {
                     }
                 }
 
-
-
             });
+
+            if(this.userToFind) {
+
+                let foundPerson = false;
+
+                let person = this.userToFind;
+
+                for(let i in this.markers) {
+
+                    if(this.markers[i].id === parseInt(person.id)) {
+
+                        let position = this.markers[i].marker.getPosition();
+
+                        console.log(position);
+
+                        foundPerson = true;
+
+                        break;
+
+                    }
+
+                }
+
+                if(!foundPerson) {
+
+                    this.userToFind = null;
+
+                    setTimeout(() => {
+                        alert(person.firstName + person.lastName + ' is currently not sharing their location.');
+                    }, 500);
+                }
+
+            }
 
             this.api.getAllOrganizations().subscribe((organizations) => {
 
@@ -184,8 +245,6 @@ export class Map {
 
                         }
 
-                        console.log(picture);
-
                         const marker = this.map.addMarker({
                             position: new LatLng(organizations[i].lat, organizations[i].lng),
                             markerClick: (marker: Marker) => {
@@ -193,7 +252,7 @@ export class Map {
                                 marker.hideInfoWindow();
 
                                 this.navCtrl.push(Organization, {
-                                    organizationId: parseInt(marker.get('id'))
+                                    id: parseInt(marker.get('id'))
                                 });
 
                             },
@@ -205,9 +264,6 @@ export class Map {
                                 }
                             }
                         }).then((marker: Marker) => {
-
-                            console.log(organizations[i].id);
-
                             marker.set('id', organizations[i].id);
 
                         });
@@ -247,11 +303,6 @@ export class Map {
             this.sockets.getAllLocations();
 
         });
-
-        let bounds = [
-            new LatLng(41.244076, -96.011664),
-            new LatLng(41.244473, -96.012196),
-        ];
 
     }
 
