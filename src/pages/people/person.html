@@ -39,10 +39,12 @@
   </div>
   <br>
   <p>
+    <ion-icon name="mail"></ion-icon>
+    <a href="mailto:{{ item.email }}"></a>
   </p>
   <p *ngIf="item.facebook">
     <ion-icon name="logo-facebook"></ion-icon>
-    <a style="color: inherit; font-sizez: 18px;" href="{{ item.facebook }}">Facebook</a>
+    <a style="color: inherit;" href="{{ item.facebook }}">Facebook</a>
   </p>
   <p *ngIf="item.twitter">
     <ion-icon name="logo-twitter"></ion-icon>

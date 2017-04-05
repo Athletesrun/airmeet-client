@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Slides, MenuController } from 'ionic-angular';
+import {NavController, NavParams, Slides, MenuController, LoadingController} from 'ionic-angular';
 
 import * as SHA2 from "../../services/sha.service";
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
@@ -41,8 +41,8 @@ export class Welcome {
 @Component({templateUrl: "Profile-Creation.html", providers: [HttpService, Camera, Transfer, File]})
 export class ProfileCreation{
   @ViewChild(Slides) slides: Slides;
-  status; description; interests; facebook; phone; twitter; image; showImg;
-  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer){
+  status; description; interests; facebook; phone; twitter; image; showImg; loading;
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer, public loadingCtrl: LoadingController){
     this.status = {
       description: "normal",
       interests: "normal",
@@ -75,6 +75,9 @@ export class ProfileCreation{
     });
   }
   upload(image) {
+    this.loading = this.loadingCtrl.create({
+      content: "Uploading picture..."
+    });
     const fileTransfer: TransferObject = this.transfer.create();
     let options: FileUploadOptions = {
       fileKey: 'picture',
@@ -89,8 +92,9 @@ export class ProfileCreation{
   }
   completeImage(status) {
     if(status.json().status === "success") {
-
-    };
+      this.loading.dismiss();
+      setTimeout(() => this.slides.slideNext(), 500);
+    }
   }
   update(a) {
     let obj = {};

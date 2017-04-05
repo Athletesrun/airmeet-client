@@ -8,20 +8,29 @@
 </ion-header>
 
 <ion-content class="noScroll">
-  <div id="eventInfoContainer">
-    <h2 id="eventName">{{ eventName }}</h2>
-    <p id="eventDate">{{ eventDate }}</p>
-    <hr style="height: 1px;">
-    <p id="eventDescription">{{ eventDescription}}</p>
-    <hr style="height: 1px;">
-    <h3 id="eventScheduleHeader">Schedule</h3>
-    <ul *ngIf="eventSchedule" id="eventScheduleList">
-      <li *ngFor="let item of eventSchedule.schedule">
-        <p id="scheduleItem"><span id="scheduleTime">{{item.time}}</span> <span id="scheduleEvent">{{item.event}}</span></p>
-      </li>
-    </ul>
-    <hr style="height: 1px;">
-    <p id="eventWebsite"><a id="eventWebsiteLink" href="{{eventWebsite}}">Website</a></p>
-    <p id="hostedBy">Hosted by {{ eventOrganizer}}</p>
-  </div>
+  <ion-card>
+    <img src="assets/event.jpg"/>
+    <ion-card-header>
+      {{ eventName }}<br>
+      <small style="color: #b0bec5">{{ eventDate }}</small>
+    </ion-card-header>
+    <ion-card-content>
+      {{ eventDescription}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="eventSchedule">
+    <ion-card-header>
+      Schedule
+    </ion-card-header>
+    <ion-card-content style="padding: 0;">
+      <div id="schedule">
+        <div class="schedule row" *ngFor="let item of eventSchedule.schedule">
+          <span class="schedule time">{{item.time}}</span>
+          <span class="schedule event">{{item.event}}</span>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <p id="eventWebsite"><a id="eventWebsiteLink" href="{{eventWebsite}}">Website</a></p>
+  <p id="hostedBy">Hosted by {{ eventOrganizer}}</p>
 </ion-content>
