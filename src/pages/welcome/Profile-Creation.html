@@ -7,7 +7,7 @@
       <div class="flex">
         <button ion-button class="button2" (click)="update('description', 180)" large color="secondary">Add</button>
       </div>
-      <p class="bottom" [ngClass]="status.description">Slide Left to Skip</p>
+      <p class="bottom" [ngClass]="status.description">Swipe Left to Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo info"name="call"></ion-icon>
@@ -16,7 +16,7 @@
       <div class="flex">
         <button ion-button class="button2" (click)="update('phone', 7)" large color="secondary">Add</button>
       </div>
-      <p class="bottom" [ngClass]="status.phone">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.phone">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo info" name="logo-facebook"></ion-icon>
@@ -25,7 +25,7 @@
       <div class="flex">
         <button ion-button class="button2" large (click)="update('facebook', 50)" color="secondary">Add</button>
       </div>
-      <p class="bottom" [ngClass]="status.facebook">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.facebook">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo info"name="logo-twitter"></ion-icon>
@@ -34,7 +34,7 @@
       <div class="flex">
         <button ion-button class="button2" (click)="update('twitter', 50)" large color="secondary">Add</button>
       </div>
-      <p class="bottom" [ngClass]="status.twitter">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.twitter">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo info" name="logo-linkedin"></ion-icon>
@@ -43,7 +43,7 @@
       <div class="flex">
         <button ion-button class="button2" (click)="update('linkedin', 50)" large color="secondary">Add</button>
       </div>
-      <p class="bottom" [ngClass]="status.linkedin">Slide Right To Skip</p>
+      <p class="bottom" [ngClass]="status.linkedin">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
       <img *ngIf="showImg" [src]="image">
@@ -52,7 +52,7 @@
       <button ion-button large color="secondary" (click)="take('library')">From Camera roll</button>
       <button ion-button large color="secondary" (click)="take('camera')">Take a Picture</button><br>
       <button ion-button large color="secondary" *ngIf="showImg" (click)="upload()">Upload Picture</button>
-      <p class="bottom">Slide Right To Skip</p>
+      <p class="bottom">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo"name="checkmark"></ion-icon>
