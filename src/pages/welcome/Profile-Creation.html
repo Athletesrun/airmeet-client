@@ -1,36 +1,36 @@
 <ion-content>
   <ion-slides class="blue">
     <ion-slide>
-      <h1 class="heading2">Nice! Now let's add some information to your profile</h1>
-      <h2 class="white">Add a description</h2>
-      <ion-input [ngClass]="status.description" class="textbox" type="text" maxlength="180" [(ngModel)]="description" placeholder="Description (180 or fewer characters)" value=""></ion-input>
+      <h1 [ngStyle]='things' class="heading2">Nice! Now let's add some information to your profile</h1>
+      <h2 [ngStyle]='things' class="white">Add a description</h2>
+      <ion-input [ngClass]="status.description" (focus)="hide()" (blur)="show()" class="textbox" type="text" maxlength="180" [(ngModel)]="description" placeholder="Description (180 or fewer characters)" value=""></ion-input>
       <div class="flex">
         <button ion-button class="button2" (click)="update('description', 180)" large color="secondary">Add</button>
       </div>
       <p class="bottom" [ngClass]="status.description">Swipe Left to Skip</p>
     </ion-slide>
     <ion-slide>
-      <ion-icon class="logo info"name="call"></ion-icon>
-      <h1 class="white info">Add a phone number</h1>
-      <ion-input class="textbox" [(ngModel)]="phone" [ngClass]="status.phone" type="number" placeholder="Phone number" value=""></ion-input>
+      <ion-icon [ngStyle]='things' class="logo info"name="call"></ion-icon>
+      <h1 [ngStyle]='things' class="white info">Add a phone number</h1>
+      <ion-input class="textbox" [(ngModel)]="phone" (focus)="hide()" (blur)="show()" [ngClass]="status.phone" type="number" placeholder="Phone number" value=""></ion-input>
       <div class="flex">
         <button ion-button class="button2" (click)="update('phone', 7)" large color="secondary">Add</button>
       </div>
       <p class="bottom" [ngClass]="status.phone">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
-      <ion-icon class="logo info" name="logo-facebook"></ion-icon>
-      <h1 class="white info">Add a link to your Facebook profile</h1>
-      <ion-input class="textbox" [(ngModel)]="facebook" [ngClass]="status.facebook" type="text" placeholder="Facebook link" value=""></ion-input>
+      <ion-icon [ngStyle]='things' class="logo info" name="logo-facebook"></ion-icon>
+      <h1 [ngStyle]='things' class="white info">Add a link to your Facebook profile</h1>
+      <ion-input class="textbox" [(ngModel)]="facebook" (focus)="hide()" (blur)="show()" [ngClass]="status.facebook" type="text" placeholder="Facebook link" value=""></ion-input>
       <div class="flex">
         <button ion-button class="button2" large (click)="update('facebook', 50)" color="secondary">Add</button>
       </div>
       <p class="bottom" [ngClass]="status.facebook">Swipe Left To Skip</p>
     </ion-slide>
     <ion-slide>
-      <ion-icon class="logo info"name="logo-twitter"></ion-icon>
-      <h1 class="white info">Add your Twitter handle</h1>
-      <ion-input class="textbox" [(ngModel)]="twitter" [ngClass]="status.twitter" type="text" placeholder="Twitter" value=""></ion-input>
+      <ion-icon [ngStyle]='things' class="logo info"name="logo-twitter"></ion-icon>
+      <h1 [ngStyle]='things' class="white info">Add your Twitter handle</h1>
+      <ion-input class="textbox" [(ngModel)]="twitter" (focus)="hide()" (blur)="show()" [ngClass]="status.twitter" type="text" placeholder="Twitter" value=""></ion-input>
       <div class="flex">
         <button ion-button class="button2" (click)="update('twitter', 50)" large color="secondary">Add</button>
       </div>
@@ -38,8 +38,8 @@
     </ion-slide>
     <ion-slide>
       <ion-icon class="logo info" name="logo-linkedin"></ion-icon>
-      <h1 class="white info">Add a link to your LinkedIn profile</h1>
-      <ion-input class="textbox" [(ngModel)]="linkedin" [ngClass]="status.linkedin" type="text" placeholder="LinkedIn link" value=""></ion-input>
+      <h1 [ngStyle]='things' class="white info">Add a link to your LinkedIn profile</h1>
+      <ion-input [ngStyle]='things' class="textbox" [(ngModel)]="linkedin" (focus)="hide()" (blur)="show()" [ngClass]="status.linkedin" type="text" placeholder="LinkedIn link" value=""></ion-input>
       <div class="flex">
         <button ion-button class="button2" (click)="update('linkedin', 50)" large color="secondary">Add</button>
       </div>
@@ -47,7 +47,7 @@
     </ion-slide>
     <ion-slide>
       <img *ngIf="showImg" [src]="image">
-      <ion-icon *ngIf="!showImg" class="logo info"name="camera"></ion-icon>
+      <ion-icon *ngIf="!showImg" class="logo info" name="camera"></ion-icon>
       <h1 class="white">Now let's add a profile picture</h1>
       <button ion-button large color="secondary" (click)="take('library')">From Camera roll</button>
       <button ion-button large color="secondary" (click)="take('camera')">Take a Picture</button><br>
