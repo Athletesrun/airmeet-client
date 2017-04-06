@@ -2,7 +2,9 @@ export class User {
     constructor (
         public id: number,
         public description: string,
-        public interests: Object,
+        public interests: {
+          interests: Array<String>,
+        },
         public linkedin: string,
         public facebook: string,
         public twitter: string,

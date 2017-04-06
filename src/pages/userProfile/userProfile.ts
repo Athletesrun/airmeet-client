@@ -10,7 +10,7 @@ import {HttpService} from '../../services/http.service';
   providers: [HttpService]
 })
 export class UserProfile {
-  item; fullpic;
+  item; fullpic; ints;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
     this.item = {};
@@ -36,6 +36,7 @@ export class UserProfile {
     this.api.getOwnProfile().subscribe(
       (profile) => {
         console.log(profile);
+        this.ints = profile.interests.interests.length > 0;
         this.item = profile;
       },
       (err) => {
