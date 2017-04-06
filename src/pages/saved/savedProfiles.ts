@@ -12,15 +12,18 @@ import { HttpService } from '../../services/http.service';
 
 export class SavedProfiles {
 
-    profiles;
+    profiles; noProfiles;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public api: HttpService) {
-
+      this.noProfiles = false;
     }
 
     ngOnInit() {
       this.api.getSavedProfiles().subscribe((res) => {
         this.profiles = res;
+        if (res.length === 0) {
+          this.noProfiles = true;
+        }
       }, (error) => {
           console.log(error);
       });

@@ -5,6 +5,7 @@ export class User {
         public interests: {
           interests: Array<String>,
         },
+        public length: number,
         public linkedin: string,
         public facebook: string,
         public twitter: string,

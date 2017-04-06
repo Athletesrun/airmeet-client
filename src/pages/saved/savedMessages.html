@@ -1,5 +1,5 @@
 <ion-content>
-  <div *ngIf="!conversations">
+  <div *ngIf="conversations.length === 0">
     <ion-card class="blue white">
       <ion-card-header>
         <ion-card-title class="white">You don't have any saved messages!</ion-card-title>

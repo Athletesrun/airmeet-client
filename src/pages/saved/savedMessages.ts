@@ -26,7 +26,7 @@ export class SavedMessages {
 
     ngOnInit() {
       this.api.getSavedConversations().subscribe((res) => {
-        console.log(res)
+        console.log(res);
         this.conversations = res;
       })
     }
