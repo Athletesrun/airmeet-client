@@ -5,6 +5,7 @@ export class Message {
         public message: string,
         public sender: number,
         public receiver: number,
-        public event: number
+        public event: number,
+        public length: number
     ){}
 }

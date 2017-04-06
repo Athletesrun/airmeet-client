@@ -18,12 +18,13 @@ export class SavedProfiles {
       this.noProfiles = false;
     }
 
-    ngOnInit() {
+    ionViewWillEnter() {
       this.api.getSavedProfiles().subscribe((res) => {
         this.profiles = res;
         if (res.length === 0) {
           this.noProfiles = true;
         }
+        else this.noProfiles = false
       }, (error) => {
           console.log(error);
       });

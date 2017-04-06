@@ -12,23 +12,37 @@ import {Conversation} from "../messages/messages"
 
 export class SavedMessages {
 
-    conversations;
+    conversations; noConversations;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService) {
-
+      this.noConversations = false
     }
 
     conversationTapped(user) {
       this.navCtrl.push(Conversation, {
         person: user
-      })
+      });
     }
 
     ngOnInit() {
-      this.api.getSavedConversations().subscribe((res) => {
-        console.log(res);
-        this.conversations = res;
-      })
+      this.update()
     }
+
+  ionViewWillEnter() {
+    console.log("works?");
+
+  }
+
+  update() {
+    this.api.getSavedConversations().subscribe((res) => {
+      console.log("hai");
+      console.log(res);
+      this.conversations = res;
+      if (res.length === 0) {
+        this.noConversations = true
+      }
+      else this.noConversations = false
+    })
+  }
 
 }
