@@ -219,7 +219,7 @@ export class signin {
 
     email; password; states;
 
-    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public storage: Storage){
+    constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public storage: Storage, public menu: MenuController){
       this.states = {
         email: "normal",
         password: "normal"
@@ -256,7 +256,23 @@ export class signin {
               localStorage.setItem("token", response.token);
               this.storage.set('signedIn', "true");
               localStorage.setItem('signedIn', "true");
-              this.navCtrl.push(JoinEvent);
+
+              if(typeof response.event === 'number') {
+
+                  this.storage.set('inEvent', "true");
+                  localStorage.setItem("inEvent", "true");
+                  this.storage.set('event', response.event);
+                  localStorage.setItem('event', response.event.toString());
+
+                  this.menu.swipeEnable(true, 'sideNavMenu');
+
+                  this.navCtrl.setRoot(People);
+
+              } else {
+
+                  this.navCtrl.setRoot(JoinEvent);
+
+              }
 
             }
             else {

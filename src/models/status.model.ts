@@ -6,6 +6,7 @@ export class Status {
         public token: string,
         public id: string,
         public eventId: string,
+        public event: number
         public length: number
     ) {}
 }
