@@ -16,6 +16,7 @@ log.txt
 .vscode/
 npm-debug.log*
 
+platforms/
 www/build/
 .idea/
 .sass-cache/

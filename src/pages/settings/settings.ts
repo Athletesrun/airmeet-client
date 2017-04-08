@@ -67,8 +67,6 @@ export class Settings_Phone {
 
              this.api.updateProfile({phone: this.phoneNumber}).subscribe(() => {
 
-                 console.log('got here');
-
                  this.navCtrl.popToRoot();
 
              }, (err) => {
@@ -154,8 +152,6 @@ export class Settings_Interests {
     }
 
     removeInterest(i) {
-
-        console.log('here');
 
         this.interests.splice(i, 1);
 
