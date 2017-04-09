@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, NavController, Platform, MenuController } from 'ionic-angular';
+import { Nav, NavController, Platform, MenuController, Events } from 'ionic-angular';
 import {StatusBar, Splashscreen, Keyboard } from 'ionic-native';
 
 import { Network } from '@ionic-native/network';
@@ -29,7 +29,7 @@ export class MyApp {
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage, public network: Network) {
+  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage, public network: Network, public events: Events) {
 
     storage.ready().then(() => {
 
@@ -130,6 +130,18 @@ export class MyApp {
       }, 2000);
 
     });
+
+  }
+
+  menuOpened() {
+
+    this.events.publish('menu:opened');
+
+  }
+
+  menuClosed() {
+
+    this.events.publish('menu:closed');
 
   }
 

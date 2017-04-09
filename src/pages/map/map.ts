@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController, Events } from 'ionic-angular';
 
 import { SocketService } from '../../services/socket.service';
 
@@ -44,7 +44,7 @@ export class Map {
 
     removeLocationInterval;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController, public events: Events) {
         this.storage.ready().then(() => {
           this.storage.get('userId').then((val) => {
             this.userId = parseInt(val);
@@ -118,6 +118,16 @@ export class Map {
         });
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+
+            this.events.subscribe('menu:opened', () => {
+
+                this.map.setClickable(false);
+
+            });
+
+            this.events.subscribe('menu:closed', () => {
+                this.map.setClickable(true);
+            });
 
             document.getElementById('map').removeAttribute('style');
 
