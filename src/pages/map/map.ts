@@ -117,7 +117,11 @@ export class Map {
             }
         });
 
+        this.map.setVisible(false);
+
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+
+            this.map.setVisible(true);
 
             this.events.subscribe('menu:opened', () => {
 
@@ -128,8 +132,6 @@ export class Map {
             this.events.subscribe('menu:closed', () => {
                 this.map.setClickable(true);
             });
-
-            document.getElementById('map').removeAttribute('style');
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 

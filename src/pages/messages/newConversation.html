@@ -15,7 +15,8 @@
         <ion-buttons (tap)="selectProfile(user.id, i)" *ngFor="let user of profiles; let i = index;">
             <ion-item>
                 <ion-avatar item-left>
-                    <img src="/assets/profile.gif">
+                    <img *ngIf="user.picture !== null" img src="https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/{{ user.picture }}">
+                    <img *ngIf="user.picture === null" img src="assets/profile.gif">
                 </ion-avatar>
                 <h2>{{ user.firstName }} {{ user.lastName }}</h2>
                 <p>{{ user.lastMessage }}</p>

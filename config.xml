@@ -91,4 +91,6 @@
     <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Share your location on map"/>
   </plugin>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
+  <engine name="ios" spec="~4.3.1"/>
+  <engine name="android" spec="~6.0.0"/>
 </widget>
