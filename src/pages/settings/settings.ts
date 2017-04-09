@@ -449,8 +449,6 @@ export class Settings {
             localStorage.removeItem('event');
 
             this.navCtrl.setRoot(Welcome);
-            this.navCtrl.push(Welcome);
-            //@todo change to popToRoot for better animation
 
         } else if(event === "leaveEvent") {
 
@@ -464,8 +462,6 @@ export class Settings {
                 localStorage.removeItem("event");
 
                 this.navCtrl.setRoot(JoinEvent);
-                this.navCtrl.push(JoinEvent);
-                //@todo change to popToRoot for better animation
 
             }, (error) => {
                 console.log(error);
