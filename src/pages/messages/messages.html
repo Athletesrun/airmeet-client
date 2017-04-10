@@ -12,16 +12,14 @@
     <ion-list>
 
 
-        <ion-buttons (tap)="conversationTapped(user.id, i)" *ngFor="let user of conversations; let i = index;">
-            <ion-item>
-                <ion-avatar item-left>
-                    <img *ngIf="user.picture !== null" src="https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/{{ user.picture }}">
-                    <img *ngIf="user.picture === null" src="assets/profile.gif">
-                </ion-avatar>
-                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-                <p>{{ user.lastMessage }}</p>
-            </ion-item>
-        </ion-buttons>
+        <button ion-item icon-left (tap)="conversationTapped(user.id, i)" *ngFor="let user of conversations; let i = index;">
+            <ion-avatar item-left>
+                <img *ngIf="user.picture !== null" src="https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/{{ user.picture }}">
+                <img *ngIf="user.picture === null" src="assets/profile.gif">
+            </ion-avatar>
+            <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+            <p>{{ user.lastMessage }}</p>
+        </button>
 
 
     </ion-list>
