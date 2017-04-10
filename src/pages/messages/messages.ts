@@ -302,7 +302,7 @@ export class Messages {
 	selectedItem: any;
 	items: Array<{name: string, lastMessage: string}>;
 
-	private conversations;
+	private conversations:any = [];
 
 	private getUsersInterval;
 

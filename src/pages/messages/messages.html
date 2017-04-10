@@ -25,6 +25,19 @@
     </ion-list>
 
 
+    <ion-card *ngIf="conversations.length == 0">
+
+        <ion-card-header>
+            You have no messages
+        </ion-card-header>
+
+        <ion-card-content>
+            Click the button in the lower right corner to send a new message.
+        </ion-card-content>
+
+    </ion-card>
+
+
     <ion-fab (tap)="newConversation()" right bottom style="margin: 10px;">
         <button ion-fab>
             <ion-icon name="add"></ion-icon>
