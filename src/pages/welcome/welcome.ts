@@ -93,10 +93,18 @@ export class ProfileCreation{
       console.log(err);
     });
   }
+  test() {
+    this.loading = this.loadingCtrl.create({
+      content: "Uploading picture...",
+      duration: 3000
+    });
+    this.loading.present();
+  }
   upload(image) {
     this.loading = this.loadingCtrl.create({
       content: "Uploading picture..."
     });
+    this.loading.present();
     const fileTransfer: TransferObject = this.transfer.create();
     let options: FileUploadOptions = {
       fileKey: 'picture',
@@ -110,9 +118,14 @@ export class ProfileCreation{
     })
   }
   completeImage(status) {
-    if(status.json().status === "success") {
+    alert("completeImage" + JSON.parse(status.response).status);
+    if(JSON.parse(status.response).status.status === "success") {
       this.loading.dismiss();
       setTimeout(() => this.slides.slideNext(), 500);
+    }
+    else {
+      this.loading.dismiss();
+      alert("uh oh!\n" + status.message);
     }
   }
   update(a) {

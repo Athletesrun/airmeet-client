@@ -50,7 +50,8 @@
       <ion-icon *ngIf="!showImg" class="logo info" name="camera"></ion-icon>
       <h1 class="white">Now let's add a profile picture</h1>
       <button ion-button large color="secondary" (click)="take('library')">From Camera roll</button>
-      <button ion-button large color="secondary" (click)="take('camera')">Take a Picture</button><br>
+      <button ion-button large color="secondary" (click)="take('camera')">Take a Picture</button>
+      <br>
       <button ion-button large color="secondary" *ngIf="showImg" (click)="upload()">Upload Picture</button>
       <p class="bottom">Swipe Left To Skip</p>
     </ion-slide>
