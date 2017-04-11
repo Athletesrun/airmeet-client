@@ -131,6 +131,31 @@ export class MyApp {
 
     });
 
+    this.events.subscribe('auth:denied', () => {
+
+        this.storage.remove("event");
+       localStorage.removeItem("event");
+
+       this.storage.remove("inEvent");
+       localStorage.removeItem("inEvent");
+
+       localStorage.removeItem("shareLocation");
+       this.storage.remove("shareLocation");
+
+       localStorage.removeItem("signedIn");
+       this.storage.remove("signedIn");
+
+       this.storage.remove("token");
+       localStorage.removeItem("token");
+
+       this.storage.remove("userId");
+       localStorage.removeItem("userId");
+
+       this.menu.swipeEnable(false);
+
+       this.nav.setRoot(Welcome);
+    });
+
   }
 
   menuOpened() {

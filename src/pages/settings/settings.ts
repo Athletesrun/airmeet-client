@@ -447,6 +447,8 @@ export class Settings {
             localStorage.removeItem('inEvent');
             this.storage.remove('event');
             localStorage.removeItem('event');
+            this.storage.set('shareLocation', 'true');
+            localStorage.setItem('shareLocation', 'true');
 
             this.navCtrl.setRoot(Welcome);
 

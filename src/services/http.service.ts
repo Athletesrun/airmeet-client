@@ -15,11 +15,12 @@ import { User } from '../models/user.model';
 import { Status } from '../models/status.model';
 import { Event } from '../models/event.model';
 import { Organization } from '../models/organization.model';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class HttpService {
 
-	constructor(private http: Http, public storage: Storage/*, private transfer: Transfer, private file: File*/) {}
+	constructor(private http: Http, public storage: Storage, public events: Events/*, private transfer: Transfer, private file: File*/) {}
 
 	private getApiURL() {
         return localStorage.getItem("apiURL");
@@ -27,6 +28,21 @@ export class HttpService {
 
 	private getToken() {
 	    return localStorage.getItem("token");
+    }
+
+    private checkAuth(response) {
+
+	    if(response.status === 'error' && response.message === 'Invalid token') {
+
+	        this.events.publish('auth:denied');
+
+            return Observable.throw(response.json().message || "Server Error");
+
+        }
+
+        return response.json();
+
+
     }
 
     private dataURItoBlob(dataURI) {
@@ -52,7 +68,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/accounts/login", {email: email, password: password}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
 
@@ -66,7 +83,8 @@ export class HttpService {
 
 	    return this.http.post(this.getApiURL() + "/api/accounts/register", {email: email, password: password, firstName: firstName, lastName: lastName}).map((res: Response) => {
 
-	        return res.json();
+            return this.checkAuth(res);
+	        //return res.json();
 
         }).catch((error: any) => {
 	        return Observable.throw(error.json().error || "Server Error");
@@ -78,7 +96,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/getUserProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -90,7 +109,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/getOwnProfile", {token: this.getToken()}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -102,7 +122,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/getAllProfiles", {token: this.getToken()}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -116,7 +137,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/updateProfile", updates).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -128,7 +150,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/joinEvent", {token: this.getToken(), eventCode: eventCode}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -140,7 +163,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/leaveEvent", {token: this.getToken()}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -152,7 +176,8 @@ export class HttpService {
 
 	    return this.http.post(this.getApiURL() + "/api/getEventInfo", {token: this.getToken()}).map((res: Response) => {
 
-	        return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
 	        return Observable.throw(error.json().error || "Server Error");
@@ -164,7 +189,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/getConversation", {token: this.getToken(), userId: id}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || 'Server error');
@@ -176,7 +202,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/getMessageList", {token: this.getToken()}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || 'Server error');
@@ -188,7 +215,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/sendMessage", {token: this.getToken(), message: message, receiver: receiver}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -200,7 +228,8 @@ export class HttpService {
 
         return this.http.post(this.getApiURL() + "/api/searchProfiles", {token: this.getToken(), query: query}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -211,7 +240,8 @@ export class HttpService {
     getSavedProfiles(): Observable<User> {
         return this.http.post(this.getApiURL() + "/api/getSavedProfiles", {token: this.getToken()}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -221,7 +251,8 @@ export class HttpService {
     getSavedConversations(): Observable<Message> {
         return this.http.post(this.getApiURL() + "/api/getSavedConversations", {token: this.getToken()}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -231,7 +262,8 @@ export class HttpService {
     getSavedConversation(userId): Observable<Message> {
         return this.http.post(this.getApiURL() + "/api/getSavedConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -241,7 +273,8 @@ export class HttpService {
     saveProfile(profileId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/saveProfile", {token: this.getToken(), profileId: profileId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -251,7 +284,8 @@ export class HttpService {
     saveConversation(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/saveConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -269,7 +303,8 @@ export class HttpService {
     unsaveProfile(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/unsaveProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -279,7 +314,8 @@ export class HttpService {
     unsaveConversation(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/unsaveConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -289,7 +325,8 @@ export class HttpService {
     checkIfSavedProfile(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/checkIfSavedProfile", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -299,7 +336,8 @@ export class HttpService {
     checkIfSavedConversation(userId): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/checkIfSavedConversation", {token: this.getToken(), userId: userId}).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -309,7 +347,8 @@ export class HttpService {
     getAllOrganizations(): Observable<Status> {
         return this.http.post(this.getApiURL() + "/api/getAllOrganizations", {token: this.getToken() }).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
@@ -319,7 +358,8 @@ export class HttpService {
     getOrganization(organizationId): Observable<Organization> {
         return this.http.post(this.getApiURL() + "/api/getOrganization", {token: this.getToken(), organizationId: organizationId }).map((res: Response) => {
 
-            return res.json();
+            return this.checkAuth(res);
+            //return res.json();
 
         }).catch((error: any) => {
             return Observable.throw(error.json().error || "Server Error");
