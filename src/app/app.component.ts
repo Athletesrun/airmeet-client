@@ -36,34 +36,40 @@ export class MyApp {
       storage.get('signedIn').then((signedIn) => {
         storage.get('userId').then((res) => localStorage.setItem('userId', res));
         storage.get('token').then((res) => localStorage.setItem('token', res));
-        storage.get('inEvent').then((inEvent) => {
-          if (signedIn === "true" && inEvent === "true") {
+        storage.get('shareLocation').then((shareLocation) => {
+          storage.get('inEvent').then((inEvent) => {
+            if (signedIn === "true" && inEvent === "true") {
 
-            this.rootPage = People;
+              if(shareLocation == 'true') {
+                localStorage.setItem('shareLocation', 'true');
+              }
 
-          } else if (signedIn === "true") {
+              this.rootPage = People;
 
-            this.rootPage = JoinEvent;
+            } else if (signedIn === "true") {
 
-          } else {
+              this.rootPage = JoinEvent;
 
-            this.rootPage = Welcome;
+            } else {
 
-          }
+              this.rootPage = Welcome;
 
-          this.initializeApp();
+            }
 
-          // used for an example of ngFor and navigation
-          this.pages = [
-            {title: 'People', component: People},
-            {title: 'Messages', component: Messages},
-            {title: 'Your Profile', component: UserProfile},
-            {title: 'Map', component: Map},
-            {title: 'Organizations', component: Organizations},
-            {title: 'Event Info', component: EventInfo },
-            {title: 'Saved Content', component: Saved},
-            {title: 'Settings', component: Settings}
-          ];
+            this.initializeApp();
+
+            // used for an example of ngFor and navigation
+            this.pages = [
+              {title: 'People', component: People},
+              {title: 'Messages', component: Messages},
+              {title: 'Your Profile', component: UserProfile},
+              {title: 'Map', component: Map},
+              {title: 'Organizations', component: Organizations},
+              {title: 'Event Info', component: EventInfo},
+              {title: 'Saved Content', component: Saved},
+              {title: 'Settings', component: Settings}
+            ];
+          });
         });
 
       });

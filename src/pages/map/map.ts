@@ -135,6 +135,8 @@ export class Map {
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
+                console.log('Receiving location');
+
                 if(location.id.toString() !== localStorage.getItem('userId')) {
                     let hasMatched = false;
 
@@ -157,11 +159,17 @@ export class Map {
 
                         let picture;
 
+                        console.log(location);
+
                         if(location.picture) {
+
+                            console.log('picture');
 
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
 
                         } else {
+
+                            console.log('no picture');
 
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
 
@@ -247,6 +255,8 @@ export class Map {
 
                         let picture;
 
+                        console.log('running organization');
+
                         if(organizations[i].picture) {
 
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + organizations[i].picture;
@@ -256,6 +266,18 @@ export class Map {
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/organizations/organization.png'
 
                         }
+
+                        /*let canvas = document.createElement('canvas');
+                        let context = canvas.getContext('2d');
+
+                        context.font = '15pt Calibri';
+                        context.fillStyle = '#383838';
+                        context.fillText(organizations[i].name, 0, 0);
+
+                        canvas.width = context.measureText(organizations[i].name).width;
+                        canvas.height = 50;
+
+                        console.log(canvas.toDataURL());*/
 
                         const marker = this.map.addMarker({
                             position: new LatLng(organizations[i].lat, organizations[i].lng),
@@ -269,10 +291,11 @@ export class Map {
 
                             },
                             icon: {
+                                //url: canvas.toDataURL(),
                                 url: picture,
                                 size: {
-                                    height: 35,
-                                    width: 35
+                                    height: 38,
+                                    width: 38
                                 }
                             }
                         }).then((marker: Marker) => {

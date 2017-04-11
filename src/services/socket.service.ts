@@ -31,8 +31,6 @@ export class SocketService {
 
             console.log('Connected to socket server');
 
-
-
         });
 
         this.socket.on('mapLocation', (data) => {
@@ -72,6 +70,8 @@ export class SocketService {
             this.mapInterval = setInterval(() => {
 
                 if (localStorage.getItem("inEvent") === "true" && localStorage.getItem("shareLocation") === "true") {
+
+                    console.log('sharing location');
 
                     navigator.geolocation.getCurrentPosition((position) => {
 
