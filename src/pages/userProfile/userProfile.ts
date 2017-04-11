@@ -35,7 +35,6 @@ export class UserProfile {
   getPeople() {
     this.api.getOwnProfile().subscribe(
       (profile) => {
-        console.log(profile);
         this.ints = profile.interests.interests.length > 0;
         this.item = profile;
       },

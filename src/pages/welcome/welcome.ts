@@ -62,14 +62,12 @@ export class ProfileCreation{
   }
 
   hide() {
-    console.log("hide");
     this.things = {
       display: "none"
     }
   }
 
   show() {
-    console.log("show");
     this.things = {
       display: "block"
     }
@@ -132,7 +130,6 @@ export class ProfileCreation{
     let obj = {};
     obj[a] = this[a];
     this.api.updateProfile(obj).subscribe((status) => {
-        console.log(status);
         this.status[a] += " success";
         setTimeout(() => this.slides.slideNext(), 500);
       },
@@ -223,7 +220,6 @@ export class CreateAccount {
           }
         )
       }
-      console.log(this.firstName, this.lastName, this.email, this.password);
     }
 }
 @Component({templateUrl: 'sign-in.html', providers: [HttpService]})
@@ -262,7 +258,6 @@ export class signin {
           (response) => {
             if (response.status === "success") {
 
-              console.log(response);
               this.storage.set("userId", response.id);
               localStorage.setItem("userId", response.id);
               this.storage.set("token", response.token);
@@ -324,7 +319,6 @@ export class JoinEvent {
           if (ip.length === 8) {
             this.api.joinEvent(ip).subscribe(
               (res) => {
-                console.log(ip);
                 if (res.status === "success") {
                   this.storage.set("event", res.eventId);
                   localStorage.setItem("event", res.eventId);

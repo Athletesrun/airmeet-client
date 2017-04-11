@@ -1,4 +1,4 @@
-<ion-menu [content]="content" id="sideNavMenu">
+<ion-menu [content]="content" id="sideNavMenu" (ionOpen)="menuOpened()" (ionClose)="menuClosed()">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>

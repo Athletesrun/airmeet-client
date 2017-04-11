@@ -67,8 +67,6 @@ export class Settings_Phone {
 
              this.api.updateProfile({phone: this.phoneNumber}).subscribe(() => {
 
-                 console.log('got here');
-
                  this.navCtrl.popToRoot();
 
              }, (err) => {
@@ -154,8 +152,6 @@ export class Settings_Interests {
     }
 
     removeInterest(i) {
-
-        console.log('here');
 
         this.interests.splice(i, 1);
 
@@ -453,8 +449,6 @@ export class Settings {
             localStorage.removeItem('event');
 
             this.navCtrl.setRoot(Welcome);
-            this.navCtrl.push(Welcome);
-            //@todo change to popToRoot for better animation
 
         } else if(event === "leaveEvent") {
 
@@ -468,8 +462,6 @@ export class Settings {
                 localStorage.removeItem("event");
 
                 this.navCtrl.setRoot(JoinEvent);
-                this.navCtrl.push(JoinEvent);
-                //@todo change to popToRoot for better animation
 
             }, (error) => {
                 console.log(error);

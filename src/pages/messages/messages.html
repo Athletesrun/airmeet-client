@@ -12,18 +12,30 @@
     <ion-list>
 
 
-        <ion-buttons (tap)="conversationTapped(user.id, i)" *ngFor="let user of conversations; let i = index;">
-            <ion-item>
-                <ion-avatar item-left>
-                    <img src="assets/profile.gif">
-                </ion-avatar>
-                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-                <p>{{ user.lastMessage }}</p>
-            </ion-item>
-        </ion-buttons>
+        <button ion-item icon-left (tap)="conversationTapped(user.id, i)" *ngFor="let user of conversations; let i = index;">
+            <ion-avatar item-left>
+                <img *ngIf="user.picture !== null" src="https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/{{ user.picture }}">
+                <img *ngIf="user.picture === null" src="assets/profile.gif">
+            </ion-avatar>
+            <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+            <p>{{ user.lastMessage }}</p>
+        </button>
 
 
     </ion-list>
+
+
+    <ion-card *ngIf="conversations.length == 0">
+
+        <ion-card-header>
+            You have no messages
+        </ion-card-header>
+
+        <ion-card-content>
+            Click the button in the lower right corner to send a new message.
+        </ion-card-content>
+
+    </ion-card>
 
 
     <ion-fab (tap)="newConversation()" right bottom style="margin: 10px;">

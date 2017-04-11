@@ -16,6 +16,8 @@ export class Offline {
 
     networkSubscription;
 
+    private checkInterval;
+
     constructor(private network: Network, public navCtrl: NavController, public menu: MenuController) {
 
         this.networkSubscription = this.network.onConnect().subscribe(() => {
@@ -27,11 +29,26 @@ export class Offline {
 
     }
 
+    ngOnInit() {
+
+        this.checkInterval = setInterval(() => {
+
+            if(this.network.type != 'none') {
+                console.log(this.network.type);
+                this.navCtrl.pop();
+            }
+
+        }, 5000);
+
+    }
+
     ngAfterViewInit() {
         this.menu.swipeEnable(false, 'sideNavMenu');
     }
 
     ngOnDestroy() {
+
+        clearInterval(this.checkInterval);
 
         this.networkSubscription.unsubscribe();
 

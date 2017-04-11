@@ -17,6 +17,8 @@ export class Conversation {
 
 	private userId;
 
+	private typedMessage;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController) {
     this.person = navParams.data.person;
 
@@ -102,13 +104,13 @@ export class Conversation {
 
 	sendMessage(event) {
 
-		let message = (<HTMLInputElement>document.querySelector('.text-input')).value.trim();
+		let message = this.typedMessage.trim();
 
 		if(message !== "") {
 
 			this.api.sendMessage(this.person.id, message).subscribe(() => {
 
-				(<HTMLInputElement>document.querySelector('.text-input')).value = "";
+				this.typedMessage = "";
 
 				this.messages.push({
 					message: message,
@@ -199,6 +201,8 @@ export class NewConversationMessage {
 
 	private alreadyScrolledToBottom = false;
 
+	private typedMessage;
+
 	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
 		this.person = navParams.data.person;
 		this.storage.ready().then(() => {
@@ -238,13 +242,13 @@ export class NewConversationMessage {
 
 	sendMessage(event) {
 
-		let message = (<HTMLInputElement>document.querySelector('.text-input')).value.trim();
+		let message = this.typedMessage.trim();
 
 		if(message !== "") {
 
 			this.api.sendMessage(this.person.id, message).subscribe(() => {
 
-				(<HTMLInputElement>document.querySelector('.text-input')).value = "";
+				this.typedMessage = "";
 
 				this.messages.push({
 					message: message,
@@ -298,7 +302,7 @@ export class Messages {
 	selectedItem: any;
 	items: Array<{name: string, lastMessage: string}>;
 
-	private conversations;
+	private conversations:any = [];
 
 	private getUsersInterval;
 

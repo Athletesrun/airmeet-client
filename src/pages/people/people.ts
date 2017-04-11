@@ -133,8 +133,6 @@ export class People {
   search(ev: any) {
     let val = ev.target.value;
 
-    console.log(val);
-
     if (val !== "" && val !== undefined) {
       this.isSearching = true;
       this.element = ev.target;

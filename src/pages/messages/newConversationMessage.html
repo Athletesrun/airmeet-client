@@ -30,11 +30,13 @@
 
 <ion-footer>
     <ion-toolbar>
-        <ion-item>
-            <ion-input class="messageInput" type="text" placeholder=Message value=""></ion-input>
-        </ion-item>
-        <button ion-fab mini icon-only class="enterButton" (click)="sendMessage($event)">
-            <ion-icon name="arrow-forward" round></ion-icon>
-        </button>
+        <form (ngSubmit)="sendMessage()">
+            <ion-item class="message-item">
+                <ion-input [(ngModel)]="typedMessage" class="messageInput" name="message" type="text" placeholder=Message value=""></ion-input>
+            </ion-item>
+            <button ion-fab mini icon-only class="enterButton" type="submit">
+                <ion-icon name="arrow-forward" round></ion-icon>
+            </button>
+        </form>
     </ion-toolbar>
 </ion-footer>
