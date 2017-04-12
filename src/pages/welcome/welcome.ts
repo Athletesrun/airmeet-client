@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {NavController, NavParams, Slides, MenuController, LoadingController} from 'ionic-angular';
+import {CreateProfile1} from "pc.ts";
 
 import * as SHA2 from "../../services/sha.service";
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
@@ -136,108 +137,6 @@ export class ProfileCreation{
       (err) => {
         console.log(err)
     })
-  }
-}
-
-@Component({
-  template: `
-      <ion-content class="blue white">
-        <h1 [ngStyle]='things' class="heading2">Nice! Now let's add some information to your profile</h1>
-        <h2 [ngStyle]='things' class="white" style="position: absolute; right: 0; left: 0; margin: auto; text-align: center; bottom: 150px;">Add a description {{counter}}</h2>
-        <ion-input [ngClass]="status.description" (focus)="hide()" (blur)="show()" class="textbox" type="text" maxlength="180" [(ngModel)]="description" placeholder="Description (180 or fewer characters)" value=""></ion-input>
-        <div class="flex">
-          <button ion-button class="button2" (click)="update('description', 180)" large color="secondary">Add</button>
-        </div>
-        <p class="bottom" [ngClass]="status.description">Swipe Left to Skip</p>
-      </ion-content>`,
-  providers: [ProfileCreation, HttpService, Camera, Transfer, File]
-})
-export class CreateProfile1 {
-  @ViewChild(Slides) slides: Slides;
-  status; description; things; api; counter;
-  constructor(private pc: ProfileCreation, private navCtrl: NavController, public params: NavParams){
-    this.status = this.pc.status;
-    this.description = this.pc.description;
-    this.things = this.pc.things;
-    this.api = this.pc.api;
-    this.counter = this.params.data.counter || 0;
-  }
-  ngOnInit() {
-    this.counter++;
-    console.log(this.counter, this.params.data.counter);
-  }
-  hide() {
-    this.things = {
-      display: "none"
-    }
-  }
-
-  show() {
-    this.things = {
-      display: "block"
-    }
-  }
-
-  update(a) {
-    let obj = {};
-    obj[a] = this[a];
-    return this.api.updateProfile(obj).subscribe((status) => {
-        this.status[a] += " success";
-        setTimeout(() => this.navCtrl.push(CreateProfile1, {
-          counter: this.counter
-        }), 500);
-      },
-      (err) => {
-        console.log(err)
-      })
-  }
-}
-
-@Component({
-  template: `
-      <ion-content class="blue white">
-        <ion-icon [ngStyle]='things' class="logo info"name="call"></ion-icon>
-        <h1 [ngStyle]='things' class="white info">Add a phone number</h1>
-        <ion-input class="textbox" [(ngModel)]="phone" (focus)="hide()" (blur)="show()" [ngClass]="status.phone" type="number" placeholder="Phone number" value=""></ion-input>
-        <div class="flex">
-          <button ion-button class="button2" (click)="update('phone', 7)" large color="secondary">Add</button>
-        </div>
-        <p class="bottom" [ngClass]="status.phone">Swipe Left To Skip</p>
-      </ion-content>`,
-  providers: [ProfileCreation, HttpService, Camera, Transfer, File]
-})
-export class CreateProfile2 {
-  @ViewChild(Slides) slides: Slides;
-  status; description; things; api;
-  constructor(private pc: ProfileCreation, private navCtrl: NavController){
-    this.status = this.pc.status;
-    this.description = this.pc.description;
-    this.things = this.pc.things;
-    this.api = this.pc.api;
-
-  }
-  hide() {
-    this.things = {
-      display: "none"
-    }
-  }
-
-  show() {
-    this.things = {
-      display: "block"
-    }
-  }
-
-  update(a) {
-    let obj = {};
-    obj[a] = this[a];
-    return this.api.updateProfile(obj).subscribe((status) => {
-        this.status[a] += " success";
-        ///setTimeout(() => this.navCtrl.push(), 500);
-      },
-      (err) => {
-        console.log(err)
-      })
   }
 }
 

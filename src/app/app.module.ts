@@ -10,9 +10,9 @@ import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 
 import {
-  Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess,
-  CreateProfile1, CreateProfile2
+  Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess
 } from '../pages/welcome/welcome';
+import {CreateProfile1, CreateProfile2} from '../pages/welcome/pc';
 
 import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
