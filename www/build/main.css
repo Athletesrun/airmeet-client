@@ -40,6 +40,171 @@ ion-input.success {
   background-color: #C8E6C9;
 }
 
+.heading {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  left: 0;
+  font-size: 50px;
+  color: white;
+}
+
+.heading2 {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  left: 0;
+  font-size: 35px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.Letsgetstarted {
+  font-size: 42px;
+  color: white;
+}
+
+.createacct {
+  font-size: 42px;
+  color: white;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.info {
+  font-size: 26px;
+  color: white;
+  margin: auto;
+  text-align: center;
+  width: 80%;
+}
+
+.bottom.success {
+  content: "Slide Left to Continue";
+}
+
+.info2 {
+  font-size: 26px;
+  color: white;
+  margin: auto;
+  text-align: center;
+  width: 80%;
+}
+
+.logo {
+  font-size: 50vmin;
+  color: white;
+}
+
+.logo.info {
+  top: 10%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.white.info {
+  bottom: 200px;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+html, body {
+  background: #387ef5;
+}
+
+.white {
+  color: white;
+}
+
+#event-subheading {
+  text-align: center;
+}
+
+.textbox {
+  position: absolute;
+  bottom: 150px;
+}
+
+.flex {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 75px;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.button2 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
+
+.welcomeActionButton {
+  width: 80%;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+#hi-success {
+  font-size: 5rem;
+  text-align: center;
+  text-justify: distribute;
+  padding-bottom: 50px;
+}
+
+#welcome-success {
+  font-size: 2rem;
+  text-align: center;
+  text-justify: distribute;
+  margin-bottom: -10px;
+}
+
+#event-name-success {
+  font-size: 150%;
+  text-align: center;
+  text-justify: distribute;
+  font-family: "Bree Serif", serif;
+}
+
+#plane-success {
+  width: calc(100% - 25px);
+  height: 100%;
+  margin: 10px;
+  transition: 1000ms cubic-bezier(0.42, 0, 0, 0.98);
+  /*  */
+}
+
+#plane-success.step1 {
+  -webkit-transform: translate(-500px, 250px);
+  transform: translate(-500px, 250px);
+}
+
+#plane-success.step3 {
+  -webkit-transform: translate(500px, -250px);
+  transform: translate(500px, -250px);
+}
+
+/* help */
 .ion-ios-add:before {
   content: "\f102";
 }
@@ -5195,10 +5360,6 @@ ion-footer {
 
 [text-nowrap] {
   white-space: nowrap;
-}
-
-[text-wrap] {
-  white-space: normal;
 }
 
 [text-uppercase] {
@@ -12411,18 +12572,6 @@ ion-infinite-scroll-content {
   color: #666;
 }
 
-.infinite-loading-spinner .spinner-ios line,
-.infinite-loading-spinner .spinner-ios-small line,
-.infinite-loading-spinner .spinner-crescent circle {
-  stroke: #666;
-}
-
-.infinite-loading-spinner .spinner-bubbles circle,
-.infinite-loading-spinner .spinner-circles circle,
-.infinite-loading-spinner .spinner-dots circle {
-  fill: #666;
-}
-
 ion-infinite-scroll-content[state=loading] .infinite-loading {
   display: block;
 }
@@ -13862,6 +14011,11 @@ ion-label[floating] {
   -ms-grid-row-align: stretch;
   align-self: stretch;
   max-width: 100%;
+}
+
+.item-select ion-label[floating] {
+  -webkit-transform: translate3d(0, 0, 0) scale(0.8);
+  transform: translate3d(0, 0, 0) scale(0.8);
 }
 
 .label-ios {
@@ -16448,18 +16602,6 @@ ion-refresher-content {
   color: #000;
 }
 
-.refresher-refreshing .spinner-ios line,
-.refresher-refreshing .spinner-ios-small line,
-.refresher-refreshing .spinner-crescent circle {
-  stroke: #000;
-}
-
-.refresher-refreshing .spinner-bubbles circle,
-.refresher-refreshing .spinner-circles circle,
-.refresher-refreshing .spinner-dots circle {
-  fill: #000;
-}
-
 ion-refresher-content[state=pulling] .refresher-pulling {
   display: block;
 }
@@ -18670,117 +18812,6 @@ ion-spinner.spinner-paused svg {
 .spinner-wp-dark.spinner-circles circle,
 .spinner-wp-dark.spinner-dots circle {
   fill: #222;
-}
-
-ion-split-pane {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  contain: strict;
-}
-
-.split-pane-side:not(ion-menu) {
-  display: none;
-}
-
-.split-pane-visible > .split-pane-side,
-.split-pane-visible > .split-pane-main {
-  position: relative;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  box-shadow: none !important;
-}
-
-.split-pane-visible > .split-pane-side {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-order: -1;
-  -ms-flex-order: -1;
-  order: -1;
-}
-
-.split-pane-visible > .split-pane-main,
-.split-pane-visible > ion-nav.split-pane-side,
-.split-pane-visible > ion-tabs.split-pane-side,
-.split-pane-visible > ion-menu.menu-enabled {
-  display: block;
-}
-
-.split-pane-visible > ion-split-pane.split-pane-side,
-.split-pane-visible > ion-split-pane.split-pane-main {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.split-pane-visible > ion-menu.menu-enabled > .menu-inner {
-  right: 0;
-  left: 0;
-  width: auto;
-  box-shadow: none !important;
-  -webkit-transform: none !important;
-  transform: none !important;
-}
-
-.split-pane-visible > ion-menu.menu-enabled > .ion-backdrop {
-  display: hidden !important;
-}
-
-.split-pane-visible > .split-pane-side[side=right] {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.split-pane-ios.split-pane-visible > .split-pane-side {
-  min-width: 270px;
-  max-width: 28%;
-  border-right: 0.55px solid #c8c7cc;
-  border-left: 0;
-}
-
-.split-pane-ios.split-pane-visible > .split-pane-side[side=right] {
-  border-right: 0;
-  border-left: 0.55px solid #c8c7cc;
-}
-
-.split-pane-md.split-pane-visible > .split-pane-side {
-  min-width: 270px;
-  max-width: 28%;
-  border-right: 1px solid #dedede;
-  border-left: 0;
-}
-
-.split-pane-md.split-pane-visible > .split-pane-side[side=right] {
-  border-right: 0;
-  border-left: 1px solid #dedede;
-}
-
-.split-pane-wp.split-pane-visible > .split-pane-side {
-  min-width: 270px;
-  max-width: 28%;
-  border-right: 1px solid transparent;
-  border-left: 0;
-}
-
-.split-pane-wp.split-pane-visible > .split-pane-side[side=right] {
-  border-right: 0;
-  border-left: 1px solid transparent;
 }
 
 .tabbar {
@@ -24863,167 +24894,3 @@ ion-img {
   margin: auto;
   height: 2.75ex;
 }
-
-.heading {
-  position: absolute;
-  top: 35px;
-  right: 0;
-  left: 0;
-  font-size: 50px;
-  color: white;
-}
-
-.heading2 {
-  position: absolute;
-  top: 35px;
-  right: 0;
-  left: 0;
-  font-size: 35px;
-  color: white;
-}
-
-.Letsgetstarted {
-  font-size: 42px;
-  color: white;
-}
-
-.createacct {
-  font-size: 42px;
-  color: white;
-  margin-top: 50px;
-  text-align: center;
-}
-
-.info {
-  font-size: 26px;
-  color: white;
-  margin: auto;
-  text-align: center;
-  width: 80%;
-}
-
-.bottom.success {
-  content: "Slide Left to Continue";
-}
-
-.info2 {
-  font-size: 26px;
-  color: white;
-  margin: auto;
-  text-align: center;
-  width: 80%;
-}
-
-.logo {
-  font-size: 50vmin;
-  color: white;
-}
-
-.logo.info {
-  top: 10%;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-.white.info {
-  bottom: 200px;
-  position: absolute;
-  right: 0;
-  left: 0;
-}
-
-html, body {
-  background: #387ef5;
-}
-
-.white {
-  color: white;
-}
-
-#event-subheading {
-  text-align: center;
-}
-
-.textbox {
-  position: absolute;
-  bottom: 150px;
-}
-
-.flex {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  width: 100%;
-  position: absolute;
-  bottom: 75px;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.button2 {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  -ms-grid-row-align: center;
-  align-self: center;
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
-  -webkit-flex: 0 1 auto;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
-}
-
-.welcomeActionButton {
-  width: 80%;
-  font-size: 2.2rem;
-  font-weight: bold;
-}
-
-#hi-success {
-  font-size: 5rem;
-  text-align: center;
-  text-justify: distribute;
-  padding-bottom: 50px;
-}
-
-#welcome-success {
-  font-size: 2rem;
-  text-align: center;
-  text-justify: distribute;
-  margin-bottom: -10px;
-}
-
-#event-name-success {
-  font-size: 150%;
-  text-align: center;
-  text-justify: distribute;
-  font-family: "Bree Serif", serif;
-}
-
-#plane-success {
-  width: calc(100% - 25px);
-  height: 100%;
-  margin: 10px;
-  transition: 1000ms cubic-bezier(0.42, 0, 0, 0.98);
-  /*  */
-}
-
-#plane-success.step1 {
-  -webkit-transform: translate(-500px, 250px);
-  transform: translate(-500px, 250px);
-}
-
-#plane-success.step3 {
-  -webkit-transform: translate(500px, -250px);
-  transform: translate(500px, -250px);
-}
-
-/* help */

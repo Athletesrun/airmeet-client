@@ -9,7 +9,10 @@ import { MyApp } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage';
 
-import { Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess } from '../pages/welcome/welcome';
+import {
+  Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess,
+  CreateProfile1, CreateProfile2
+} from '../pages/welcome/welcome';
 
 import { People, Person } from '../pages/people/people';
 import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
@@ -57,6 +60,8 @@ const cloudSettings: CloudSettings = {
     Settings_Picture,
     PrivacyPolicy,
     CreateAccount,
+    CreateProfile1,
+    CreateProfile2,
     signin,
     JoinEvent,
     Organization,
@@ -98,6 +103,8 @@ const cloudSettings: CloudSettings = {
     Settings_LinkedIn,
     Settings_Twitter,
     Settings_Picture,
+    CreateProfile1,
+    CreateProfile2,
     CreateAccount,
     PrivacyPolicy,
     signin,
