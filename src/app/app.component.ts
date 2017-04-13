@@ -63,7 +63,7 @@ export class MyApp {
               {title: 'People', component: People},
               {title: 'Messages', component: Messages},
               {title: 'Your Profile', component: UserProfile},
-              {title: 'Map', component: Map},
+              //{title: 'Map', component: Map},
               {title: 'Organizations', component: Organizations},
               {title: 'Event Info', component: EventInfo},
               {title: 'Saved Content', component: Saved},
