@@ -2,8 +2,9 @@ import {Component} from '@angular/core';
 import {NgStyle} from '@angular/common';
 
 import {HttpService} from '../../services/http.service';
+import { SocketService } from '../../services/socket.service';
 
-import {NavController, NavParams, ToastController} from 'ionic-angular';
+import {NavController, NavParams, ToastController, AlertController} from 'ionic-angular';
 import {Conversation} from "../messages/messages";
 import {DomSanitizer} from "@angular/platform-browser";
 
@@ -11,13 +12,15 @@ import { Map } from '../map/map';
 
 @Component({
   templateUrl: 'person.html',
-  providers: [NgStyle, HttpService, ToastController],
+  providers: [NgStyle, HttpService, ToastController, SocketService],
 
 })
 export class Person {
   item; saved; image;
 
-  constructor(public params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController, private sanitizer: DomSanitizer) {
+  public alertOpen = false;
+
+  constructor(public params: NavParams, public navCtrl: NavController, public api: HttpService, public toast: ToastController, private sanitizer: DomSanitizer, public sockets: SocketService, private alert: AlertController) {
     this.item = params.data.item;
     this.image = {"background-image": "url(" + this.getImage() + ")"}
   }
@@ -72,9 +75,52 @@ export class Person {
 
   findOnMap() {
 
-    this.navCtrl.push(Map, {
-      userToFind: this.item
-    });
+    if(this.alertOpen === false) {
+
+      this.sockets.getAllLocationsReturn((locations) => {
+
+        if(this.alertOpen === false) {
+
+          this.alertOpen = true;
+
+          let hasMatched = false;
+
+          for (let i in locations) {
+            if (locations[i].id === this.item.id) {
+
+              this.navCtrl.push(Map, {
+                userToFind: this.item,
+                locations: locations
+              });
+
+              hasMatched = true;
+
+              break;
+            }
+          }
+
+          if (hasMatched === false) {
+
+            let alert = this.alert.create({
+              title: this.item.firstName + ' ' + this.item.lastName + ' is currently not sharing their location.',
+              buttons: [{
+                text: 'Ok',
+                role: 'ok',
+                handler: () => {
+
+                  this.alertOpen = false;
+
+                }
+              }],
+              enableBackdropDismiss: false
+            });
+
+            alert.present();
+          }
+        }
+
+      });
+    }
 
   }
 

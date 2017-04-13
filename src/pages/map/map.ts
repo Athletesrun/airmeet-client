@@ -45,15 +45,24 @@ export class Map {
     removeLocationInterval;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController, public events: Events) {
+
         this.storage.ready().then(() => {
           this.storage.get('userId').then((val) => {
             this.userId = parseInt(val);
           });
         });
 
-        if(navParams.data.userToFind) {
+        if(navParams.data) {
 
-            this.userToFind = navParams.data.userToFind;
+            if(navParams.data.userToFind) {
+                this.userToFind = navParams.data.userToFind;
+            }
+
+            if(navParams.data.location) {
+
+                this.addToMap(navParams.data.location);
+
+            }
 
         }
 
@@ -80,6 +89,34 @@ export class Map {
 
         }, 5000);
 
+
+
+        if(this.userToFind) {
+
+            console.log('looking for person');
+
+            this.userToFind;
+
+            for(let i in this.markers) {
+
+                if(this.markers[i].id == this.userToFind.id) {
+
+                    console.log('person matched');
+
+                    let position = this.markers[i].marker.getPosition();
+
+                    console.log(position);
+
+                    this.userToFind = undefined;
+
+                    break;
+
+                }
+
+            }
+
+        }
+
     }
 
     ngOnDestroy() {
@@ -88,6 +125,90 @@ export class Map {
 
         this.locationSubscription.unsubscribe();
         this.removedLocationSubscription.unsubscribe();
+
+    }
+
+    private addToMap(location) {
+
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+
+            console.log('running this add to map?');
+
+            if (location.id.toString() !== localStorage.getItem('userId')) {
+                let hasMatched = false;
+
+                for (let i in this.markers) {
+
+                    if (this.markers[i].id === location.id) {
+
+                        hasMatched = true;
+
+                        this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
+                        this.markers[i].time = Date.now();
+
+                        break;
+
+                    }
+
+                }
+
+                if (hasMatched === false) {
+
+                    let picture;
+
+                    console.log(location);
+
+                    if (location.picture) {
+
+                        console.log('picture');
+
+                        picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
+
+                    } else {
+
+                        console.log('no picture');
+
+                        picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
+
+                    }
+
+                    this.map.addMarker({
+                        position: new LatLng(location.lat, location.lng),
+                        markerClick: (marker: Marker) => {
+
+                            marker.hideInfoWindow();
+
+                            this.api.getUserProfile(marker.get('id')).subscribe((user) => {
+                                this.navCtrl.push(Person, {
+                                    item: user
+                                });
+                            }, (error) => {
+                                console.log(error);
+                            });
+
+                        },
+                        icon: {
+                            url: picture,
+                            size: {
+                                height: 35,
+                                width: 35
+                            }
+                        }
+                    }).then((marker: Marker) => {
+
+                        marker.set('id', location.id);
+
+                        this.markers.push({
+                            id: location.id,
+                            marker: marker,
+                            time: Date.now()
+                        });
+
+                    });
+
+                }
+            }
+        });
 
     }
 
@@ -117,11 +238,7 @@ export class Map {
             }
         });
 
-        this.map.setVisible(false);
-
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-
-            this.map.setVisible(true);
 
             this.events.subscribe('menu:opened', () => {
 
@@ -135,117 +252,9 @@ export class Map {
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
-                console.log('Receiving location');
-
-                if(location.id.toString() !== localStorage.getItem('userId')) {
-                    let hasMatched = false;
-
-                    for (let i in this.markers) {
-
-                        if (this.markers[i].id === location.id) {
-
-                            hasMatched = true;
-
-                            this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
-                            this.markers[i].time = Date.now();
-
-                            break;
-
-                        }
-
-                    }
-
-                    if (hasMatched === false) {
-
-                        let picture;
-
-                        console.log(location);
-
-                        if(location.picture) {
-
-                            console.log('picture');
-
-                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
-
-                        } else {
-
-                            console.log('no picture');
-
-                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
-
-                        }
-
-                        this.map.addMarker({
-                            position: new LatLng(location.lat, location.lng),
-                            markerClick: (marker: Marker) => {
-
-                                marker.hideInfoWindow();
-
-                                this.api.getUserProfile(marker.get('id')).subscribe((user) => {
-                                    this.navCtrl.push(Person, {
-                                        item: user
-                                    });
-                                }, (error) => {
-                                    console.log(error);
-                                });
-                                
-                            },
-                            icon: {
-                                url: picture,
-                                size: {
-                                    height: 35,
-                                    width: 35
-                                }
-                            }
-                        }).then((marker: Marker) => {
-
-                            marker.set('id', location.id);
-
-                            this.markers.push({
-                                id: location.id,
-                                marker: marker,
-                                time: Date.now()
-                            });
-
-                        });
-
-                    }
-                }
+                this.addToMap(location);
 
             });
-
-            if(this.userToFind) {
-
-                let foundPerson = false;
-
-                let person = this.userToFind;
-
-                for(let i in this.markers) {
-
-                    if(this.markers[i].id === parseInt(person.id)) {
-
-                        let position = this.markers[i].marker.getPosition();
-
-                        console.log(position);
-
-                        foundPerson = true;
-
-                        break;
-
-                    }
-
-                }
-
-                if(!foundPerson) {
-
-                    this.userToFind = null;
-
-                    setTimeout(() => {
-                        alert(person.firstName + person.lastName + ' is currently not sharing their location.');
-                    }, 500);
-                }
-
-            }
 
             this.api.getAllOrganizations().subscribe((organizations) => {
 

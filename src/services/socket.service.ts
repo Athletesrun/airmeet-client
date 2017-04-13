@@ -49,7 +49,7 @@ export class SocketService {
 
     getAllLocations() {
 
-        this.socket.emit('getAllLocations', (locations) => {
+        this.socket.on('sharingAllLocations', (locations => {
 
             for(let i in locations) {
 
@@ -57,7 +57,21 @@ export class SocketService {
 
             }
 
-        })
+        }));
+
+        this.socket.emit('getAllLocations');
+
+    }
+
+    getAllLocationsReturn(callback) {
+
+        this.socket.on('sharingAllLocations', (locations => {
+
+            callback(locations);
+
+        }));
+
+        this.socket.emit('getAllLocations');
 
     }
 
