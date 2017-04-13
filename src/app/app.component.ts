@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform, MenuController, Events } from 'ionic-angular';
 import {StatusBar, Splashscreen } from 'ionic-native';
-import {Keyboard} from '@ionic-native/keyboard';
 
 import { Network } from '@ionic-native/network';
 
@@ -22,7 +21,7 @@ import { Offline } from '../pages/offline/offline';
 import { SocketService } from '../services/socket.service';
 import { HttpService } from '../services/http.service';
 
-@Component({templateUrl: 'app.html', providers: [SocketService, HttpService, Network, Keyboard]})
+@Component({templateUrl: 'app.html', providers: [SocketService, HttpService, Network]})
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -30,8 +29,7 @@ export class MyApp {
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage, public network: Network, public events: Events, private keyboard: Keyboard) {
-    this.keyboard.disableScroll(true);
+  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage, public network: Network, public events: Events) {
     storage.ready().then(() => {
       storage.get('signedIn').then((signedIn) => {
         storage.get('userId').then((res) => localStorage.setItem('userId', res));

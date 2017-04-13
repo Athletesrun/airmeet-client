@@ -39,7 +39,7 @@
   <ion-toolbar>
       <form (ngSubmit)="sendMessage()">
         <ion-item class="message-item">
-          <ion-textarea autoresize [(ngModel)]="typedMessage" id="message-input" class="messageInput" name="message" type="text" placeholder=Message value=""></ion-textarea>
+          <ion-textarea autoresize [ngStyle]="fixScrolling()" [(ngModel)]="typedMessage" id="message-input" class="messageInput" name="message" type="text" placeholder=Message value="" (focus)="add()" (blur)="remove()"></ion-textarea>
         </ion-item>
         <button ion-fab mini icon-only class="enterButton" type="submit">
             <ion-icon name="arrow-forward" round></ion-icon>

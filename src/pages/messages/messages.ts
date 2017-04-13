@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
+import {Keyboard} from '@ionic-native/keyboard';
 
 import { HttpService } from '../../services/http.service';
 import { Storage } from '@ionic/storage'
@@ -40,13 +41,15 @@ export class Autoresize {
 
 }
 
-@Component({templateUrl: "conversation.html", providers: [HttpService, ToastController, Autoresize]})
+@Component({templateUrl: "conversation.html", providers: [HttpService, ToastController, Autoresize, Keyboard]})
 export class Conversation {
 
 	private messages;
 	private person;
 	private updateInterval;
 	saved;
+	focused;
+	height;
 
 	private alreadyScrolledToBottom = false;
 
@@ -54,14 +57,39 @@ export class Conversation {
 
 	private typedMessage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController, private resize: Autoresize) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController, private resize: Autoresize, private keyboard: Keyboard) {
     this.person = navParams.data.person;
+    this.focused = false;
 
     this.storage.ready().then(() => {
       this.storage.get('userId').then((val) => {
         this.userId = parseInt(val);
       })
+    });
+
+    this.keyboard.onKeyboardShow().subscribe((event) => {
+      this.fix(event.keyboardHeight);
     })
+  }
+
+  fix(height) {
+    this.height = height;
+  }
+
+  fixScrolling() {
+    return {
+      bottom: this.height = "px"
+    }
+  }
+
+  add() {
+    console.log("hello");
+    this.focused = true;
+  }
+
+  remove() {
+    console.log("good bye");
+    this.focused = false;
   }
 
   updateSave() {
