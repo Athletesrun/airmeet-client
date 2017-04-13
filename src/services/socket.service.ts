@@ -20,6 +20,10 @@ export class SocketService {
     private removedLocationSource = new Subject<Location>();
     public removedLocation$ = this.removedLocationSource.asObservable();
 
+    private markers = [];
+
+    markersToRemove = [];
+
     constructor() {
 
         this.socket = io.connect(localStorage.getItem('socketURL'), {
@@ -46,6 +50,14 @@ export class SocketService {
         });
 
     }
+
+    getMarkers() {
+
+        return this.markers;
+
+    }
+
+    getMarkersToRemove
 
     getAllLocations(callback) {
 
@@ -100,7 +112,7 @@ export class SocketService {
 
                     }, (err) => {
 
-                        //console.log(err);
+                        console.log(err);
 
                     }, {timeout: 3000});
 
