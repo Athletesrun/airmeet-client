@@ -50,6 +50,9 @@ export class Conversation {
 	saved;
 	focused;
 	height;
+	private iv;
+
+	private viewHeight;
 
 	private alreadyScrolledToBottom = false;
 
@@ -57,9 +60,12 @@ export class Conversation {
 
 	private typedMessage;
 
+	private keepFocused;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController, private resize: Autoresize, private keyboard: Keyboard) {
     this.person = navParams.data.person;
     this.focused = false;
+    this.keepFocused = false;
 
     this.storage.ready().then(() => {
       this.storage.get('userId').then((val) => {
@@ -67,24 +73,49 @@ export class Conversation {
       })
     });
 
-    this.keyboard.onKeyboardShow().subscribe((event) => {
-      this.fix(event.keyboardHeight);
-    })
+    this.height = "0";
+    let body = <HTMLBodyElement>document.querySelector("body");
+    this.viewHeight = body.offsetHeight;
+    body.addEventListener("resize", () => {
+    	console.log(resize);
+	})
+
+    this.keyboard.disableScroll(true);
+
+	this.keyboard.onKeyboardShow().subscribe((event) => {
+		this.fix(event.keyboardHeight);
+		this.scrollToBottom(500);
+	});
+
+	this.keyboard.onKeyboardHide().subscribe((event) => {
+		this.height = "0";
+		this.scrollToBottom(500);
+	});
   }
 
   fix(height) {
+  	console.log("fix() is run");
     this.height = height;
   }
 
   fixScrolling() {
-    return {
-      bottom: this.height = "px"
-    }
+  	let style = {
+		bottom: String(this.height) + "px"
+	};
+    return style
+  }
+
+  fixScrolling1() {
+  	let height = "calc(100% - " + this.height + "px" + /*document.getElementById("message-footer").offsetHeight + "px*/")";
+  	return {
+  		height: height
+	}
   }
 
   add() {
     console.log("hello");
     this.focused = true;
+    this.keepFocused = true;
   }
 
   remove() {
@@ -99,6 +130,12 @@ export class Conversation {
     }, (error) => {
     	console.log(error);
 	})
+  }
+
+  stopFocus() {
+  	this.keepFocused = false;
+	  let input = <HTMLInputElement>document.getElementById("message-input").children[0];
+	  input.blur();
   }
 
   unSave() {
@@ -147,11 +184,19 @@ export class Conversation {
 			this.updateMessages();
 		}, 1200);
 
+		this.iv = setInterval(() => {
+			if(this.keepFocused) {
+				let input = <HTMLInputElement>document.getElementById("message-input").children[0];
+				input.focus();
+			}
+		});
+
+
 	}
 
 	ngOnDestroy() {
 		clearInterval(this.updateInterval);
-
+		clearInterval(this.iv);
 	}
 
 	needToScrollToBottom() {

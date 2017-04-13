@@ -15,7 +15,7 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content [ngStyle]="fixScrolling1()" (click)="stopFocus()">
     <div *ngFor="let message of messages; let last = last">
 
         <ion-card class="sending" *ngIf="message.sender == userId">
@@ -35,15 +35,13 @@
     </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer id="message-footer" [ngStyle]="fixScrolling()">
   <ion-toolbar>
-      <form (ngSubmit)="sendMessage()">
         <ion-item class="message-item">
-          <ion-textarea autoresize [ngStyle]="fixScrolling()" [(ngModel)]="typedMessage" id="message-input" class="messageInput" name="message" type="text" placeholder=Message value="" (focus)="add()" (blur)="remove()"></ion-textarea>
+          <ion-textarea autoresize [(ngModel)]="typedMessage" id="message-input" class="messageInput" name="message" type="text" placeholder=Message value="" (focus)="add()" (blur)="remove()"></ion-textarea>
         </ion-item>
-        <button ion-fab mini icon-only class="enterButton" type="submit">
+        <button ion-fab mini icon-only class="enterButton" type="submit" (click)="sendMessage(); $event.preventDefault()">
             <ion-icon name="arrow-forward" round></ion-icon>
         </button>
-      </form>
   </ion-toolbar>
 </ion-footer>
