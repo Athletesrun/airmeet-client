@@ -40,6 +40,180 @@ ion-input.success {
   background-color: #C8E6C9;
 }
 
+.heading {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  left: 0;
+  font-size: 50px;
+  color: white;
+}
+
+.heading2 {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  left: 0;
+  font-size: 35px;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.Letsgetstarted {
+  font-size: 42px;
+  color: white;
+}
+
+.createacct {
+  font-size: 42px;
+  color: white;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.info {
+  font-size: 26px;
+  color: white;
+  margin: auto;
+  text-align: center;
+  width: 80%;
+}
+
+.bottom.success {
+  content: "Slide Left to Continue";
+}
+
+.info2 {
+  font-size: 26px;
+  color: white;
+  margin: auto;
+  text-align: center;
+  width: 80%;
+}
+
+.logo {
+  font-size: 50vmin;
+  color: white;
+}
+
+.logo.info {
+  top: 10%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.white.info {
+  bottom: 200px;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+html, body {
+  background: #387ef5;
+}
+
+.white {
+  color: white;
+}
+
+#event-subheading {
+  text-align: center;
+}
+
+.textbox {
+  position: absolute;
+  bottom: 150px;
+}
+
+.camera-btns {
+  position: absolute;
+  bottom: 100px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+
+.flex {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 75px;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.button2 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
+
+.welcomeActionButton {
+  width: 80%;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+#hi-success {
+  font-size: 5rem;
+  text-align: center;
+  text-justify: distribute;
+  padding-bottom: 50px;
+}
+
+#welcome-success {
+  font-size: 2rem;
+  text-align: center;
+  text-justify: distribute;
+  margin-bottom: -10px;
+}
+
+#event-name-success {
+  font-size: 150%;
+  text-align: center;
+  text-justify: distribute;
+  font-family: "Bree Serif", serif;
+}
+
+#plane-success {
+  width: calc(100% - 25px);
+  height: 100%;
+  margin: 10px;
+  transition: 1000ms cubic-bezier(0.42, 0, 0, 0.98);
+  /*  */
+}
+
+#plane-success.step1 {
+  -webkit-transform: translate(-500px, 250px);
+  transform: translate(-500px, 250px);
+}
+
+#plane-success.step3 {
+  -webkit-transform: translate(500px, -250px);
+  transform: translate(500px, -250px);
+}
+
+/* help */
 .ion-ios-add:before {
   content: "\f102";
 }
@@ -24706,10 +24880,14 @@ map-page #map {
   width: calc(100% - 50px);
 }
 
+textarea {
+  width: calc(100% - 45px) !important;
+}
+
 .enterButton {
   position: absolute;
   right: 2px;
-  top: -2px;
+  top: calc(50% - 30px);
 }
 
 .profile-ribbon {
@@ -24864,166 +25042,10 @@ ion-img {
   height: 2.75ex;
 }
 
-.heading {
-  position: absolute;
-  top: 35px;
-  right: 0;
-  left: 0;
-  font-size: 50px;
-  color: white;
+.back-btn, .skip-btn {
+  color: white !important;
 }
 
-.heading2 {
-  position: absolute;
-  top: 35px;
-  right: 0;
-  left: 0;
-  font-size: 35px;
-  color: white;
+.skip-btn {
+  float: right;
 }
-
-.Letsgetstarted {
-  font-size: 42px;
-  color: white;
-}
-
-.createacct {
-  font-size: 42px;
-  color: white;
-  margin-top: 50px;
-  text-align: center;
-}
-
-.info {
-  font-size: 26px;
-  color: white;
-  margin: auto;
-  text-align: center;
-  width: 80%;
-}
-
-.bottom.success {
-  content: "Slide Left to Continue";
-}
-
-.info2 {
-  font-size: 26px;
-  color: white;
-  margin: auto;
-  text-align: center;
-  width: 80%;
-}
-
-.logo {
-  font-size: 50vmin;
-  color: white;
-}
-
-.logo.info {
-  top: 10%;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-.white.info {
-  bottom: 200px;
-  position: absolute;
-  right: 0;
-  left: 0;
-}
-
-html, body {
-  background: #387ef5;
-}
-
-.white {
-  color: white;
-}
-
-#event-subheading {
-  text-align: center;
-}
-
-.textbox {
-  position: absolute;
-  bottom: 150px;
-}
-
-.flex {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  width: 100%;
-  position: absolute;
-  bottom: 75px;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.button2 {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  -ms-grid-row-align: center;
-  align-self: center;
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
-  -webkit-flex: 0 1 auto;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
-}
-
-.welcomeActionButton {
-  width: 80%;
-  font-size: 2.2rem;
-  font-weight: bold;
-}
-
-#hi-success {
-  font-size: 5rem;
-  text-align: center;
-  text-justify: distribute;
-  padding-bottom: 50px;
-}
-
-#welcome-success {
-  font-size: 2rem;
-  text-align: center;
-  text-justify: distribute;
-  margin-bottom: -10px;
-}
-
-#event-name-success {
-  font-size: 150%;
-  text-align: center;
-  text-justify: distribute;
-  font-family: "Bree Serif", serif;
-}
-
-#plane-success {
-  width: calc(100% - 25px);
-  height: 100%;
-  margin: 10px;
-  transition: 1000ms cubic-bezier(0.42, 0, 0, 0.98);
-  /*  */
-}
-
-#plane-success.step1 {
-  -webkit-transform: translate(-500px, 250px);
-  transform: translate(-500px, 250px);
-}
-
-#plane-success.step3 {
-  -webkit-transform: translate(500px, -250px);
-  transform: translate(500px, -250px);
-}
-
-/* help */

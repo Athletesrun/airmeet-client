@@ -9,10 +9,12 @@ import { MyApp } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage';
 
-import { Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess } from '../pages/welcome/welcome';
+import {
+  Welcome, CreateAccount, signin, JoinEvent, ProfileCreation, LoginSuccess, CreateProfile1, CreateProfile2, CreateProfile3, CreateProfile4, CreateProfile5, CreateProfile6, CreateProfile7
+} from '../pages/welcome/welcome';
 
 import { People, Person } from '../pages/people/people';
-import { Messages, Conversation, NewConversation, NewConversationMessage } from '../pages/messages/messages';
+import { Messages, Conversation, NewConversation, NewConversationMessage, Autoresize } from '../pages/messages/messages';
 import { UserProfile } from '../pages/userProfile/userProfile';
 import { Map } from '../pages/map/map';
 import { Settings, Settings_Name, Settings_Phone, Settings_Description, Settings_Interests, Settings_Facebook, Settings_LinkedIn, Settings_Twitter, Settings_Picture, PrivacyPolicy } from '../pages/settings/settings';
@@ -39,6 +41,7 @@ const cloudSettings: CloudSettings = {
     Person,
     UserProfile,
     Map,
+    Autoresize,
     Settings,
     Saved,
     SavedMessages,
@@ -57,6 +60,13 @@ const cloudSettings: CloudSettings = {
     Settings_Picture,
     PrivacyPolicy,
     CreateAccount,
+    CreateProfile1,
+    CreateProfile2,
+    CreateProfile3,
+    CreateProfile4,
+    CreateProfile5,
+    CreateProfile6,
+    CreateProfile7,
     signin,
     JoinEvent,
     Organization,
@@ -98,6 +108,13 @@ const cloudSettings: CloudSettings = {
     Settings_LinkedIn,
     Settings_Twitter,
     Settings_Picture,
+    CreateProfile1,
+    CreateProfile2,
+    CreateProfile3,
+    CreateProfile4,
+    CreateProfile5,
+    CreateProfile6,
+    CreateProfile7,
     CreateAccount,
     PrivacyPolicy,
     signin,

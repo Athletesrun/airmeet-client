@@ -42,6 +42,8 @@ export class Map {
 
     private userToFind;
 
+    private hasFetchedLocations = false;
+
     removeLocationInterval;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController, public events: Events) {
@@ -59,8 +61,6 @@ export class Map {
             }
 
             if(navParams.data.location) {
-
-                this.addToMap(navParams.data.location);
 
             }
 
@@ -93,27 +93,36 @@ export class Map {
 
         if(this.userToFind) {
 
-            console.log('looking for person');
+            let interval = setInterval(() => {
 
-            this.userToFind;
+                if(this.hasFetchedLocations) {
 
-            for(let i in this.markers) {
+                    console.log(this.markers);
 
-                if(this.markers[i].id == this.userToFind.id) {
+                    for (let i in this.markers) {
 
-                    console.log('person matched');
+                        if (this.markers[i].id == this.userToFind.id) {
 
-                    let position = this.markers[i].marker.getPosition();
+                            this.markers[i].marker.getPosition((position) => {
 
-                    console.log(position);
+                                this.map.setCenter(position);
+                                this.map.setZoom(50);
 
-                    this.userToFind = undefined;
+                                this.userToFind = undefined;
 
-                    break;
+                            });
+
+                            break;
+
+                        }
+
+                    }
+
+                    clearInterval(interval);
 
                 }
 
-            }
+            }, 200);
 
         }
 
@@ -125,90 +134,6 @@ export class Map {
 
         this.locationSubscription.unsubscribe();
         this.removedLocationSubscription.unsubscribe();
-
-    }
-
-    private addToMap(location) {
-
-        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-
-            console.log('running this add to map?');
-
-            if (location.id.toString() !== localStorage.getItem('userId')) {
-                let hasMatched = false;
-
-                for (let i in this.markers) {
-
-                    if (this.markers[i].id === location.id) {
-
-                        hasMatched = true;
-
-                        this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
-                        this.markers[i].time = Date.now();
-
-                        break;
-
-                    }
-
-                }
-
-                if (hasMatched === false) {
-
-                    let picture;
-
-                    console.log(location);
-
-                    if (location.picture) {
-
-                        console.log('picture');
-
-                        picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
-
-                    } else {
-
-                        console.log('no picture');
-
-                        picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
-
-                    }
-
-                    this.map.addMarker({
-                        position: new LatLng(location.lat, location.lng),
-                        markerClick: (marker: Marker) => {
-
-                            marker.hideInfoWindow();
-
-                            this.api.getUserProfile(marker.get('id')).subscribe((user) => {
-                                this.navCtrl.push(Person, {
-                                    item: user
-                                });
-                            }, (error) => {
-                                console.log(error);
-                            });
-
-                        },
-                        icon: {
-                            url: picture,
-                            size: {
-                                height: 35,
-                                width: 35
-                            }
-                        }
-                    }).then((marker: Marker) => {
-
-                        marker.set('id', location.id);
-
-                        this.markers.push({
-                            id: location.id,
-                            marker: marker,
-                            time: Date.now()
-                        });
-
-                    });
-
-                }
-            }
-        });
 
     }
 
@@ -252,7 +177,74 @@ export class Map {
 
             this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
-                this.addToMap(location);
+                if(location.id.toString() !== localStorage.getItem('userId')) {
+                    let hasMatched = false;
+
+                    for (let i in this.markers) {
+
+                        if (this.markers[i].id === location.id) {
+
+                            hasMatched = true;
+
+                            this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
+                            this.markers[i].time = Date.now();
+
+                            break;
+
+                        }
+
+                    }
+
+                    if (hasMatched === false) {
+
+                        let picture;
+
+                        if(location.picture) {
+
+                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
+
+                        } else {
+
+                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
+
+                        }
+
+                        this.map.addMarker({
+                            position: new LatLng(location.lat, location.lng),
+                            markerClick: (marker: Marker) => {
+
+                                marker.hideInfoWindow();
+
+                                this.api.getUserProfile(marker.get('id')).subscribe((user) => {
+                                    this.navCtrl.push(Person, {
+                                        item: user
+                                    });
+                                }, (error) => {
+                                    console.log(error);
+                                });
+
+                            },
+                            icon: {
+                                url: picture,
+                                size: {
+                                    height: 35,
+                                    width: 35
+                                }
+                            }
+                        }).then((marker: Marker) => {
+
+                            marker.set('id', location.id);
+
+                            this.markers.push({
+                                id: location.id,
+                                marker: marker,
+                                time: Date.now()
+                            });
+
+                        });
+
+                    }
+                }
 
             });
 
@@ -264,8 +256,6 @@ export class Map {
 
                         let picture;
 
-                        console.log('running organization');
-
                         if(organizations[i].picture) {
 
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + organizations[i].picture;
@@ -275,18 +265,6 @@ export class Map {
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/organizations/organization.png'
 
                         }
-
-                        /*let canvas = document.createElement('canvas');
-                        let context = canvas.getContext('2d');
-
-                        context.font = '15pt Calibri';
-                        context.fillStyle = '#383838';
-                        context.fillText(organizations[i].name, 0, 0);
-
-                        canvas.width = context.measureText(organizations[i].name).width;
-                        canvas.height = 50;
-
-                        console.log(canvas.toDataURL());*/
 
                         const marker = this.map.addMarker({
                             position: new LatLng(organizations[i].lat, organizations[i].lng),
@@ -344,7 +322,9 @@ export class Map {
 
             });
 
-            this.sockets.getAllLocations();
+            this.sockets.getAllLocations(() => {
+                this.hasFetchedLocations = true;
+            });
 
         });
 

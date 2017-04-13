@@ -47,7 +47,7 @@ export class SocketService {
 
     }
 
-    getAllLocations() {
+    getAllLocations(callback) {
 
         this.socket.on('sharingAllLocations', (locations => {
 
@@ -56,6 +56,10 @@ export class SocketService {
                 this.mapLocationSource.next(locations[i]);
 
             }
+
+            setTimeout(() => {
+                callback();
+            }, 1000);
 
         }));
 

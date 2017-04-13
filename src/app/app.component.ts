@@ -6,7 +6,7 @@ import { Network } from '@ionic-native/network';
 
 import { Storage } from '@ionic/storage';
 
-import { Welcome, JoinEvent, LoginSuccess } from '../pages/welcome/welcome';
+import { Welcome, JoinEvent } from '../pages/welcome/welcome';
 
 import { People } from '../pages/people/people';
 import { Organizations } from '../pages/organizations/organizations';
