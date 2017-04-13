@@ -393,7 +393,6 @@ export class LoginSuccess {
       <div class="flex">
         <button ion-button class="button2" (click)="update('description', 180)" large color="secondary">Add</button>
       </div>
-      <p class="bottom" [ngClass]="status.description">Swipe Left to Skip</p>
     </ion-content>`,
   providers: [HttpService, Camera, Transfer, File]
 })
@@ -841,8 +840,8 @@ export class CreateProfile6 {
       cameraDirection: this.camera.Direction.FRONT,
       correctOrientation: true,
       sourceType: location === "camera" ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
-      targetWidth: 200,
-      targetHeight: 200
+      targetWidth: 800,
+      targetHeight: 800
     };
     this.camera.getPicture(options1).then((imageData) => {
       this.upload(imageData);
@@ -852,8 +851,10 @@ export class CreateProfile6 {
   }
   upload(image) {
     this.loading = this.loadingCtrl.create({
-      content: "Uploading picture..."
+      content: "Uploading picture...",
+      duration: 5000
     });
+    console.log("uploading");
     this.loading.present();
     const fileTransfer: TransferObject = this.transfer.create();
     let options: FileUploadOptions = {
@@ -864,10 +865,11 @@ export class CreateProfile6 {
       .then((res) => {
         this.completeImage(res);
       }, (err) => {
-        console.log(err);
+        console.log(err + " 868");
       })
   }
   completeImage(status) {
+    console.log(status);
     if(JSON.parse(status.response).status === "success") {
       this.loading.dismiss();
       setTimeout(() => this.navCtrl.push(CreateProfile7), 500);

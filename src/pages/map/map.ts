@@ -75,6 +75,8 @@ export class Map {
 
     ngOnInit() {
 
+        console.log(this.markers);
+
         this.removeLocationInterval = setInterval(() => {
 
             for(let i = this.markers.length -1; i >= 0; i--) {
