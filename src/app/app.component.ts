@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, NavController, Platform, MenuController, Events } from 'ionic-angular';
-import {StatusBar, Splashscreen, Keyboard } from 'ionic-native';
+import {StatusBar, Splashscreen } from 'ionic-native';
+import {Keyboard} from '@ionic-native/keyboard';
 
 import { Network } from '@ionic-native/network';
 
@@ -21,7 +22,7 @@ import { Offline } from '../pages/offline/offline';
 import { SocketService } from '../services/socket.service';
 import { HttpService } from '../services/http.service';
 
-@Component({templateUrl: 'app.html', providers: [SocketService, HttpService, Network]})
+@Component({templateUrl: 'app.html', providers: [SocketService, HttpService, Network, Keyboard]})
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -29,10 +30,9 @@ export class MyApp {
   rootPage: any;
 
   pages: Array<{title: string, component: any}>;
-  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage, public network: Network, public events: Events) {
-
+  constructor(public platform: Platform, public sockets: SocketService, public menu: MenuController, public api: HttpService, private storage: Storage, public network: Network, public events: Events, private keyboard: Keyboard) {
+    this.keyboard.disableScroll(true);
     storage.ready().then(() => {
-
       storage.get('signedIn').then((signedIn) => {
         storage.get('userId').then((res) => localStorage.setItem('userId', res));
         storage.get('token').then((res) => localStorage.setItem('token', res));
@@ -63,7 +63,7 @@ export class MyApp {
               {title: 'People', component: People},
               {title: 'Messages', component: Messages},
               {title: 'Your Profile', component: UserProfile},
-              //{title: 'Map', component: Map},
+              {title: 'Map', component: Map},
               {title: 'Organizations', component: Organizations},
               {title: 'Event Info', component: EventInfo},
               {title: 'Saved Content', component: Saved},
