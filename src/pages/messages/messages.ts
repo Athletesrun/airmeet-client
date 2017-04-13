@@ -5,7 +5,42 @@ import { HttpService } from '../../services/http.service';
 import { Storage } from '@ionic/storage'
 import { ToastController } from 'ionic-angular';
 
-@Component({templateUrl: "conversation.html", providers: [HttpService, ToastController]})
+import { Directive, HostListener, ElementRef } from "@angular/core";
+
+
+
+@Directive({
+  selector: "ion-textarea[autoresize]" // Attribute selector
+})
+
+export class Autoresize {
+
+  @HostListener("input", ["$event.target"])
+
+  onInput(textArea: HTMLTextAreaElement): void {
+    this.adjust();
+  }
+
+  constructor(public element: ElementRef) {
+
+  }
+
+  ngOnInit(): void {
+    this.adjust();
+  }
+
+  adjust(): void {
+    let ta = this.element.nativeElement.querySelector("textarea");
+    if (ta) {
+      ta.style.overflow = "hidden";
+      ta.style.height = "auto";
+      ta.style.height = ta.scrollHeight + "px";
+    }
+  }
+
+}
+
+@Component({templateUrl: "conversation.html", providers: [HttpService, ToastController, Autoresize]})
 export class Conversation {
 
 	private messages;
@@ -19,7 +54,7 @@ export class Conversation {
 
 	private typedMessage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController, private resize: Autoresize) {
     this.person = navParams.data.person;
 
     this.storage.ready().then(() => {
@@ -106,6 +141,9 @@ export class Conversation {
 
 		let message = this.typedMessage.trim();
 
+		let input = <HTMLInputElement>document.getElementById("message-input").children[0];
+		input.focus();
+
 		if(message !== "") {
 
 			this.api.sendMessage(this.person.id, message).subscribe(() => {
@@ -120,6 +158,7 @@ export class Conversation {
 
 				setTimeout(() => {
 					this.scrollToBottom(500);
+					this.resize.adjust();
 				}, 50);
 
 			}, (err) => {

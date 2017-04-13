@@ -24746,10 +24746,14 @@ map-page #map {
   width: calc(100% - 50px);
 }
 
+textarea {
+  width: calc(100% - 45px) !important;
+}
+
 .enterButton {
   position: absolute;
   right: 2px;
-  top: -2px;
+  top: calc(50% - 30px);
 }
 
 .profile-ribbon {

@@ -888,7 +888,7 @@ export class CreateProfile6 {
       </div>
       <ion-icon class="logo info" name="checkmark"></ion-icon>
       <h1 class="white info">Great! Almost There!</h1>
-      <button ion-button large color="secondary" style="bottom: 100px; position: absolute; left: 0; right: 0; margin: auto;" (tap)="join()">Continue</button>
+      <button ion-button large color="secondary" style="bottom: 100px; position: absolute; left: 0; right: 0; margin: auto; text-align: center;" (tap)="join()">Continue</button>
     </ion-content>`
 })
 
