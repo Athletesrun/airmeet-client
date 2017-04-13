@@ -162,6 +162,14 @@ html, body {
   position: absolute;
   bottom: 150px;
 }
+.camera-btns{
+  position: absolute;
+  bottom: 100px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
 .flex {
   display: flex;
   align-content: center;

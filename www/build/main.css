@@ -128,6 +128,15 @@ html, body {
   bottom: 150px;
 }
 
+.camera-btns {
+  position: absolute;
+  bottom: 100px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+
 .flex {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -24893,4 +24902,12 @@ ion-img {
   right: 0;
   margin: auto;
   height: 2.75ex;
+}
+
+.back-btn, .skip-btn {
+  color: white !important;
+}
+
+.skip-btn {
+  float: right;
 }
