@@ -177,7 +177,7 @@ export class Map {
                 this.map.setClickable(true);
             });
 
-            this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
+            /*this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
 
                 if(location.id.toString() !== localStorage.getItem('userId')) {
                     let hasMatched = false;
@@ -248,9 +248,9 @@ export class Map {
                     }
                 }
 
-            });
+            });*/
 
-            this.api.getAllOrganizations().subscribe((organizations) => {
+            /*this.api.getAllOrganizations().subscribe((organizations) => {
 
                 for(let i in organizations) {
 
@@ -300,9 +300,9 @@ export class Map {
 
                 console.log(error);
 
-            });
+            });*/
 
-            this.removedLocationSubscription = this.sockets.removedLocation$.subscribe((location) => {
+            /*this.removedLocationSubscription = this.sockets.removedLocation$.subscribe((location) => {
 
                 if(location.id.toString() !== this.userId) {
 
@@ -322,11 +322,11 @@ export class Map {
 
                 }
 
-            });
+            });*/
 
-            this.sockets.getAllLocations(() => {
+            /*this.sockets.getAllLocations(() => {
                 this.hasFetchedLocations = true;
-            });
+            });*/
 
         });
 

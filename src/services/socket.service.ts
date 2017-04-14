@@ -22,7 +22,9 @@ export class SocketService {
 
     private markers = [];
 
-    markersToRemove = [];
+    private markersToRemove = [];
+
+    private removeMarkersInterval;
 
     constructor() {
 
@@ -49,6 +51,14 @@ export class SocketService {
 
         });
 
+        this.removeMarkersInterval = setInterval(() => {
+          for (let i = this.markers.length - 1; i >= 0; i--) {
+            if (this.markers[i].time + 10000 < Date.now()) {
+              this.markers[i].marker.remove();
+              this.markers.splice(i, 1);
+            }
+          }
+        }, 3000);
     }
 
     getMarkers() {
@@ -57,7 +67,28 @@ export class SocketService {
 
     }
 
-    getMarkersToRemove
+    getMarkersToRemove() {
+
+      return this.markersToRemove;
+
+    }
+
+    setMarker(marker) {
+      let found = false;
+      for(let i in this.markers) {
+        if(this.markers[i].id == marker.id) {
+          found = true;
+          this.markers[i] = marker;
+          break;
+        }
+      }
+
+      if(found === false) {
+        this.markers.push(marker);
+      }
+    }
+
+
 
     getAllLocations(callback) {
 
