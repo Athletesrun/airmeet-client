@@ -1,9 +1,9 @@
-<ion-header>
+<!--<ion-header>
     <ion-navbar>
         <button ion-button menuToggle id="pleaseshowup">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>New Message to {{ person.firstName }} {{ person.lastName }}</ion-title>
+        <ion-title>{{ person.firstName }} {{ person.lastName }}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -28,13 +28,59 @@
     </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer id="message-footer" [ngStyle]="fixScrolling()">
     <ion-toolbar>
         <form (ngSubmit)="sendMessage()">
             <ion-item class="message-item">
-                <ion-input [(ngModel)]="typedMessage" class="messageInput" name="message" type="text" placeholder=Message value=""></ion-input>
+                <ion-textarea (keypress)="sendMessageKeypress($event)" autoresize [(ngModel)]="typedMessage" name="message" id="message-input" class="messageInput" type="text" placeholder=Message value=""></ion-textarea>
             </ion-item>
-            <button ion-fab mini icon-only class="enterButton" type="submit">
+            <button ion-fab mini icon-only class="enterButton" name="submit" type="submit">
+                <ion-icon name="arrow-forward" round></ion-icon>
+            </button>
+        </form>
+    </ion-toolbar>
+</ion-footer>-->
+
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle id="pleaseshowup">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{ person.firstName }} {{ person.lastName }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<!--<ion-content [ngStyle]="fixScrolling1()">-->
+<ion-content>
+    <div *ngFor="let message of messages; let last = last">
+
+        <ion-card class="sending" *ngIf="message.sender == userId">
+            <ion-card-content class="cardContent">
+                {{ message.message }}
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card class="receiving" *ngIf="message.sender == person.id">
+            <ion-card-content class="cardContent">
+                {{ message.message }}
+            </ion-card-content>
+        </ion-card>
+
+        {{ (last && needToScrollToBottom()) ? scrollToBottom(0) : ''}}
+
+    </div>
+</ion-content>
+
+<!--<ion-footer id="message-footer" [ngStyle]="fixScrolling()">-->
+<ion-footer id="message-footer" [ngStyle]="fixScrolling()">
+    <ion-toolbar>
+        <form (ngSubmit)="sendMessage()">
+            <ion-item class="message-item">
+                <!--<ion-textarea autoresize [(ngModel)]="typedMessage" id="message-input" class="messageInput" type="text" placeholder=Message value="" (focus)="add()" (blur)="remove()"></ion-textarea>-->
+                <ion-textarea (keypress)="sendMessageKeypress($event)" autoresize [(ngModel)]="typedMessage" name="message" id="message-input" class="messageInput" type="text" placeholder=Message value=""></ion-textarea>
+            </ion-item>
+            <button ion-fab mini icon-only class="enterButton" name="submit" type="submit">
                 <ion-icon name="arrow-forward" round></ion-icon>
             </button>
         </form>

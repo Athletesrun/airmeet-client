@@ -23,11 +23,13 @@ page-page2 {
   width: 70%;
   text-align: right;
   margin-left: 28%;
+  display: block;
 
 }
 
 .receiving {
   width: 70%;
+  display: block;
 }
 
 .cardContent {
@@ -46,4 +48,10 @@ textarea {
   position: absolute;
   right: 2px;
   top: calc(50% - 30px);
+  height: 50px;
+}
+
+.messageToolbar {
+  position: absolute;
+  bottom: 0;
 }

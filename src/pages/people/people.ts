@@ -12,7 +12,7 @@ import { Map } from '../map/map';
 
 @Component({
   templateUrl: 'person.html',
-  providers: [NgStyle, HttpService, ToastController, SocketService],
+  providers: [NgStyle, HttpService, ToastController],
 
 })
 export class Person {
@@ -75,51 +75,76 @@ export class Person {
 
   findOnMap() {
 
-    if(this.alertOpen === false) {
+    if(this.sockets.getInitialization()) {
 
-      this.sockets.getAllLocationsReturn((locations) => {
+      let markers = this.sockets.getAllMarkers();
 
-        if(this.alertOpen === false) {
+      if(markers.indexOf(parseInt(this.item.id)) >= 0) {
 
-          this.alertOpen = true;
+        this.sockets.findPersonOnMap(markers.indexOf(this.item.id));
 
-          let hasMatched = false;
+        this.navCtrl.push(Map);
 
-          for (let i in locations) {
-            if (locations[i].id === this.item.id) {
+      } else {
+        let alert = this.alert.create({
+          title: this.item.firstName + ' ' + this.item.lastName + ' is currently not sharing their location.',
+          buttons: [{
+            text: 'Ok',
+            role: 'ok',
+            handler: () => {
 
-              this.navCtrl.push(Map, {
-                userToFind: this.item,
-                locations: locations
-              });
+              this.alertOpen = false;
 
-              hasMatched = true;
-
-              break;
             }
-          }
+          }],
+          enableBackdropDismiss: false
+        });
 
-          if (hasMatched === false) {
+        alert.present();
+      }
 
-            let alert = this.alert.create({
-              title: this.item.firstName + ' ' + this.item.lastName + ' is currently not sharing their location.',
-              buttons: [{
-                text: 'Ok',
-                role: 'ok',
-                handler: () => {
+    } else {
 
-                  this.alertOpen = false;
+      this.sockets.getAllLocations((locations) => {
 
-                }
-              }],
-              enableBackdropDismiss: false
+        let hasMatched = false;
+
+        for(let i in locations) {
+          if(locations[i].id == this.item.id) {
+
+            this.navCtrl.push(Map, {
+              personToFind: this.item.id,
+              locations: locations
             });
 
-            alert.present();
+            hasMatched = true;
+
+            break;
           }
         }
 
+        if(hasMatched === false) {
+
+          let alert = this.alert.create({
+            title: this.item.firstName + ' ' + this.item.lastName + ' is currently not sharing their location.',
+            buttons: [{
+              text: 'Ok',
+              role: 'ok',
+              handler: () => {
+
+                this.alertOpen = false;
+
+              }
+            }],
+            enableBackdropDismiss: false
+          });
+
+          alert.present();
+
+        }
+
       });
+
     }
 
   }

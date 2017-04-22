@@ -60,12 +60,9 @@ export class Conversation {
 
 	private typedMessage;
 
-	private keepFocused;
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public toast: ToastController, private resize: Autoresize, private keyboard: Keyboard) {
     this.person = navParams.data.person;
     this.focused = false;
-    this.keepFocused = false;
 
     this.storage.ready().then(() => {
       this.storage.get('userId').then((val) => {
@@ -76,20 +73,21 @@ export class Conversation {
     this.height = "0";
     let body = <HTMLBodyElement>document.querySelector("body");
     this.viewHeight = body.offsetHeight;
-    body.addEventListener("resize", () => {
+
+    window.addEventListener("resize", () => {
     	console.log(resize);
-	})
+	});
 
     this.keyboard.disableScroll(true);
 
 	this.keyboard.onKeyboardShow().subscribe((event) => {
-		this.fix(event.keyboardHeight);
-		this.scrollToBottom(500);
+		//this.fix(event.keyboardHeight);
+		//this.scrollToBottom(500);
 	});
 
 	this.keyboard.onKeyboardHide().subscribe((event) => {
 		this.height = "0";
-		this.scrollToBottom(500);
+		//this.scrollToBottom(500);
 	});
   }
 
@@ -105,14 +103,14 @@ export class Conversation {
     return style
   }
 
-  fixScrolling1() {
-  	let height = "calc(100% - " + this.height + "px" + /*document.getElementById("message-footer").offsetHeight + "px*/")";
-  	return {
-  		height: height
-	}
-  }
+  //fixScrolling1() {
+  	//let height = "calc(100% - " + this.height + "px" + /*document.getElementById("message-footer").offsetHeight + "px*/")";
+  	//return {
+  	//	height: height
+	//}
+  //}
 
-  add() {
+  /*add() {
     console.log("hello");
     this.focused = true;
     this.keepFocused = true;
@@ -121,26 +119,24 @@ export class Conversation {
   remove() {
     console.log("good bye");
     this.focused = false;
-  }
+  }*/
 
   updateSave() {
     this.api.checkIfSavedConversation(this.person.id).subscribe((res) => {
-      console.log(res);
       this.saved = res.status;
     }, (error) => {
     	console.log(error);
 	})
   }
 
-  stopFocus() {
+  /*stopFocus() {
   	this.keepFocused = false;
 	  let input = <HTMLInputElement>document.getElementById("message-input").children[0];
 	  input.blur();
-  }
+  }*/
 
   unSave() {
     this.api.unsaveConversation(this.person.id).subscribe((res) => {
-      console.log(res);
       if (res.status === "success") {
         let toast = this.toast.create({
           message: 'Conversation has been removed!',
@@ -167,7 +163,6 @@ export class Conversation {
           toast.present();
           this.updateSave();
         }
-        else console.log(res);
       },
       (err) => {
         console.log(err);
@@ -184,19 +179,17 @@ export class Conversation {
 			this.updateMessages();
 		}, 1200);
 
-		this.iv = setInterval(() => {
+		/*this.iv = setInterval(() => {
 			if(this.keepFocused) {
 				let input = <HTMLInputElement>document.getElementById("message-input").children[0];
 				input.focus();
 			}
-		});
-
-
+		});*/
 	}
 
 	ngOnDestroy() {
 		clearInterval(this.updateInterval);
-		clearInterval(this.iv);
+		//clearInterval(this.iv);
 	}
 
 	needToScrollToBottom() {
@@ -214,8 +207,8 @@ export class Conversation {
 
 		let message = this.typedMessage.trim();
 
-		let input = <HTMLInputElement>document.getElementById("message-input").children[0];
-		input.focus();
+		//let input = <HTMLInputElement>document.getElementById("message-input").children[0];
+		//input.focus();
 
 		if(message !== "") {
 
@@ -229,10 +222,13 @@ export class Conversation {
 					receiver: this.person.id
 				});
 
+				this.keyboard.close();
+
 				setTimeout(() => {
 					this.scrollToBottom(500);
 					this.resize.adjust();
-				}, 50);
+					//this.height = 50;
+				}, 250);
 
 			}, (err) => {
 
@@ -244,12 +240,18 @@ export class Conversation {
 
 	}
 
+	sendMessageKeypress(event) {
+		if(event.keyCode == 13) {
+			this.sendMessage(event);
+		}
+	}
+
+
 	updateMessages() {
 
 		this.api.getConversation(this.person.id).subscribe((messages) => {
 
 			this.messages = messages;
-
 
 		}, (err) => {
 
@@ -263,7 +265,22 @@ export class Conversation {
 
 
 	scrollToBottom(duration) {
-		this.content.scrollToBottom(duration);
+
+		//console.log('scrolling to bottom');
+
+		/*this.content.scrollToBottom(duration).then(() => {
+			console.log('scrolled to bottom');
+		});*/
+
+		/*this.content.resize();
+
+		console.log(this.content.getContentDimensions().scrollHeight);
+		console.log(this.content.getContentDimensions().scrollWidth);
+		console.log(this.content.getContentDimensions().contentHeight);
+
+		console.log('\n');*/
+		//this.content.scrollTo(this.content.getContentDimensions().scrollWidth, 100, 0).then(() => {
+
 	}
 
 }
@@ -302,7 +319,7 @@ export class NewConversation {
 
 }
 
-@Component({selector: 'newConversationMessage', providers: [HttpService], templateUrl: 'newConversationMessage.html'})
+@Component({selector: 'newConversationMessage', providers: [HttpService, Keyboard, Autoresize], templateUrl: 'newConversationMessage.html'})
 
 export class NewConversationMessage {
 
@@ -311,17 +328,53 @@ export class NewConversationMessage {
 	private updateInterval;
 	private userId;
 
+	private height;
+
+	private viewHeight;
+
 	private alreadyScrolledToBottom = false;
 
 	private typedMessage;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private api: HttpService, public storage: Storage, public keyboard: Keyboard, private resize: Autoresize) {
 		this.person = navParams.data.person;
 		this.storage.ready().then(() => {
 		  this.storage.get('userId').then((val) => {
 		    this.userId = parseInt(val);
-      })
-    })
+		  })
+		});
+
+		this.height = "0";
+		let body = <HTMLBodyElement>document.querySelector("body");
+		this.viewHeight = body.offsetHeight;
+
+		/*window.addEventListener("resize", () => {
+		 console.log(resize);
+		 });*/
+
+		this.keyboard.disableScroll(true);
+
+		this.keyboard.onKeyboardShow().subscribe((event) => {
+			this.fix(event.keyboardHeight);
+			//this.scrollToBottom(500);
+		});
+
+		this.keyboard.onKeyboardHide().subscribe((event) => {
+			this.height = "0";
+			//this.scrollToBottom(500);
+		});
+	}
+
+	fix(height) {
+		console.log("fix() is run");
+		this.height = height;
+	}
+
+	fixScrolling() {
+		let style = {
+			bottom: String(this.height) + "px"
+		};
+		return style
 	}
 
 	needToScrollToBottom() {
@@ -348,13 +401,16 @@ export class NewConversationMessage {
 	ngOnDestroy() {
 
 		clearInterval(this.updateInterval);
-		this.navCtrl.popToRoot();
+		this.navCtrl.pop();
 
 	}
 
 	sendMessage(event) {
 
 		let message = this.typedMessage.trim();
+
+		//let input = <HTMLInputElement>document.getElementById("message-input").children[0];
+		//input.focus();
 
 		if(message !== "") {
 
@@ -368,9 +424,13 @@ export class NewConversationMessage {
 					receiver: this.person.id
 				});
 
+				this.keyboard.close();
+
 				setTimeout(() => {
 					this.scrollToBottom(500);
-				}, 50);
+					this.resize.adjust();
+					//this.height = 50;
+				}, 250);
 
 			}, (err) => {
 
@@ -382,11 +442,19 @@ export class NewConversationMessage {
 
 	}
 
+	sendMessageKeypress(event) {
+		if(event.keyCode == 13) {
+			this.sendMessage(event);
+		}
+	}
+
 	updateMessages() {
 
 		this.api.getConversation(this.person.id).subscribe((messages) => {
 
 			this.messages = messages;
+
+			this.content.resize();
 
 		}, (err) => {
 
@@ -402,7 +470,8 @@ export class NewConversationMessage {
 
 
 	scrollToBottom(duration) {
-		this.content.scrollToBottom(duration);
+		//console.log(this.content.getContentDimensions().contentHeight);
+		//this.content.scrollTo(this.content.getContentDimensions().contentHeight, 0, 0);
 	}
 
 }

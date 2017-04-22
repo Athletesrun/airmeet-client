@@ -7,6 +7,8 @@ import { File } from '@ionic-native/file';
 
 import { Saved } from '../saved/saved';
 
+import {Keyboard} from '@ionic-native/keyboard';
+
 import { Storage } from '@ionic/storage';
 import { HttpService } from '../../services/http.service';
 import { People } from "../people/people";
@@ -394,7 +396,7 @@ export class LoginSuccess {
         <button ion-button class="button2" (click)="update('description', 180)" large color="secondary">Add</button>
       </div>
     </ion-content>`,
-  providers: [HttpService, Camera, Transfer, File]
+  providers: [HttpService, Camera, Transfer, File, Keyboard]
 })
 export class CreateProfile1 {
   status;
@@ -408,7 +410,7 @@ export class CreateProfile1 {
   loading;
   things;
 
-  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer, public loadingCtrl: LoadingController) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, public api: HttpService, public camera: Camera, private transfer: Transfer, private file: File, private ds: DomSanitizer, public loadingCtrl: LoadingController, private keyboard: Keyboard) {
     this.status = {
       description: "normal",
       interests: "normal",
@@ -420,6 +422,8 @@ export class CreateProfile1 {
     this.things = {
       display: "block"
     }
+
+    this.keyboard.disableScroll(false);
   }
 
   join() {
@@ -774,7 +778,7 @@ export class CreateProfile5 {
         </ion-buttons>
       </div>
       <ion-icon *ngIf="!showImg" class="logo info" name="camera"></ion-icon>
-      <h1 class="white info">Now let's add a profile picture</h1>
+      <h1 class="white info">Add a profile picture</h1>
       <ion-buttons class="camera-btns">
         <button ion-button large color="secondary" (click)="take('library')">From Camera roll</button>
         <button ion-button large color="secondary" (click)="take('camera')">Take a Picture</button>
@@ -812,7 +816,7 @@ export class CreateProfile6 {
   }
 
   join() {
-    this.navCtrl.push(CreateProfile7);
+    this.navCtrl.push(JoinEvent);
   }
 
   hide() {
@@ -872,7 +876,7 @@ export class CreateProfile6 {
     console.log(status);
     if(JSON.parse(status.response).status === "success") {
       this.loading.dismiss();
-      setTimeout(() => this.navCtrl.push(CreateProfile7), 500);
+      setTimeout(() => this.navCtrl.push(JoinEvent), 500);
     }
     else {
       this.loading.dismiss();

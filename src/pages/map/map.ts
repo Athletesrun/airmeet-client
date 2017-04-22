@@ -4,14 +4,13 @@ import { NavController, NavParams, Platform, LoadingController, Events } from 'i
 
 import { SocketService } from '../../services/socket.service';
 
-import {Subscription} from 'rxjs/Subscription';
-
 import { Storage } from '@ionic/storage'
 
 import { Person } from '../people/people';
 import { Organization } from '../organizations/organizations';
 
 import { HttpService } from '../../services/http.service';
+
 
 import {
     GoogleMaps,
@@ -32,36 +31,31 @@ import {
 
 export class Map {
 
-    map: GoogleMap;
+    public map: GoogleMap;
 
-    private markers = [];
     private userId;
 
-    public locationSubscription: Subscription;
-    public removedLocationSubscription: Subscription;
-
     private userToFind;
+    private locations;
 
-    private hasFetchedLocations = false;
-
-    removeLocationInterval;
+    private _pushProfile: (profileId: any) => void;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public platform: Platform, public sockets: SocketService, public storage: Storage, private api: HttpService, public loadingCtrl: LoadingController, public events: Events) {
 
         this.storage.ready().then(() => {
-          this.storage.get('userId').then((val) => {
-            this.userId = parseInt(val);
-          });
+            this.storage.get('userId').then((val) => {
+                this.userId = parseInt(val);
+            });
         });
 
         if(navParams.data) {
 
-            if(navParams.data.userToFind) {
-                this.userToFind = navParams.data.userToFind;
+            if(navParams.data.personToFind) {
+                this.userToFind = navParams.data.personToFind;
             }
 
             if(navParams.data.location) {
-
+                this.locations = navParams.data.locations;
             }
 
         }
@@ -73,74 +67,39 @@ export class Map {
 
     }
 
-    ngOnInit() {
+    ngOnInit():void {
 
-        console.log(this.markers);
+        this._pushProfile = (profileId) => {
 
-        this.removeLocationInterval = setInterval(() => {
+            this.pushProfile(profileId);
 
-            for(let i = this.markers.length -1; i >= 0; i--) {
-                if(this.markers[i].time + 10000 < Date.now()) {
+        };
 
-                    this.markers[i].marker.remove();
-
-                    this.markers.splice(i, 1);
-
-                }
-            }
-
-        }, 5000);
-
-
-
-        if(this.userToFind) {
-
-            let interval = setInterval(() => {
-
-                if(this.hasFetchedLocations) {
-
-                    console.log(this.markers);
-
-                    for (let i in this.markers) {
-
-                        if (this.markers[i].id == this.userToFind.id) {
-
-                            this.markers[i].marker.getPosition((position) => {
-
-                                this.map.setCenter(position);
-                                this.map.setZoom(50);
-
-                                this.userToFind = undefined;
-
-                            });
-
-                            break;
-
-                        }
-
-                    }
-
-                    clearInterval(interval);
-
-                }
-
-            }, 200);
-
-        }
+        this.events.subscribe('map:clicked', this._pushProfile);
 
     }
 
-    ngOnDestroy() {
+    ngOnDestroy():void {
 
-        clearInterval(this.removeLocationInterval);
+        this.events.unsubscribe('map:clicked', this._pushProfile);
+        this._pushProfile = undefined;
 
-        this.locationSubscription.unsubscribe();
-        this.removedLocationSubscription.unsubscribe();
+    }
 
+    pushProfile(profileId) {
+
+        this.api.getUserProfile(parseInt(profileId)).subscribe((profile) => {
+
+            this.navCtrl.push(Person, {
+                item: profile
+            });
+
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     loadMap() {
-
         const location = new LatLng(41.244184, -96.011941);
 
         this.map = new GoogleMap('map', {
@@ -167,98 +126,15 @@ export class Map {
 
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
 
-            this.events.subscribe('menu:opened', () => {
-
-                this.map.setClickable(false);
-
-            });
-
-            this.events.subscribe('menu:closed', () => {
-                this.map.setClickable(true);
-            });
-
-            this.locationSubscription = this.sockets.mapLocation$.subscribe((location) => {
-
-                if(location.id.toString() !== localStorage.getItem('userId')) {
-                    let hasMatched = false;
-
-                    for (let i in this.markers) {
-
-                        if (this.markers[i].id === location.id) {
-
-                            hasMatched = true;
-
-                            this.markers[i].marker.setPosition(new LatLng(location.lat, location.lng));
-                            this.markers[i].time = Date.now();
-
-                            break;
-
-                        }
-
-                    }
-
-                    if (hasMatched === false) {
-
-                        let picture;
-
-                        if(location.picture) {
-
-                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + location.picture;
-
-                        } else {
-
-                            picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/profile.gif'
-
-                        }
-
-                        this.map.addMarker({
-                            position: new LatLng(location.lat, location.lng),
-                            markerClick: (marker: Marker) => {
-
-                                marker.hideInfoWindow();
-
-                                this.api.getUserProfile(marker.get('id')).subscribe((user) => {
-                                    this.navCtrl.push(Person, {
-                                        item: user
-                                    });
-                                }, (error) => {
-                                    console.log(error);
-                                });
-
-                            },
-                            icon: {
-                                url: picture,
-                                size: {
-                                    height: 35,
-                                    width: 35
-                                }
-                            }
-                        }).then((marker: Marker) => {
-
-                            marker.set('id', location.id);
-
-                            this.markers.push({
-                                id: location.id,
-                                marker: marker,
-                                time: Date.now()
-                            });
-
-                        });
-
-                    }
-                }
-
-            });
-
             this.api.getAllOrganizations().subscribe((organizations) => {
 
-                for(let i in organizations) {
+                for (let i in organizations) {
 
-                    if(organizations[i].lat && organizations[i].lng) {
+                    if (organizations[i].lat && organizations[i].lng) {
 
                         let picture;
 
-                        if(organizations[i].picture) {
+                        if (organizations[i].picture) {
 
                             picture = 'https://s3.us-east-2.amazonaws.com/airmeet-uploads/pictures/' + organizations[i].picture;
 
@@ -302,34 +178,38 @@ export class Map {
 
             });
 
-            this.removedLocationSubscription = this.sockets.removedLocation$.subscribe((location) => {
+            this.sockets.addMap(this.map);
 
-                if(location.id.toString() !== this.userId) {
+            if(this.userToFind) {
 
-                    for (let i in this.markers) {
+                this.sockets.findPersonOnMap(this.userToFind);
+            }
 
-                        if (this.markers[i].id === location.id) {
+            if(this.locations) {
 
-                            this.markers[i].marker.remove();
-
-                            this.markers.splice(parseInt(i), 1);
-
-                            break;
-
-                        }
-
-                    }
-
+                for (let i in this.locations) {
+                    this.sockets.addMarkerToMap(this.locations[i]);
                 }
+
+                this.locations = undefined;
+
+            } else {
+
+                this.sockets.getAllLocationsAndAddToMap();
+
+            }
+
+            this.events.subscribe('menu:opened', () => {
+
+                this.map.setClickable(false);
 
             });
 
-            this.sockets.getAllLocations(() => {
-                this.hasFetchedLocations = true;
+            this.events.subscribe('menu:closed', () => {
+                this.map.setClickable(true);
             });
 
         });
-
     }
 
 }

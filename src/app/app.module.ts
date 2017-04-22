@@ -5,7 +5,7 @@ import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { MyApp } from './app.component';
 
-// import { HttpService } from '../servics/http.service';
+ import { SocketService } from '../services/socket.service';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -125,6 +125,6 @@ const cloudSettings: CloudSettings = {
     LoginSuccess,
       Offline
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SocketService]
 })
 export class AppModule {}
